@@ -1,6 +1,6 @@
 CC = cc
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS =# -Wall -Wextra -Werror
 
 NAME = cub
 
@@ -8,7 +8,7 @@ HF = cub.h
 
 FRM = rm -f
 
-SRC = cub.c parsing/main_parse.c ft_utils/
+SRC = cub.c parsing/main_parse.c  GNL/get_next_line_utils.c GNL/get_next_line.c
 
 SRCB = 
 

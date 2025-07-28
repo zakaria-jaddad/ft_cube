@@ -6,11 +6,11 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 02:06:23 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/07/28 02:25:58 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/07/28 05:26:46 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 int	cub_parse(char *path, t_depot *depot)
 {
@@ -31,7 +31,15 @@ int	cub_parse(char *path, t_depot *depot)
 
 int	path_check(char *path)
 {
-	
+	while (*path)
+		path++;
+	if (*(path - 4) != '.' && *(path - 3) != 'c'
+		&& *(path - 2) != 'u' && *(path - 1) != 'b')
+		{
+			write(2, "Invalid extension!\n", 20);
+			return (1);
+		}
+	return (0);
 }
 
 int	read_and_check(int fd, t_depot *depot)
@@ -50,14 +58,16 @@ int	read_and_check(int fd, t_depot *depot)
 		}
 		else if (!line)
 			break ;
-		if (parse_line(line, depot))
-			return (1);
+		//if (parse_line(line, depot))
+		//	return (1);
 		first_itr++;
 	}
 	return (0);
 }
 
-int	parse_line(char *line, t_depot *depot)
-{
-	
-}
+//int	parse_line(char *line, t_depot *depot)
+//{
+//	char **str;
+
+//	str = ft_split()
+//}
