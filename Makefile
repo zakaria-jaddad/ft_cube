@@ -63,6 +63,7 @@ LIBFT = ./libft/ft_isalpha.c	\
 
 PARSING = parsing/main_parse.c \
 					parsing/parse_helper.c \
+					parsing/free.c \
 
 SRC = $(LIBFT) $(MAIN) $(PARSING)
 

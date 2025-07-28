@@ -6,11 +6,11 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 07:46:49 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/07/28 08:07:45 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/07/28 08:52:17 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub.h"
+#include "../includes/parsing.h"
 
 int	path_check_v2(char *path)
 {
@@ -25,6 +25,6 @@ int	path_check_v2(char *path)
 		&& *(path - 2) == 'n' && *(path - 1) == 'g')
 		return (1);
 	else
-		write(2, "--Invalid extension!\n", 20);
+		write(2, "Invalid extension!\n", 20);
 	return (0);
 }

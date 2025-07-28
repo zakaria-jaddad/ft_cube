@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 03:27:58 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/05/01 19:06:46 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/07/28 08:48:11 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	*ft_split_free(char **ptr)
 	int	i;
 
 	i = 0;
+	if (ptr)
+		return (NULL);
 	while (ptr[i])
 		free(ptr[i++]);
 	free(ptr);

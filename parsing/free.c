@@ -6,11 +6,11 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 07:53:56 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/07/28 07:55:11 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/07/28 08:48:24 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub.h"
+#include "../includes/parsing.h"
 
 void	ft_free(char **str)
 {

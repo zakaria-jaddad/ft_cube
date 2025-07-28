@@ -6,11 +6,11 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 02:06:23 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/07/28 08:01:48 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/07/28 08:50:23 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub.h"
+#include "../includes/parsing.h"
 
 int	cub_parse(char *path, t_depot *depot)
 {
@@ -49,9 +49,9 @@ int	read_and_check(int fd, t_depot *depot)
 	int		first_itr;
 
 	first_itr = 1;
-	while (line)
+	while (1)
 	{
-		line = get_next_line(fd);
+		line = ft_gnl(fd);
 		if (!line && first_itr == 1)
 		{
 			write(2, "empty file\n", 12);
