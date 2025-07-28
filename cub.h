@@ -6,7 +6,7 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 01:59:51 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/07/28 04:00:16 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/07/28 07:57:44 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,12 @@
 
 typedef struct s_depot
 {
-	char	*map_file;
+	char	**map;
+	char	*path_to_NO;
+	char	*path_to_SO;
+	char	*path_to_WE;
+	char	*path_to_EA;
+
 }	t_depot;
 
 char	*read_and_stock(int fd, char *line);
@@ -36,10 +41,19 @@ char	*new_line_exe(char *line);
 char	*ft_strchr(const char *s, int c);
 size_t	ft_strlen(const char *str);
 char	*ft_strjoin(char *line, char *buff);
+char	**ft_split(char const *s, char c);
+int		ft_strcmp(char *s1, char *s2);
+char	*ft_strdup(const char *s1);
+
+//----------------Cleaners------------------//
+void	ft_free(char **str);
 
 //----------------Parsing-------------------//
 int	cub_parse(char *path, t_depot *depot);
 int	path_check(char *path);
 int	read_and_check(int fd, t_depot *depot);
+int	path_check_v2(char *path);
+int	parse_line(char *line, t_depot *depot);
+int	check_and_fill(char **str, t_depot *depot);
 
 # endif

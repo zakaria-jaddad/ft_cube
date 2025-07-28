@@ -6,7 +6,7 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:13:09 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/07/28 02:15:58 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/07/28 06:56:15 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,18 @@ char	*new_line_exe(char *line)
 	str[j] = '\0';
 	free(line);
 	return (str);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	if (!s2 || !s1)
+		return (1);
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+	{
+		i++;
+	}
+	return (s1[i] - s2[i]);
 }

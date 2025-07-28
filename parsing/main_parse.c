@@ -6,7 +6,7 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 02:06:23 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/07/28 05:26:46 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/07/28 08:01:48 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	cub_parse(char *path, t_depot *depot)
 {
 	int	fd;
 
-	if (path_check(path))
-		return (1);	
+	if (!path_check(path))
+		return (1);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 	{
@@ -31,14 +31,15 @@ int	cub_parse(char *path, t_depot *depot)
 
 int	path_check(char *path)
 {
+	if (!path)
+		return (0);
 	while (*path)
 		path++;
-	if (*(path - 4) != '.' && *(path - 3) != 'c'
-		&& *(path - 2) != 'u' && *(path - 1) != 'b')
-		{
-			write(2, "Invalid extension!\n", 20);
-			return (1);
-		}
+	if (*(path - 4) == '.' && *(path - 3) == 'c'
+		&& *(path - 2) == 'u' && *(path - 1) == 'b')
+		return (1);
+	else
+		write(2, "Invalid extension!\n", 21);
 	return (0);
 }
 
@@ -58,16 +59,47 @@ int	read_and_check(int fd, t_depot *depot)
 		}
 		else if (!line)
 			break ;
-		//if (parse_line(line, depot))
-		//	return (1);
+		if (parse_line(line, depot))
+			return (1);
 		first_itr++;
 	}
 	return (0);
 }
 
-//int	parse_line(char *line, t_depot *depot)
-//{
-//	char **str;
+int	parse_line(char *line, t_depot *depot)
+{
+	char	**str;
 
-//	str = ft_split()
-//}
+	str = ft_split(line, ' ');
+	if (!str || !str[1] || !str[0])
+	{
+		write(2, "Parse error in path!\n", 22);
+		return (1);
+	}
+	if (ft_strcmp(*str, "NO") == 0
+		|| ft_strcmp(*str, "SO") == 0 || ft_strcmp(*str, "WE") == 0
+		|| ft_strcmp(*str, "EA") == 0)
+	{
+		if (check_and_fill(str, depot))
+			return (1);
+	}
+	else
+		write(2, "Wrong Identifiers!\n", 20);
+	ft_free(str);
+	return (0);
+}
+
+int	check_and_fill(char **str, t_depot *depot)
+{
+	if (!path_check_v2(str[1]))
+		return (1);
+	if (ft_strcmp(*str, "NO") == 0 && !depot->path_to_NO)
+		depot->path_to_NO = ft_strdup(str[1]);
+	else if (ft_strcmp(*str, "SO") == 0 && !depot->path_to_SO)
+		depot->path_to_SO = ft_strdup(str[1]);
+	else if (ft_strcmp(*str, "WE") == 0 && !depot->path_to_WE)
+		depot->path_to_WE = ft_strdup(str[1]);
+	else if (ft_strcmp(*str, "EA") == 0 && !depot->path_to_EA)
+		depot->path_to_EA = ft_strdup(str[1]);
+	return (0);
+}

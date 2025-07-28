@@ -8,10 +8,10 @@ HF = cub.h
 
 FRM = rm -f
 
-SRC = cub.c parsing/main_parse.c  GNL/get_next_line_utils.c GNL/get_next_line.c
+SRC = cub.c parsing/main_parse.c  GNL/get_next_line_utils.c GNL/get_next_line.c parsing/free.c parsing/ft_split.c parsing/ft_strdup.c parsing/parse_helper.c
 
 SRCB = 
-
+  
 OBJF = $(SRC:.c=.o)
 
 BOBJF = $(SRCB:.c=.o)

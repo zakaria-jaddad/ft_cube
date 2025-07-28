@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub.c                                              :+:      :+:    :+:   */
+/*   parse_helper.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 01:57:38 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/07/28 07:59:25 by ilarhrib         ###   ########.fr       */
+/*   Created: 2025/07/28 07:46:49 by ilarhrib          #+#    #+#             */
+/*   Updated: 2025/07/28 08:07:45 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
-int main(int ac, char **av)
+int	path_check_v2(char *path)
 {
-	if (ac != 2)
-	{
-		write(2, "Please provide only the exec and map files\n", 44);
+	printf("%s\n", path);
+	
+	if (!path)
+		return (0);
+	while (*path)
+		path++;
+	printf("%c\n", path[5]);
+	if (*(path - 4) == '.' && *(path - 3) == 'p'
+		&& *(path - 2) == 'n' && *(path - 1) == 'g')
 		return (1);
-	}
-	t_depot	depot;
-	if (cub_parse(av[1], &depot))
-		return (1);
-	printf("NO --> %s\n", depot.path_to_NO);
-	printf("SO --> %s\n", depot.path_to_SO);
-	printf("WE --> %s\n", depot.path_to_WE);
-	printf("EA --> %s\n", depot.path_to_EA);
+	else
+		write(2, "--Invalid extension!\n", 20);
 	return (0);
 }

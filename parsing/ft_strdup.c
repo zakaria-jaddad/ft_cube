@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub.c                                              :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 01:57:38 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/07/28 07:59:25 by ilarhrib         ###   ########.fr       */
+/*   Created: 2024/10/25 12:32:50 by ilarhrib          #+#    #+#             */
+/*   Updated: 2025/07/28 07:51:51 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
-int main(int ac, char **av)
+char	*ft_strdup(const char *s1)
 {
-	if (ac != 2)
+	size_t	i;
+	char	*d;
+
+	d = malloc((ft_strlen(s1) + 1) * sizeof(char));
+	if (d == NULL)
+		return (NULL);
+	i = 0;
+	while (s1[i])
 	{
-		write(2, "Please provide only the exec and map files\n", 44);
-		return (1);
+		d[i] = s1[i];
+		i++;
 	}
-	t_depot	depot;
-	if (cub_parse(av[1], &depot))
-		return (1);
-	printf("NO --> %s\n", depot.path_to_NO);
-	printf("SO --> %s\n", depot.path_to_SO);
-	printf("WE --> %s\n", depot.path_to_WE);
-	printf("EA --> %s\n", depot.path_to_EA);
-	return (0);
+	d[i] = '\0';
+	return (d);
 }

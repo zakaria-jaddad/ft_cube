@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub.c                                              :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 01:57:38 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/07/28 07:59:25 by ilarhrib         ###   ########.fr       */
+/*   Created: 2025/07/28 07:53:56 by ilarhrib          #+#    #+#             */
+/*   Updated: 2025/07/28 07:55:11 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
-int main(int ac, char **av)
+void	ft_free(char **str)
 {
-	if (ac != 2)
+	while (str)
 	{
-		write(2, "Please provide only the exec and map files\n", 44);
-		return (1);
+		free(*str);
+		str++;
 	}
-	t_depot	depot;
-	if (cub_parse(av[1], &depot))
-		return (1);
-	printf("NO --> %s\n", depot.path_to_NO);
-	printf("SO --> %s\n", depot.path_to_SO);
-	printf("WE --> %s\n", depot.path_to_WE);
-	printf("EA --> %s\n", depot.path_to_EA);
-	return (0);
+	free(str);
 }
