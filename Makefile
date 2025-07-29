@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS =-Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 NAME = cub
 
 MAIN = cub.c
@@ -62,8 +62,11 @@ LIBFT = ./libft/ft_isalpha.c	\
 				./libft/ft_strpbrk.c \
 
 PARSING = parsing/main_parse.c \
-					parsing/parse_helper.c \
+					parsing/parse_helper_0.c \
 					parsing/free.c \
+					parsing/parse_helper_1.c \
+					parsing/map_parsing.c \
+					parsing/map_parsing_v2.c \
 
 SRC = $(LIBFT) $(MAIN) $(PARSING)
 
@@ -73,7 +76,7 @@ OBJF = $(SRC:.c=.o)
 
 BOBJF = $(SRCB:.c=.o)
 
-all : $(NAME)
+all : $(NAME) stock
 
 $(NAME) : $(OBJF)
 	$(CC) $(CFLAGS) $(OBJF) -o $(NAME)
@@ -83,8 +86,11 @@ bonus: $(BOBJF)
 %.o : %.c $(HF)
 	$(CC) $(CFLAGS) -c $< -o $@ -MMD
 
+stock : $(OBJS)
+	mv libft/*.o obj && mv libft/*.d obj && mv libft/ft_fprintf/*.o obj && mv libft/ft_fprintf/*.d obj && mv libft/ft_gnl/*.o obj && mv libft/ft_gnl/*.d obj && mv *.o obj && mv *.d obj && mv parsing/*.o obj && mv parsing/*.d obj
+
 clean : 
-	rm -rf $(OBJF) $(BOBJF) $(OBJF:.o=.d)
+	rm -rf $(OBJF) $(BOBJF) $(OBJF:.o=.d) obj/*.o obj/*.d
 
 fclean : clean
 	rm -rf $(NAME)

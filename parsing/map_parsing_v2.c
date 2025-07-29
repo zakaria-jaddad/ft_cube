@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_helper.c                                     :+:      :+:    :+:   */
+/*   map_parsing_v2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 07:46:49 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/07/28 08:52:17 by ilarhrib         ###   ########.fr       */
+/*   Created: 2025/07/29 14:43:09 by ilarhrib          #+#    #+#             */
+/*   Updated: 2025/07/29 14:54:23 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
 
-int	path_check_v2(char *path)
+int	map_clean(t_depot *depot)
 {
-	printf("%s\n", path);
-	
-	if (!path)
-		return (0);
-	while (*path)
-		path++;
-	printf("%c\n", path[5]);
-	if (*(path - 4) == '.' && *(path - 3) == 'p'
-		&& *(path - 2) == 'n' && *(path - 1) == 'g')
+	int	i;
+
+	i = 0;
+	while (depot->map[i])
+	{
+		depot->map[i] = ft_strtrim(depot->map[i], "\n");
+		if (!depot->map[i])
+		{
+			perror("malloc");
+			ft_split_free(depot->map);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	is_not_pp(char c)
+{
+	if (c != 'N' && c != 'S'
+		&& c != 'W' && c != 'E')
 		return (1);
-	else
-		write(2, "Invalid extension!\n", 20);
 	return (0);
 }
