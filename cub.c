@@ -6,7 +6,7 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 01:57:38 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/07/29 17:04:00 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/07/30 08:07:31 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ int main(int ac, char **av)
 		return (1);
 	if (cub_parse(av[1], &depot))
 		return (1);
+
+	int	i;
+	i = 0;
+	while (depot.map[i])
+	{
+		printf("--> %s\n", depot.map[i]);
+		i++;
+	}
 	return (0);
 }
 
