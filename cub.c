@@ -21,9 +21,13 @@ int main(int ac, char **av) {
   if (depot_init(&depot))
     return (1);
   if (cub_parse(av[1], &depot))
+  {
+    free_depot(&depot);
     return (1);
-  if (cub_raycast(&depot))
+  }
     return (1);
+  // if (cub_raycast(&depot))
+  //   return (1);// sorry brother hh gadit parsing dyal map algo okda mn pc dyali so commentit lik hadchi
   return (0);
 }
 

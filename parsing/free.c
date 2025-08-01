@@ -47,13 +47,6 @@ char	**ft_realloc(char **mother, char *child)
 
 void	print_elements(t_depot *depot)
 {
-	int		i;
-	int		j;
-	char	**map;
-
-	map = depot->map;
-	i = 0;
-	j = 0;
 	printf("NO --> %s\n", depot->path_to_NO);
 	printf("SO --> %s\n", depot->path_to_SO);
 	printf("WE --> %s\n", depot->path_to_WE);
@@ -64,4 +57,13 @@ void	print_elements(t_depot *depot)
 	printf("CEILING_RED --> %d\n", depot->ceiling_color_R);
 	printf("CEILING_GREEN --> %d\n", depot->ceiling_color_G);
 	printf("CEILING_BLUE --> %d\n", depot->ceiling_color_B);
+}
+
+void	free_depot(t_depot *depot)
+{
+	free(depot->path_to_NO);
+	free(depot->path_to_EA);
+	free(depot->path_to_WE);
+	free(depot->path_to_SO);
+	ft_split_free(depot->map);
 }

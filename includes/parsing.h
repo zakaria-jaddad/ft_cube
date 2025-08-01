@@ -48,6 +48,7 @@ char	**ft_realloc(char **mother, char *child);
 int		is_number(char *str);
 int		range_check(int	color);
 void	print_elements(t_depot *depot);
+void	free_depot(t_depot *depot);
 
 //----------------Parsing-------------------//
 int	cub_parse(char *path, t_depot *depot);
@@ -71,5 +72,10 @@ int	player_point_parsing(t_depot *depot);
 int	advanced_map_parsing(t_depot *depot);
 int	map_clean(t_depot *depot);
 int	is_not_pp(char c);
+int	colors_parse(char **str);
+int	ultra_map_parse(t_depot *depot);
+int	all_ones(char *str);
+int	is_closed_by_walls(char **map);
+int	not_player_point(char c);
 
 #endif

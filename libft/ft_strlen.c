@@ -21,3 +21,13 @@ size_t	ft_strlen(const char *s)
 		length++;
 	return (length);
 }
+
+int	ft_dbl_strlen(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}

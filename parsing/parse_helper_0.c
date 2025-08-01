@@ -68,13 +68,20 @@ int	clean_and_add_floor(char *str, t_depot *depot)
 		return (1);
 	}
 	splitted_colors = ft_split(clean_colors, ',');
+	free(clean_colors);
 	if (!splitted_colors)
 	{
 		perror("malloc");
 		return (1);
 	}
+	if (colors_parse(splitted_colors))
+	{
+		ft_split_free(splitted_colors);
+		return (1);
+	}
 	if (convert_and_add_floor(splitted_colors, depot))
 	{
+		ft_split_free(splitted_colors);
 		return (1);
 	}
 	ft_split_free(splitted_colors);
