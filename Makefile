@@ -67,6 +67,7 @@ PARSING = parsing/main_parse.c \
 					parsing/parse_helper_1.c \
 					parsing/map_parsing.c \
 					parsing/map_parsing_v2.c \
+					parsing/ultra_parsing.c
 
 SRC = $(LIBFT) $(MAIN) $(PARSING)
 

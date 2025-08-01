@@ -6,7 +6,7 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 02:06:23 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/07/29 17:17:48 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/07/31 16:11:20 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ int	parse_line(char *line, t_depot *depot)
 			return (1);
 	}
 	else if (color_check(str, depot))
+	{
+		ft_split_free(str);
 		return (1);
+	}
 	ft_split_free(str);
 	return (0);
 }
@@ -107,6 +110,7 @@ int	color_check(char **str, t_depot *depot)
 	}
 	else if (!ft_strcmp(str[0], "C"))
 	{
+		
 		if (clean_and_add_ceiling(str[1], depot))
 			return (1);
 	}

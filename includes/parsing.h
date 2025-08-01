@@ -6,7 +6,7 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 08:41:59 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/07/29 17:02:57 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/07/31 16:23:40 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ char	**ft_realloc(char **mother, char *child);
 int		is_number(char *str);
 int		range_check(int	color);
 void	print_elements(t_depot *depot);
+void	free_depot(t_depot *depot);
+int		three_elements_check(char **splitted_colors);
 
 //----------------Parsing-------------------//
 int	cub_parse(char *path, t_depot *depot);
@@ -71,5 +73,6 @@ int	player_point_parsing(t_depot *depot);
 int	advanced_map_parsing(t_depot *depot);
 int	map_clean(t_depot *depot);
 int	is_not_pp(char c);
+int	ultra_parsing(t_depot *depot);
 
 #endif

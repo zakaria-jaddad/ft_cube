@@ -6,7 +6,7 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 07:53:56 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/07/29 17:08:06 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/07/31 14:43:52 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,13 @@ void	print_elements(t_depot *depot)
 	printf("CEILING_RED --> %d\n", depot->ceiling_color_R);
 	printf("CEILING_GREEN --> %d\n", depot->ceiling_color_G);
 	printf("CEILING_BLUE --> %d\n", depot->ceiling_color_B);
+}
+
+void	free_depot(t_depot *depot)
+{
+		ft_split_free(depot->map);
+		free(depot->path_to_EA);
+		free(depot->path_to_NO);
+		free(depot->path_to_WE);
+		free(depot->path_to_SO);
 }
