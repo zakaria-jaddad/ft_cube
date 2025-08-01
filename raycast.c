@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 06:55:05 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/08/01 06:56:30 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/08/01 08:51:40 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,9 @@ bool cub_raycast(t_depot *depot) {
   game.player = init_player(game.depot);
   if (game.player == NULL)
     return (false);
+  for (game.map_height = 0; game.depot->map[game.map_height] != 0;
+       game.map_height++)
+    ;
 
   mlx_loop_hook(game.mlx->mlx, mini_map_player_hook, &game);
   mlx_loop_hook(game.mlx->mlx, mini_map, &game);
