@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 05:11:33 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/08/01 10:58:50 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/08/01 12:55:03 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,13 @@
 #include "../MLX42/include/MLX42/MLX42.h"
 #include "../libft/libft.h"
 #include "parsing.h"
+#include <math.h>
 #include <stdlib.h>
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
+
+#define RSPEED 0.04
 
 bool cub_raycast(t_depot *depot);
 
@@ -83,29 +86,39 @@ static inline char get_player_letter(t_direction direction) {
 
 #define PIXSIZE 20
 
+#include <math.h>
+
+#define PIXSIZE 20 // Size of each pixel
+
 static void draw_player(t_game *game) {
   int mid = PIXSIZE / 2;
   int pixel_x = (int)game->player->map_x * PIXSIZE;
   int pixel_y = (int)game->player->map_y * PIXSIZE;
 
-  for (int y = 0; y <= mid; y++) {
-    for (int j = 0; j < mid - y; j++)
-      ;
-    for (int x = 0; x < (2 * y + 1); x++) {
-      if (pixel_x + (mid - y) + x < 800 && pixel_y + y < 600) {
-        mlx_put_pixel(game->mlx->img, pixel_x + (mid - y) + x, pixel_y + y,
-                      0xFFFFFFFF);
-      }
-    }
-  }
+  double angle = atan2(game->player->direction->y, game->player->direction->x);
 
-  for (int y = mid - 1; y >= 0; y--) {
-    for (int j = 0; j < mid - y; j++)
-      ;
-    for (int x = 0; x < (2 * y + 1); x++) {
-      if (pixel_x + (mid - y) + x < 800 && pixel_y + (mid + y) < 600) {
-        mlx_put_pixel(game->mlx->img, pixel_x + (mid - y) + x,
-                      pixel_y + (mid + y), 0xFFFFFFFF);
+  // Draw a filled triangle pointing upwards (before rotation)
+  // Height of the triangle = PIXSIZE, base = PIXSIZE
+  for (int y = 0; y < PIXSIZE; y++) {
+    // Calculate base width at this y (linearly decreasing)
+    int base_width = (PIXSIZE - y) * 2 - 1;
+    int start_x = mid - base_width / 2;
+
+    for (int x = 0; x < base_width; x++) {
+      // Rotate the point around the center (mid, mid)
+      int local_x = start_x + x;
+      int local_y = y;
+
+      int rotated_x =
+          (int)((local_x - mid) * cos(angle) - (local_y - mid) * sin(angle));
+      int rotated_y =
+          (int)((local_x - mid) * sin(angle) + (local_y - mid) * cos(angle));
+
+      int draw_x = pixel_x + mid + rotated_x;
+      int draw_y = pixel_y + mid + rotated_y;
+
+      if (draw_x >= 0 && draw_x < 800 && draw_y >= 0 && draw_y < 600) {
+        mlx_put_pixel(game->mlx->img, draw_x, draw_y, 0xFFFFFFFF);
       }
     }
   }
@@ -145,14 +158,6 @@ static inline void ft_hook(void *param) {
   if (mlx_is_key_down(mlx->mlx, MLX_KEY_ESCAPE) ||
       mlx_is_key_down(mlx->mlx, MLX_KEY_Q))
     mlx_close_window(mlx->mlx);
-  if (mlx_is_key_down(mlx->mlx, MLX_KEY_UP))
-    mlx->img->instances[0].y -= 5;
-  if (mlx_is_key_down(mlx->mlx, MLX_KEY_DOWN))
-    mlx->img->instances[0].y += 5;
-  if (mlx_is_key_down(mlx->mlx, MLX_KEY_LEFT))
-    mlx->img->instances[0].x -= 5;
-  if (mlx_is_key_down(mlx->mlx, MLX_KEY_RIGHT))
-    mlx->img->instances[0].x += 5;
 }
 
 static inline bool valid_y(int map_height, double map_y) {
@@ -170,33 +175,52 @@ static inline bool valid_x(int line_width, double map_x) {
   return false;
 }
 
+static inline void rotate_player(t_player *player, double rotation_angle) {
+  double oldDirX = player->direction->x;
+  player->direction->x = player->direction->x * cos(rotation_angle) -
+                         player->direction->y * sin(rotation_angle);
+  player->direction->y = oldDirX * sin(rotation_angle) +
+                         player->direction->y * cos(rotation_angle);
+  double oldPlaneX = player->plane->x;
+  player->plane->x = player->plane->x * cos(rotation_angle) -
+                     player->plane->y * sin(rotation_angle);
+  player->plane->y =
+      oldPlaneX * sin(rotation_angle) + player->plane->y * cos(rotation_angle);
+}
+
 static inline void mini_map_player_hook(void *param) {
 
   t_game *game = (t_game *)param;
   int x;
   int y;
 
-  if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_K)) {
-    y = game->player->map_y - .2;
+  if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_W)) {
+    y = game->player->map_y - .5;
     if (valid_y(game->map_height, y) == true)
-      game->player->map_y -= .2;
+      game->player->map_y -= .5;
   }
-  if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_H)) {
-    x = game->player->map_x - .2;
+  if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_A)) {
+    x = game->player->map_x - .5;
     if (valid_x(ft_strlen(game->depot->map[(int)game->player->map_y]), x) ==
         true)
-      game->player->map_x -= .2;
+      game->player->map_x -= .5;
   }
-  if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_J)) {
-    y = game->player->map_y + .2;
+  if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_S)) {
+    y = game->player->map_y + .5;
     if (valid_y(game->map_height, y) == true)
-      game->player->map_y += .2;
+      game->player->map_y += .5;
   }
-  if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_L)) {
-    x = game->player->map_x + .2;
+  if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_D)) {
+    x = game->player->map_x + .5;
     if (valid_x(ft_strlen(game->depot->map[(int)game->player->map_y]), x) ==
         true)
-      game->player->map_x += .2;
+      game->player->map_x += .5;
+  }
+  if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_LEFT)) {
+    rotate_player(game->player, -RSPEED);
+  }
+  if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_RIGHT)) {
+    rotate_player(game->player, RSPEED);
   }
 }
 

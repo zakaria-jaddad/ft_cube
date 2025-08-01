@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 06:55:05 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/08/01 08:51:40 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/08/01 12:57:40 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,9 @@ t_player *init_player(t_depot *depot) {
 
   // player letter based on direction
   p->letter = get_player_letter(d);
+
+  printf("p->direction->x = %f\n", p->direction->x);
+  printf("p->direction->y = %f\n", p->direction->y);
 
   printf("p->map_x = %f\n", p->map_x);
   printf("p->map_y = %f\n", p->map_y);
