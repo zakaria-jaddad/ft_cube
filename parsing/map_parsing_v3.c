@@ -62,8 +62,8 @@ int	retreive_player_pos(t_depot *depot)
 		{
 			if (!not_player_point(depot->map[i][j]))
 			{
-				depot->player_x = i;
-				depot->player_y = j;
+				depot->player_x = j;
+				depot->player_y = i;
 				depot->map[i][j] = '0';
 				//return (0);
 			}
