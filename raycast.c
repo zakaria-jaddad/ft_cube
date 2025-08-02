@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   raycast.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/01 06:55:05 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/08/02 09:10:15 by zajaddad         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "includes/raycast.h"
 #include <includes/parsing.h>
 
@@ -126,6 +114,7 @@ bool cub_raycast(t_depot *depot) {
   for (game.map_height = 0; game.depot->map[game.map_height] != 0;
        game.map_height++)
     ;
+  --game.map_height;
 
   mlx_loop_hook(game.mlx->mlx, mini_map_player_hook, &game);
   mlx_loop_hook(game.mlx->mlx, mini_map, &game);
