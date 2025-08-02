@@ -15,6 +15,7 @@ int main(int ac, char **av) {
     free_depot(&depot);
     return (1);
   }
+  print_elements(&depot);
    if (cub_raycast(&depot))
      return (1);// sorry brother hh gadit parsing dyal map algo okda mn pc dyali so commentit lik hadchi
   return (0);

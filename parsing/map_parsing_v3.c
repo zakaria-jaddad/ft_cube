@@ -48,3 +48,28 @@ int	not_player_point(char c)
 		return (1);
 	return (0);
 }
+
+int	retreive_player_pos(t_depot *depot)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (depot->map[i])
+	{
+		j = 0;
+		while (depot->map[i][j])
+		{
+			if (!not_player_point(depot->map[i][j]))
+			{
+				depot->player_x = i;
+				depot->player_y = j;
+				depot->map[i][j] = '0';
+				//return (0);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}

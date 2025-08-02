@@ -6,7 +6,7 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 02:06:23 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/07/31 16:11:20 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/08/02 08:59:55 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	read_and_check(int fd, t_depot *depot)
 	print_elements(depot);
 	if (read_map(fd, depot))
 		return (1);
+	retreive_player_pos(depot);
 	return (0);
 }
 

@@ -67,7 +67,6 @@ PARSING = parsing/main_parse.c \
 					parsing/parse_helper_1.c \
 					parsing/map_parsing.c \
 					parsing/map_parsing_v2.c \
-					parsing/ultra_parsing.c \
 					parsing/map_parsing_v3.c \
 
 EXECUTION_HH = raycast.c \

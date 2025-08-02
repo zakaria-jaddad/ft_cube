@@ -6,7 +6,7 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 08:41:59 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/08/02 07:25:59 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/08/02 09:03:17 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct s_depot
 	int		SO;
 	int		WE;
 	int		EA;
+	double	player_x;
+	double	player_y;
 	
 }	t_depot;
 
@@ -79,4 +81,6 @@ int	ultra_map_parse(t_depot *depot);
 int	all_ones(char *str);
 int	is_closed_by_walls(char **map);
 int	not_player_point(char c);
+int	retreive_player_pos(t_depot *depot);
+
 #endif
