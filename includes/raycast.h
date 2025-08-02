@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting.h                                       :+:      :+:    :+:   */
+/*   raycast.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 05:11:33 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/08/01 12:55:03 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/08/02 08:59:33 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,40 +85,47 @@ static inline char get_player_letter(t_direction direction) {
 }
 
 #define PIXSIZE 20
-
-#include <math.h>
-
-#define PIXSIZE 20 // Size of each pixel
+#define PLAYER_PIXSIZE 10
 
 static void draw_player(t_game *game) {
-  int mid = PIXSIZE / 2;
-  int pixel_x = (int)game->player->map_x * PIXSIZE;
-  int pixel_y = (int)game->player->map_y * PIXSIZE;
-
-  double angle = atan2(game->player->direction->y, game->player->direction->x);
-
-  // Draw a filled triangle pointing upwards (before rotation)
-  // Height of the triangle = PIXSIZE, base = PIXSIZE
-  for (int y = 0; y < PIXSIZE; y++) {
-    // Calculate base width at this y (linearly decreasing)
-    int base_width = (PIXSIZE - y) * 2 - 1;
-    int start_x = mid - base_width / 2;
-
-    for (int x = 0; x < base_width; x++) {
-      // Rotate the point around the center (mid, mid)
-      int local_x = start_x + x;
-      int local_y = y;
-
-      int rotated_x =
-          (int)((local_x - mid) * cos(angle) - (local_y - mid) * sin(angle));
-      int rotated_y =
-          (int)((local_x - mid) * sin(angle) + (local_y - mid) * cos(angle));
-
-      int draw_x = pixel_x + mid + rotated_x;
-      int draw_y = pixel_y + mid + rotated_y;
-
-      if (draw_x >= 0 && draw_x < 800 && draw_y >= 0 && draw_y < 600) {
-        mlx_put_pixel(game->mlx->img, draw_x, draw_y, 0xFFFFFFFF);
+  // int mid = PLAYER_PIXSIZE / 2;
+  // int pixel_x = (int)game->player->map_x * PLAYER_PIXSIZE;
+  // int pixel_y = (int)game->player->map_y * PLAYER_PIXSIZE;
+  //
+  // double angle = atan2(game->player->direction->y,
+  // game->player->direction->x);
+  //
+  // // Draw a filled triangle pointing upwards (before rotation)
+  // // Height of the triangle = PLAYER_PIXSIZE, base = PLAYER_PIXSIZE
+  // for (int y = 0; y < PLAYER_PIXSIZE; y++) {
+  //   // Calculate base width at this y (linearly decreasing)
+  //   int base_width = (PLAYER_PIXSIZE - y) * 2 - 1;
+  //   int start_x = mid - base_width / 2;
+  //
+  //   for (int x = 0; x < base_width; x++) {
+  //     // Rotate the point around the center (mid, mid)
+  //     int local_x = start_x + x;
+  //     int local_y = y;
+  //
+  //     int rotated_x =
+  //         (int)((local_x - mid) * cos(angle) - (local_y - mid) * sin(angle));
+  //     int rotated_y =
+  //         (int)((local_x - mid) * sin(angle) + (local_y - mid) * cos(angle));
+  //
+  //     int draw_x = pixel_x + mid + rotated_x;
+  //     int draw_y = pixel_y + mid + rotated_y;
+  //
+  //     if (draw_x >= 0 && draw_x < 800 && draw_y >= 0 && draw_y < 600) {
+  //       mlx_put_pixel(game->mlx->img, draw_x, draw_y, 0xFFFFFFFF);
+  //     }
+  //   }
+  // }
+  int pixel_x = game->player->map_x * PIXSIZE;
+  int pixel_y = game->player->map_y * PIXSIZE;
+  for (int x = 0; x < PIXSIZE; x++) {
+    for (int y = 0; y < PIXSIZE; y++) {
+      if (pixel_x + x < 800 && pixel_y + y < 600) {
+        mlx_put_pixel(game->mlx->img, pixel_x + x, pixel_y + y, 0xFFFFFFFF);
       }
     }
   }

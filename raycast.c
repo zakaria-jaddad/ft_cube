@@ -6,11 +6,12 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 06:55:05 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/08/01 12:57:40 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/08/02 09:10:15 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/raycasting.h"
+#include "includes/raycast.h"
+#include <includes/parsing.h>
 
 double get_direction_x(t_direction direction);
 double get_direction_y(t_direction direction);
@@ -38,23 +39,9 @@ t_player *create_player(void) {
   return (p);
 }
 
-void set_player_cor(double *x, double *y, char **map, t_direction d) {
-  int i;
-  int j;
-  char player;
-
-  i = 0;
-  j = 0;
-  player = get_player_letter(d);
-  while (map[i]) {
-    j = 0;
-    while (map[i][j]) {
-      if (map[i][j] == player)
-        return (void)!(*x = j, *y = i);
-      j++;
-    }
-    i++;
-  }
+void set_player_cor(double *x, double *y, t_depot *depot) {
+  *x = depot->player_x;
+  *y = depot->player_y;
 }
 
 t_player *init_player(t_depot *depot) {
@@ -70,7 +57,7 @@ t_player *init_player(t_depot *depot) {
     return (/* free_player */ NULL);
 
   // set current player map position
-  set_player_cor(&p->map_x, &p->map_y, depot->map, d);
+  set_player_cor(&p->map_x, &p->map_y, depot);
 
   // init player position
   p->position = create_vector(p->map_x * ((double)SCREEN_WIDTH / 1000),
@@ -200,4 +187,3 @@ void init_plane(double *px, double *py, double dx, double dy) {
     *py = 0;
   }
 }
-
