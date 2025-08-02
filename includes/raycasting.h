@@ -6,7 +6,7 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 05:11:33 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/08/01 08:24:31 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/08/02 08:26:06 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #ifndef RAYCASTING_H
 #define RAYCASTING_H
 
-//#include "../MLX42/include/MLX42/MLX42.h"
+#include "../MLX42/include/MLX42/MLX42.h"
 #include "../libft/libft.h"
 #include "parsing.h"
 

@@ -1,20 +1,22 @@
 #include "includes/cube.h"
 
 int main(int ac, char **av) {
-  if (ac != 2) {
+  t_depot depot;
+
+  if (ac != 2)
+  {
     write(2, "Please provide only the exec and map files\n", 44);
     return (1);
   }
-  t_depot depot;
   if (depot_init(&depot))
     return (1);
-	if (cub_parse(av[1], &depot))
-	{
-		free_depot(&depot);
-		return (1);
-	}
-  if (cub_raycast(&depot))
+  if (cub_parse(av[1], &depot))
+  {
+    free_depot(&depot);
     return (1);
+  }
+   if (cub_raycast(&depot))
+     return (1);// sorry brother hh gadit parsing dyal map algo okda mn pc dyali so commentit lik hadchi
   return (0);
 }
 

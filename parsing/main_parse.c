@@ -48,9 +48,15 @@ int	read_and_check(int fd, t_depot *depot)
 		if (!*line || *line == '\n')
 			continue;
 		if (parse_line(line, depot))
+		{
+			free(line);
 			return (1);
+		}
 		if (all_info_checked(depot))
+		{
+			free(line);
 			break ;
+		}
 		first_itr++;
 		free(line);
 	}
@@ -75,7 +81,10 @@ int	parse_line(char *line, t_depot *depot)
 		|| ft_strcmp(*str, "EA") == 0)
 	{
 		if (check_and_fill(str, depot))
+		{
+			ft_split_free(str);
 			return (1);
+		}
 	}
 	else if (color_check(str, depot))
 	{

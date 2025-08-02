@@ -6,7 +6,7 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 07:46:49 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/07/31 14:50:50 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/08/02 07:25:26 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,18 @@ int	clean_and_add_floor(char *str, t_depot *depot)
 		return (1);
 	}
 	splitted_colors = ft_split(clean_colors, ',');
+	free(clean_colors);
 	if (!splitted_colors)
 	{
 		perror("malloc");
 		return (1);
 	}
-	if (three_elements_check(splitted_colors))
+	if (colors_parse(splitted_colors))
+	{
+		ft_split_free(splitted_colors);
+		return (1);
+	}
+	if (convert_and_add_floor(splitted_colors, depot))
 	{
 		ft_split_free(splitted_colors);
 		return (1);
