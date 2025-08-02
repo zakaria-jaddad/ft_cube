@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ultra_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/22 10:34:07 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/04/21 16:06:04 by zajaddad         ###   ########.fr       */
+/*   Created: 2025/07/31 15:36:14 by ilarhrib          #+#    #+#             */
+/*   Updated: 2025/08/01 08:20:53 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/parsing.h"
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	length;
+//int	ultra_parsing(t_depot *depot)
+//{
+//	char	**map;
 
-	length = 0;
-	while (*s++)
-		length++;
-	return (length);
-}
-
-int	ft_dbl_strlen(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
+//	map = depot->map;
+//	return (0);
+//}

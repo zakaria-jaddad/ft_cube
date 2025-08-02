@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 06:55:05 by zajaddad          #+#    #+#             */
 /*   Updated: 2025/08/01 12:57:40 by zajaddad         ###   ########.fr       */
@@ -200,3 +200,4 @@ void init_plane(double *px, double *py, double dx, double dy) {
     *py = 0;
   }
 }
+

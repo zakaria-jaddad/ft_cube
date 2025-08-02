@@ -6,7 +6,7 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 08:53:23 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/07/29 17:08:18 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/08/02 07:24:40 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	map_parse(t_depot *depot)
 					&& is_not_pp(map[j][i]))
 			{
 				ft_fprintf(2, "%c is an Invalid character!\n", map[j][i]);
-				ft_split_free(depot->map);
 				return (1);
 			}
 			i++;
@@ -118,11 +117,29 @@ int	player_point_parsing(t_depot *depot)
 
 int	advanced_map_parsing(t_depot *depot)
 {
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
 	if (depot->EA + depot->NO
 		+ depot->SO + depot->WE != 1)
 	{
 		ft_fprintf(2, "Only one player point allowed!\n");
 		return (1);
 	}
+	while (depot->map[i])
+	{
+		j = 0;
+		while (depot->map[i][j])
+		{
+			if (depot->map[i][j] == ' ')
+				depot->map[i][j] = '1';
+			j++;
+		}
+		i++;
+	}
+	if (ultra_map_parse(depot))
+		return (1);
 	return (0);
 }

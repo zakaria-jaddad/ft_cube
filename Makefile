@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
 NAME = cub
 
 MAIN = cub.c
@@ -67,8 +67,13 @@ PARSING = parsing/main_parse.c \
 					parsing/parse_helper_1.c \
 					parsing/map_parsing.c \
 					parsing/map_parsing_v2.c \
+					parsing/ultra_parsing.c \
+					parsing/map_parsing_v3.c \
 
-SRC = $(LIBFT) $(MAIN) $(PARSING)
+EXECUTION_HH = raycast.c \
+
+
+SRC = $(LIBFT) $(MAIN) $(PARSING) $(EXECUTION_HH)
 
 SRCB = 
   
@@ -79,7 +84,7 @@ BOBJF = $(SRCB:.c=.o)
 all : $(NAME) stock
 
 $(NAME) : $(OBJF)
-	$(CC) $(CFLAGS) $(OBJF) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJF) -lmlx42 -L./MLX42/build -lglfw -o $(NAME)
 
 bonus: $(BOBJF)
 
