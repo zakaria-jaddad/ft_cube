@@ -15,8 +15,11 @@
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
-
 #define RSPEED 0.04
+#define PIXSIZE 20
+#define MOVE_SPEED .17
+#define SKY_COLOR 0xFFB1F2FF
+#define FLOOR_COLOR 0x01E1EFF2
 
 bool cub_raycast(t_depot *depot);
 
@@ -73,51 +76,53 @@ static inline char get_player_letter(t_direction direction) {
     return 'E';
 }
 
-#define PIXSIZE 20
+// static void draw_player(t_game *game) {
+//
+//   int pixel_x = floor((game->player->map_x * PIXSIZE) - (int)(PIXSIZE / 2));
+//   int pixel_y = floor((game->player->map_y * PIXSIZE) - (int)(PIXSIZE / 2));
+//
+//   for (int x = 0; x < PIXSIZE - (PIXSIZE / 3); x++) {
+//     for (int y = 0; y < PIXSIZE - (PIXSIZE / 3); y++) {
+//       // int draw_x = pixel_x + (int)(x * game->player->direction->x -
+//       //                              y * game->player->direction->y);
+//       // int draw_y = pixel_y + (int)(x * game->player->direction->y +
+//       //                              y * game->player->direction->x);
+//       if ((pixel_x + x < 800 && pixel_y + y < 600) &&
+//           (pixel_x + x >= 0 && pixel_y + y >= 0)) {
+//         mlx_put_pixel(game->mlx->img, pixel_x + x, pixel_y + y, 0xFFFFFFFF);
+//       }
+//     }
+//   }
+// }
 
-static void draw_player(t_game *game) {
-
-  int pixel_x = floor((game->player->map_x * PIXSIZE) - (int)(PIXSIZE / 2));
-  int pixel_y = floor((game->player->map_y * PIXSIZE) - (int)(PIXSIZE / 2));
-
-  for (int x = PIXSIZE / 3; x < PIXSIZE - (PIXSIZE / 3); x++) {
-    for (int y = PIXSIZE / 3; y < PIXSIZE - (PIXSIZE / 3); y++) {
-      if ((pixel_x + x < 800 && pixel_y + y < 600) &&
-          (pixel_x + x >= 0 && pixel_y + y >= 0)) {
-        mlx_put_pixel(game->mlx->img, pixel_x + x, pixel_y + y, 0xFFFFFFFF);
-      }
-    }
-  }
-}
-
-static inline void mini_map(void *param) {
-  t_game *game = (t_game *)param;
-  char **map = game->depot->map;
-  uint32_t color;
-
-  for (int i = 0; map[i] != NULL; i++) {
-    for (int j = 0; map[i][j] != 0; j++) {
-
-      int pixel_x = j * PIXSIZE;
-      int pixel_y = i * PIXSIZE;
-      if (map[i][j] == '1')
-        color = 0xFFFD77AC;
-      else if (map[i][j] == ' ') {
-        j++;
-        continue;
-      } else
-        color = 0xFF123456;
-      for (int x = 0; x < PIXSIZE; x++) {
-        for (int y = 0; y < PIXSIZE; y++) {
-          if (pixel_x + x < 800 && pixel_y + y < 600) {
-            mlx_put_pixel(game->mlx->img, pixel_x + x, pixel_y + y, color);
-          }
-        }
-      }
-    }
-  }
-  draw_player(game);
-}
+// static inline void mini_map(void *param) {
+//   t_game *game = (t_game *)param;
+//   char **map = game->depot->map;
+//   uint32_t color;
+//
+//   for (int i = 0; map[i] != NULL; i++) {
+//     for (int j = 0; map[i][j] != 0; j++) {
+//
+//       int pixel_x = j * PIXSIZE;
+//       int pixel_y = i * PIXSIZE;
+//       if (map[i][j] == '1')
+//         color = 0xFFFD77AC;
+//       else if (map[i][j] == ' ') {
+//         j++;
+//         continue;
+//       } else
+//         color = 0xFF123456;
+//       for (int x = 0; x < PIXSIZE; x++) {
+//         for (int y = 0; y < PIXSIZE; y++) {
+//           if (pixel_x + x < 800 && pixel_y + y < 600) {
+//             mlx_put_pixel(game->mlx->img, pixel_x + x, pixel_y + y, color);
+//           }
+//         }
+//       }
+//     }
+//   }
+//   draw_player(game);
+// }
 
 static inline void ft_hook(void *param) {
 
@@ -190,16 +195,16 @@ static inline void mini_map_player_hook(void *param) {
   t_game *game = (t_game *)param;
 
   if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_W)) {
-    update_player_pos_y(game, -.17);
+    update_player_pos_y(game, -MOVE_SPEED);
   }
   if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_A)) {
-    update_player_pos_x(game, -.17);
+    update_player_pos_x(game, -MOVE_SPEED);
   }
   if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_S)) {
-    update_player_pos_y(game, +.17);
+    update_player_pos_y(game, +MOVE_SPEED);
   }
   if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_D)) {
-    update_player_pos_x(game, +.17);
+    update_player_pos_x(game, +MOVE_SPEED);
   }
   if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_LEFT)) {
     rotate_player(game->player, -RSPEED);
@@ -209,4 +214,20 @@ static inline void mini_map_player_hook(void *param) {
   }
 }
 
+static inline void draw_sky(mlx_image_t *img) {
+
+  int mid = floor(SCREEN_HEIGHT / 2);
+
+  for (int i = 0; i < SCREEN_WIDTH; i++) {
+    for (int j = 0; j < mid; j++) {
+      mlx_put_pixel(img, i, j, FLOOR_COLOR);
+    }
+  }
+
+  for (int i = 0; i < SCREEN_WIDTH; i++) {
+    for (int j = mid; j < SCREEN_HEIGHT; j++) {
+      mlx_put_pixel(img, i, j, SKY_COLOR);
+    }
+  }
+}
 #endif // !RAYCASTING_H

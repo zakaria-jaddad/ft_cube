@@ -116,8 +116,9 @@ bool cub_raycast(t_depot *depot) {
     ;
   --game.map_height;
 
-  mlx_loop_hook(game.mlx->mlx, mini_map_player_hook, &game);
-  mlx_loop_hook(game.mlx->mlx, mini_map, &game);
+  draw_sky(game.mlx->img);
+  /* mlx_loop_hook(game.mlx->mlx, mini_map_player_hook, &game); */
+  /* mlx_loop_hook(game.mlx->mlx, mini_map, &game); */
   mlx_loop_hook(game.mlx->mlx, ft_hook, game.mlx);
 
   mlx_loop(game.mlx->mlx);
