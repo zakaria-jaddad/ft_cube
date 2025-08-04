@@ -65,7 +65,7 @@ int	retreive_player_pos(t_depot *depot)
 				depot->player_x = j;
 				depot->player_y = i;
 				depot->map[i][j] = '0';
-				//return (0);
+				return (0);
 			}
 			j++;
 		}
