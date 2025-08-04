@@ -6,7 +6,7 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 08:41:59 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/08/02 09:03:17 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/08/04 11:07:48 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct s_depot
 	int		ceiling_color_R;
 	int		ceiling_color_G;
 	int		ceiling_color_B;
+	unsigned int	f_color; // ara chi bouayssa
+	unsigned int	c_color; // ara chi bouayssa
 	int		c_colors_flag;
 	int		f_colors_flag;
 	int		NO;
@@ -52,6 +54,7 @@ int		range_check(int	color);
 void	print_elements(t_depot *depot);
 void	free_depot(t_depot *depot);
 int		three_elements_check(char **splitted_colors);
+int		rgb_convert(int r, int g, int b);
 
 //----------------Parsing-------------------//
 int	cub_parse(char *path, t_depot *depot);

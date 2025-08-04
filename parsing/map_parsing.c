@@ -6,7 +6,7 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 08:53:23 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/08/03 10:21:12 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/08/04 10:52:06 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	read_map(int fd, t_depot *depot)
 		str = ft_gnl(fd);
 		if (!str)
 			break ;
+		if (*str == '\n')
+			continue;
 		n_map = ft_realloc(n_map, str);
 		if (!n_map)
 			return (1);

@@ -6,7 +6,7 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:14:17 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/07/29 16:50:00 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/08/04 11:06:50 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ int	clean_and_add_ceiling(char *str, t_depot *depot)
 		return (1);
 	}
 	if (convert_and_add_ceiling(splitted_colors, depot))
+	{
+		ft_split_free(splitted_colors);
 		return (1);
+	}
 	ft_split_free(splitted_colors);
 	return (0);
 }
@@ -69,7 +72,10 @@ int	convert_and_add_ceiling(char **str, t_depot *depot)
 			return (ft_fprintf(2, "%s\n", "Invalid colors range"), 1);
 		i++;
 	}
+	depot->c_color = rgb_convert(depot->ceiling_color_R,
+		depot->ceiling_color_G, depot->ceiling_color_B);
 	depot->c_colors_flag = 1;
+	printf("CEILLING COLOR AZBI -> %d\n", depot->c_color);
 	return (0);
 }
 

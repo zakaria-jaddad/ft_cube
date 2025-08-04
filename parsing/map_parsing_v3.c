@@ -13,6 +13,11 @@ int	is_closed_by_walls(char **map)
 		{
 			if (map[x][y] == '0' || !not_player_point(map[x][y]))
 			{
+			//	if (y > (int)ft_strlen(map[x + 1]))
+			//	{
+			//		ft_fprintf(2, "!Map Invalid\n");
+			//		return (1);
+			//	}
 				if (map[x - 1][y] != '1' && map[x - 1][y] != '0' && not_player_point(map[x - 1][y]))
 				{
 					ft_fprintf(2, "!Map Invalid\n");
@@ -72,4 +77,9 @@ int	retreive_player_pos(t_depot *depot)
 		i++;
 	}
 	return (0);
+}
+
+int	rgb_convert(int r, int g, int b)
+{
+	return (unsigned)((255 << 24) | (r << 16) | (g << 8) | b);
 }
