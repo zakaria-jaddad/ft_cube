@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 NAME = cub
 
 MAIN = cub.c
@@ -80,21 +80,21 @@ OBJF = $(SRC:.c=.o)
 
 BOBJF = $(SRCB:.c=.o)
 
-all : $(NAME) stock
+all : $(NAME) # stock
 
 $(NAME) : $(OBJF)
 	$(CC) $(CFLAGS) $(OBJF) -lmlx42 -L./MLX42/build -lglfw -o $(NAME)
 
 bonus: $(BOBJF)
 
-%.o : %.c $(HF)
+%.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@ -MMD
 
-stock : $(OBJS)
-	mv libft/*.o obj && mv libft/*.d obj && mv libft/ft_fprintf/*.o obj && mv libft/ft_fprintf/*.d obj && mv libft/ft_gnl/*.o obj && mv libft/ft_gnl/*.d obj && mv *.o obj && mv *.d obj && mv parsing/*.o obj && mv parsing/*.d obj
+# stock : $(OBJS)
+# 	mv libft/*.o obj && mv libft/*.d obj && mv libft/ft_fprintf/*.o obj && mv libft/ft_fprintf/*.d obj && mv libft/ft_gnl/*.o obj && mv libft/ft_gnl/*.d obj && mv *.o obj && mv *.d obj && mv parsing/*.o obj && mv parsing/*.d obj
 
 clean : 
-	rm -rf $(OBJF) $(BOBJF) $(OBJF:.o=.d) obj/*.o obj/*.d
+	rm -rf $(OBJF) $(BOBJF) $(OBJF:.o=.d) # obj/*.o obj/*.d
 
 fclean : clean
 	rm -rf $(NAME)
