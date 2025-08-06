@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror # -g -fsanitize=address
 NAME = cub
 
 MAIN = cub.c
@@ -69,7 +69,7 @@ PARSING = parsing/main_parse.c \
 					parsing/map_parsing_v2.c \
 					parsing/map_parsing_v3.c \
 
-EXECUTION_HH = raycast.c \
+EXECUTION_HH = raycast/actions.c raycast/direction.c raycast/ft_cube.c raycast/hooks.c raycast/mini_map_shit.c raycast/mlx.c raycast/player.c raycast/raycast.c raycast/vector.c \
 
 
 SRC = $(LIBFT) $(MAIN) $(PARSING) $(EXECUTION_HH)

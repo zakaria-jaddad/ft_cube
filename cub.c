@@ -1,6 +1,11 @@
 #include "includes/cube.h"
+#include <stdlib.h>
+void f() {
+  system("leaks cub");
+}
 
 int main(int ac, char **av) {
+  atexit(f);
   t_depot depot;
 
   if (ac != 2)
