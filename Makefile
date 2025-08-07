@@ -69,7 +69,7 @@ PARSING = parsing/main_parse.c \
 					parsing/map_parsing_v2.c \
 					parsing/map_parsing_v3.c \
 
-EXECUTION_HH = raycast/actions.c raycast/direction.c raycast/ft_cube.c raycast/hooks.c raycast/mini_map_shit.c raycast/mlx.c raycast/player.c raycast/raycast.c raycast/vector.c \
+EXECUTION_HH = raycast/actions.c raycast/direction.c raycast/ft_cube.c raycast/hooks.c raycast/mini_map_shit.c raycast/mlx.c raycast/player.c raycast/raycast.c raycast/vector.c raycast/ft_cube_utils_1.c \
 
 
 SRC = $(LIBFT) $(MAIN) $(PARSING) $(EXECUTION_HH)
@@ -80,7 +80,7 @@ OBJF = $(SRC:.c=.o)
 
 BOBJF = $(SRCB:.c=.o)
 
-all : $(NAME) stock
+all : $(NAME) # stock
 
 $(NAME) : $(OBJF)
 	$(CC) $(CFLAGS) $(OBJF) -lmlx42 -L./MLX42/build -lglfw -o $(NAME)
@@ -90,8 +90,8 @@ bonus: $(BOBJF)
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@ -MMD
 
-stock : $(OBJS)
-	mv libft/*.o obj && mv libft/*.d obj && mv libft/ft_fprintf/*.o obj && mv libft/ft_fprintf/*.d obj && mv libft/ft_gnl/*.o obj && mv libft/ft_gnl/*.d obj && mv *.o obj && mv *.d obj && mv parsing/*.o obj && mv parsing/*.d obj
+# stock : $(OBJS)
+# 	mv libft/*.o obj && mv libft/*.d obj && mv libft/ft_fprintf/*.o obj && mv libft/ft_fprintf/*.d obj && mv libft/ft_gnl/*.o obj && mv libft/ft_gnl/*.d obj && mv *.o obj && mv *.d obj && mv parsing/*.o obj && mv parsing/*.d obj
 
 clean : 
 	rm -rf $(OBJF) $(BOBJF) $(OBJF:.o=.d) # obj/*.o obj/*.d
