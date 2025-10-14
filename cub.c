@@ -11,14 +11,14 @@ int main(int ac, char **av) {
   if (ac != 2)
   {
     write(2, "Please provide only the exec and map files\n", 44);
-	printf("Rj3 t7awa\n");
+  printf("Rj3 t7awa\n");
     return (1);
   }
   if (depot_init(&depot))
     return (1);
   if (cub_parse(av[1], &depot))
   {
-	printf("Rj3 t7awa\n");
+    printf("Rj3 t7awa\n");
     free_depot(&depot);
     return (1);
   }

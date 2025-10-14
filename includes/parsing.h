@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include "../libft/libft.h"
 
+
 typedef struct s_parse t_parse;
 
 typedef struct s_depot
@@ -85,5 +86,6 @@ int	all_ones(char *str);
 int	is_closed_by_walls(char **map);
 int	not_player_point(char c);
 int	retreive_player_pos(t_depot *depot);
+int clean_path(t_depot *depot);
 
-#endif
+#endif 

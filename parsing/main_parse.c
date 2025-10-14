@@ -54,6 +54,8 @@ int	read_and_check(int fd, t_depot *depot)
 		}
 		if (all_info_checked(depot))
 		{
+			if (clean_path(depot))
+				return (1);
 			free(line);
 			break ;
 		}

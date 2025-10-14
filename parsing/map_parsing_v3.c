@@ -83,3 +83,15 @@ int	rgb_convert(int r, int g, int b)
 {
 	return (unsigned)((255 << 24) | (r << 16) | (g << 8) | b);
 }
+
+int clean_path(t_depot *depot)
+{
+	depot->path_to_NO = ft_strtrim(depot->path_to_NO, "\n\t\r");
+	depot->path_to_SO = ft_strtrim(depot->path_to_SO, "\n\t\r");
+	depot->path_to_WE = ft_strtrim(depot->path_to_WE, "\n\t\r");
+	depot->path_to_EA = ft_strtrim(depot->path_to_EA, "\n\t\r");
+	if (!depot->path_to_EA || !depot->path_to_NO
+		|| !depot->path_to_SO || !depot->path_to_WE)
+		return (1);
+	return (0);
+}

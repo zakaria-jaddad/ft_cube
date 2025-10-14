@@ -12,6 +12,74 @@
 
 #include "../includes/raycast.h"
 
+// Draw a PIXSIZE-wide textured vertical slice for this wall hit.
+static void cast_wall_textured(int x, int wall_top, int wall_bottom,
+                               int line_height, t_game *game,
+                               t_algorithmique *algo, double walldist)
+{
+    mlx_texture_t   *tex;
+    double          wall_x;
+    int             tex_x;
+    double          step;
+    double          tex_pos;
+    int             tx;
+    int             y;
+
+    // 1) Which texture face? (uses your existing function)
+    tex = pick_tex(algo, game);
+    if (!tex)
+        return;
+
+    // 2) Where exactly did the ray hit along that face? (fraction 0..1)
+    if (algo->side == 0)
+        wall_x = game->player->map_y + walldist * algo->ray_dir_y; // vertical wall -> use Y
+    else
+        wall_x = game->player->map_x + walldist * algo->ray_dir_x; // horizontal wall -> use X
+    wall_x -= floor(wall_x);
+
+    // 3) Convert to texture X column
+    tex_x = (int)(wall_x * (double)tex->width);
+
+    // Flip so the image isn’t mirrored for certain faces (classic Wolf3D behavior)
+    if (algo->side == 0 && algo->ray_dir_x > 0)
+        tex_x = (int)tex->width - tex_x - 1;
+    if (algo->side == 1 && algo->ray_dir_y < 0)
+        tex_x = (int)tex->width - tex_x - 1;
+
+    // 4) Vertical scaling: how much to move in the texture for each screen pixel
+    step = (double)tex->height / (double)line_height;
+
+    // Starting texture row when y == wall_top
+    tex_pos = (wall_top - SCREEN_HEIGHT / 2 + line_height / 2) * step;
+
+    // 5) Draw a slice of width PIXSIZE (your loop steps x+=PIXSIZE in ft_cube)
+    tx = 0;
+    while (tx < PIXSIZE)
+    {
+        int x_screen = x + tx;
+        double tpos  = tex_pos; // reset per column so all PIXSIZE columns match
+
+        if (x_screen >= 0 && x_screen < SCREEN_WIDTH)
+        {
+            y = wall_top;
+            if (y < 0) y = 0;
+            while (y <= wall_bottom)
+            {
+                int tex_y = (int)tpos;
+                if (tex_y < 0) tex_y = 0;
+                if (tex_y >= (int)tex->height) tex_y = (int)tex->height - 1;
+
+                uint32_t color = get_tex_pixel(tex, tex_x, tex_y);
+                mlx_put_pixel(game->mlx->img, x_screen, y, color);
+
+                tpos += step;
+                y++;
+            }
+        }
+        tx++;
+    }
+}
+
 static void	draw_sky_floor(t_game *game)
 {
 	int	mid;
@@ -36,22 +104,22 @@ static void	draw_sky_floor(t_game *game)
 	}
 }
 
-static void	cast_wall_escaping_norms(int x, int wall_top, int wall_bottom,
-		t_game *game)
-{
-	int	tx;
-	int	y;
+// static void	cast_wall_escaping_norms(int x, int wall_top, int wall_bottom,
+// 		t_game *game)
+// {
+// 	int	tx;
+// 	int	y;
 
-	tx = 0;
-	while (tx < PIXSIZE)
-	{
-		y = wall_top;
-		if (x + tx >= 0 && x + tx < SCREEN_WIDTH)
-			while (y <= wall_bottom)
-				mlx_put_pixel(game->mlx->img, x + tx, y++, 0xFF202020);
-		tx++;
-	}
-}
+// 	tx = 0;
+// 	while (tx < PIXSIZE)
+// 	{
+// 		y = wall_top;
+// 		if (x + tx >= 0 && x + tx < SCREEN_WIDTH)
+// 			while (y <= wall_bottom)
+// 				mlx_put_pixel(game->mlx->img, x + tx, y++, 0xFF202020);
+// 		tx++;
+// 	}
+// }
 
 static void	cast_wall(int x, t_game *game, t_algorithmique *algo)
 {
@@ -73,7 +141,8 @@ static void	cast_wall(int x, t_game *game, t_algorithmique *algo)
 	wall_bottom = line_height / 2 + SCREEN_HEIGHT / 2;
 	if (wall_bottom >= SCREEN_HEIGHT)
 		wall_bottom = SCREEN_HEIGHT - 1;
-	cast_wall_escaping_norms(x, wall_top, wall_bottom, game);
+	// cast_wall_escaping_norms(x, wall_top, wall_bottom, game);
+	cast_wall_textured(x, wall_top, wall_bottom, line_height, game, algo, walldist);
 }
 
 void	ft_cube(void *param)

@@ -22,11 +22,11 @@
 
 # define SCREEN_WIDTH 800
 # define SCREEN_HEIGHT 600
-# define ROTATION_SPEED 0.10
+# define ROTATION_SPEED 0.05
 # define PIXSIZE 20
-# define MOVE_SPEED .17
-# define SKY_COLOR 0xFFB1F2FF
-# define FLOOR_COLOR 0x01E1EFF2
+# define MOVE_SPEED .10
+# define SKY_COLOR 0x00FFFF
+# define FLOOR_COLOR 0x000000
 
 typedef struct s_img
 {
@@ -71,6 +71,10 @@ typedef struct s_game
 	t_depot			*depot;
 	t_mlx			*mlx;
 	int				map_height;
+	mlx_texture_t *tex_no; // chamal alkhawa
+	mlx_texture_t *tex_so; // janob okda
+	mlx_texture_t *tex_we; // lgharb ajmi
+	mlx_texture_t *tex_ea; // char9 o lbar9
 }					t_game;
 
 typedef struct s_algorithmique
@@ -87,6 +91,11 @@ typedef struct s_algorithmique
 	double			side_dist_x;
 	double			side_dist_y;
 	int				side;
+	double		perp_wall_dist;
+	double		wall_x;
+	int			tex_x;
+	double		step;
+	double		tex_pos;
 }					t_algorithmique;
 
 double				get_direction_x(t_direction direction);
@@ -132,5 +141,12 @@ static inline bool	check_out_bound(t_game *game, t_algorithmique *algo)
 		|| algo->map_y >= game->map_height
 		|| algo->map_x >= (int)ft_strlen(game->depot->map[algo->map_y]));
 }
+
+//-----------------Textures---------------------//
+
+int	load_textures(t_game *g, char *no, char *so, char *we, char *ea);
+void destroy_textures(t_game *g);
+mlx_texture_t *pick_tex(const t_algorithmique *a, const t_game *g);
+uint32_t    get_tex_pixel(mlx_texture_t *tex, int x, int y);
 
 #endif

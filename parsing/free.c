@@ -47,10 +47,10 @@ char	**ft_realloc(char **mother, char *child)
 
 void	print_elements(t_depot *depot)
 {
-	printf("NO --> %s\n", depot->path_to_NO);
-	printf("SO --> %s\n", depot->path_to_SO);
-	printf("WE --> %s\n", depot->path_to_WE);
-	printf("EA --> %s\n", depot->path_to_EA);
+	printf("NO --> %s", depot->path_to_NO);
+	printf("SO --> %s", depot->path_to_SO);
+	printf("WE --> %s", depot->path_to_WE);
+	printf("EA --> %s", depot->path_to_EA);
 	printf("FLOOR_RED --> %d\n", depot->floor_color_R);
 	printf("FLOOR_GREEN --> %d\n", depot->floor_color_G);
 	printf("FLOOR_BLUE --> %d\n", depot->floor_color_B);
