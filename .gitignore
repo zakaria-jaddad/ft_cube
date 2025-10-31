@@ -1,1 +1,5 @@
 MLX42
+*.o
+*.d
+cub
+cub3D

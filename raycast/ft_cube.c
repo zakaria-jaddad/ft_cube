@@ -62,7 +62,12 @@ static void cast_wall_textured(int x, int wall_top, int wall_bottom,
         if (x_screen >= 0 && x_screen < SCREEN_WIDTH)
         {
             y = wall_top;
-            if (y < 0) y = 0;
+            // If wall_top is negative, we need to skip texture rows
+            if (y < 0)
+            {
+                tpos += (-y) * step;
+                y = 0;
+            }
             while (y <= wall_bottom)
             {
                 int tex_y = (int)tpos;
