@@ -6,11 +6,12 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 16:48:17 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/10/31 10:12:42 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/10/31 22:16:58 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/raycast.h"
+#include <string.h>
 
 static void draw_sky_floor(t_game *game) {
   int mid;
@@ -33,94 +34,128 @@ static void draw_sky_floor(t_game *game) {
   }
 }
 
-static void cast_wall_escaping_norms(int x, int wall_top, int wall_bottom,
-                                     t_game *game) {
-  int tx;
-  int y;
-
-  tx = 0;
-  while (tx < PIXSIZE) {
-    y = wall_top;
-    if (x + tx >= 0 && x + tx < SCREEN_WIDTH)
-      while (y <= wall_bottom)
-        mlx_put_pixel(game->mlx->img, x + tx, y++, 0xFF202020);
-    tx++;
-  }
+static inline uint32_t pack_rgba(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
+  return ((uint32_t)r << 24) | ((uint32_t)g << 16) | ((uint32_t)b << 8) |
+         (uint32_t)a;
 }
 
-static void cast_wall_textured(int x, int draw_start, int draw_end,
-                               int line_height, t_game *game,
-                               t_algorithmique *algo, double walldist,
-                               int wall_top) {
+static inline uint32_t shade_rgba(uint32_t color, double factor) {
+  uint8_t r = (color >> 24) & 0xFF;
+  uint8_t g = (color >> 16) & 0xFF;
+  uint8_t b = (color >> 8) & 0xFF;
+  uint8_t a = (color >> 0) & 0xFF;
+
+  r = (uint8_t)fmin(255.0, r * factor);
+  g = (uint8_t)fmin(255.0, g * factor);
+  b = (uint8_t)fmin(255.0, b * factor);
+
+  return pack_rgba(r, g, b, a);
+}
+
+static inline uint32_t sample_texture_rgba(mlx_texture_t *tex, int tx, int ty) {
+  if (!tex || !tex->pixels || tex->bytes_per_pixel != 4)
+    return 0x000000FF;
+  if (tx < 0)
+    tx = 0;
+  if (ty < 0)
+    ty = 0;
+  if (tx >= (int)tex->width)
+    tx = (int)tex->width - 1;
+  if (ty >= (int)tex->height)
+    ty = (int)tex->height - 1;
+
+  size_t idx = ((size_t)ty * tex->width + (size_t)tx) * 4;
+  uint8_t r = tex->pixels[idx + 0];
+  uint8_t g = tex->pixels[idx + 1];
+  uint8_t b = tex->pixels[idx + 2];
+  uint8_t a = tex->pixels[idx + 3];
+  return pack_rgba(r, g, b, a);
+}
+
+// Choose texture by wall orientation and ray direction.
+// Convention (common in Cub3D):
+// - side == 0: vertical wall (E/W). ray_dir_x > 0 -> WE, else EA
+// - side == 1: horizontal wall (N/S). ray_dir_y > 0 -> NO, else SO
+void cast_wall_textured(int x, t_game *game, t_algorithmique *algo) {
   mlx_texture_t *tex;
-  double wall_x;
-  int tex_x;
-  double step;
-  double tex_pos;
-  int tx;
-  int y;
 
-  // 1) Which texture face? (uses your existing function)
-  tex = pick_tex(algo, game);
-  if (!tex)
-    return;
+  // Calculate line height on screen
 
-  // 2) Where exactly did the ray hit along that face? (fraction 0..1)
+  // Find where on the wall the ray hits (0..1) to get the texture X coordinate
   if (algo->side == 0)
-    wall_x = game->player->map_y +
-             walldist * algo->ray_dir_y; // vertical wall -> use Y
+    algo->wall_x = game->player->map_y + algo->walldist * algo->ray_dir_y;
   else
-    wall_x = game->player->map_x +
-             walldist * algo->ray_dir_x; // horizontal wall -> use X
-  wall_x -= floor(wall_x);
+    algo->wall_x = game->player->map_x + algo->walldist * algo->ray_dir_x;
+  algo->wall_x -= floor(algo->wall_x);
 
-  // 3) Convert to texture X column
-  tex_x = (int)(wall_x * (double)tex->width);
+  // Pick the wall texture (NO/SO/WE/EA)
+  tex = pick_tex(algo, game);
+  if (!tex) {
+    return;
+  }
 
-  // Flip so the image isn’t mirrored for certain faces (classic Wolf3D
-  // behavior)
-  if (algo->side == 0 && algo->ray_dir_x > 0)
-    tex_x = (int)tex->width - tex_x - 1;
-  if (algo->side == 1 && algo->ray_dir_y < 0)
-    tex_x = (int)tex->width - tex_x - 1;
+  // Texture X coordinate (flip to keep orientation consistent)
+  algo->tex_x = (int)(algo->wall_x * (double)tex->width);
+  if ((algo->side == 0 && algo->ray_dir_x > 0) ||
+      (algo->side == 1 && algo->ray_dir_y < 0))
+    algo->tex_x = (int)tex->width - algo->tex_x - 1;
+  if (algo->tex_x < 0)
+    algo->tex_x = 0;
+  if (algo->tex_x >= (int)tex->width)
+    algo->tex_x = (int)tex->width - 1;
 
-  // 4) Vertical scaling: how much to move in the texture for each screen pixel
-  step = (double)tex->height / (double)line_height;
+  // How much to step in the texture for each screen pixel
+  algo->step = (double)tex->height / (double)algo->line_height;
+  // Starting texture y position
+  algo->tex_pos =
+      (algo->wall_top - SCREEN_HEIGHT / 2.0 + algo->line_height / 2.0) *
+      algo->step;
 
-  // Calculate the starting texture row using the unclamped wall_top
-  // This ensures correct texture mapping even when the wall extends above the
-  // screen
-  tex_pos = (wall_top - SCREEN_HEIGHT / 2 + line_height / 2) * step;
-  // If wall_top was negative (wall extends above screen), advance to first
-  // visible pixel
-  if (wall_top < 0)
-    tex_pos += -wall_top * step;
-
-  // 5) Draw a slice of width PIXSIZE (your loop steps x+=PIXSIZE in ft_cube)
-  tx = 0;
-  while (tx < PIXSIZE) {
-    int x_screen = x + tx;
-    double tpos = tex_pos; // reset per column so all PIXSIZE columns match
-
-    if (x_screen >= 0 && x_screen < SCREEN_WIDTH) {
-      y = draw_start;
-      while (y <= draw_end) {
-        int tex_y = (int)tpos;
-        if (tex_y < 0)
-          tex_y = 0;
-        if (tex_y >= (int)tex->height)
-          tex_y = (int)tex->height - 1;
-
-        uint32_t color = get_tex_pixel(tex, tex_x, tex_y);
-        mlx_put_pixel(game->mlx->img, x_screen, y, color);
-
-        tpos += step;
-        y++;
-      }
-    }
-    tx++;
+  // Draw the vertical textured column, expanded by PIXSIZE to match your
+  // previous rendering
+  /* for (int y = algo->wall_top; y <= algo->wall_bottom; ++y) { */
+  /*   int tex_y = (int)algo->tex_pos; */
+  /*   algo->tex_pos += algo->step; */
+  /**/
+  /*   // Sample RGBA color from the texture */
+  /*   uint32_t color = sample_texture_rgba(tex, algo->tex_x, tex_y); */
+  /**/
+  /*   // Simple shading on 'y-side' walls for depth cue */
+  /*   if (algo->side == 1) */
+  /*     color = shade_rgba(color, 0.75); */
+  /**/
+  /*   // Stretch horizontally by PIXSIZE, like your previous cast_wall */
+  /*   for (int tx = 0; tx < PIXSIZE; ++tx) { */
+  /*     int sx = x + tx; */
+  /*     if (sx >= 0 && sx < SCREEN_WIDTH) */
+  /*       mlx_put_pixel(game->mlx->img, sx, y, color); */
+  /*   } */
+  /* } */
+  for (int y = algo->wall_top; y <= algo->wall_bottom; ++y) {
+    int tex_y = (int)algo->tex_pos;
+    algo->tex_pos += algo->step;
+    uint32_t color = sample_texture_rgba(tex, algo->tex_x, tex_y);
+    if (algo->side == 1)
+      color = shade_rgba(color, 0.75);
+    if (x >= 0 && x < SCREEN_WIDTH)
+      mlx_put_pixel(game->mlx->img, x, y, color);
   }
 }
+
+/* static void cast_wall_escaping_norms(int x, int wall_top, int wall_bottom, */
+/*                                      t_game *game) { */
+/*   int tx; */
+/*   int y; */
+/**/
+/*   tx = 0; */
+/*   while (tx < PIXSIZE) { */
+/*     y = wall_top; */
+/*     if (x + tx >= 0 && x + tx < SCREEN_WIDTH) */
+/*       while (y <= wall_bottom) */
+/*         mlx_put_pixel(game->mlx->img, x + tx, y++, 0xFF202020); */
+/*     tx++; */
+/*   } */
+/* } */
 
 static void cast_wall(int x, t_game *game, t_algorithmique *algo) {
   double walldist;
@@ -128,12 +163,18 @@ static void cast_wall(int x, t_game *game, t_algorithmique *algo) {
   int wall_top;
   int wall_bottom;
 
+  // Compute perpendicular wall distance (avoid fisheye)
   if (algo->side == 0)
-    walldist = (algo->map_x - game->player->map_x + (1 - algo->step_x) / 2) /
+    walldist = (algo->map_x - game->player->map_x + (1 - algo->step_x) / 2.0) /
                algo->ray_dir_x;
   else
-    walldist = (algo->map_y - game->player->map_y + (1 - algo->step_y) / 2) /
+    walldist = (algo->map_y - game->player->map_y + (1 - algo->step_y) / 2.0) /
                algo->ray_dir_y;
+
+  if (walldist < 1e-6)
+    walldist = 1e-6;
+  algo->perp_wall_dist = walldist;
+
   line_height = (int)(SCREEN_HEIGHT / walldist);
   wall_top = -line_height / 2 + SCREEN_HEIGHT / 2;
   if (wall_top < 0)
@@ -141,9 +182,12 @@ static void cast_wall(int x, t_game *game, t_algorithmique *algo) {
   wall_bottom = line_height / 2 + SCREEN_HEIGHT / 2;
   if (wall_bottom >= SCREEN_HEIGHT)
     wall_bottom = SCREEN_HEIGHT - 1;
+  algo->line_height = line_height;
+  algo->walldist = walldist;
+  algo->wall_top = wall_top;
+  algo->wall_bottom = wall_bottom;
   /* cast_wall_escaping_norms(x, wall_top, wall_bottom, game); */
-  cast_wall_textured(x, wall_top, wall_bottom, line_height, game, algo,
-                     walldist);
+  cast_wall_textured(x, game, algo);
 }
 
 void ft_cube(void *param) {
@@ -167,6 +211,7 @@ void ft_cube(void *param) {
         break;
       }
     }
-    x++;
+    // x++ instead of this
+    x += PIXSIZE;
   }
 }
