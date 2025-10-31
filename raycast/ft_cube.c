@@ -13,9 +13,9 @@
 #include "../includes/raycast.h"
 
 // Draw a PIXSIZE-wide textured vertical slice for this wall hit.
-static void cast_wall_textured(int x, int wall_top, int wall_bottom,
+static void cast_wall_textured(int x, int draw_start, int draw_end,
                                int line_height, t_game *game,
-                               t_algorithmique *algo, double walldist)
+                               t_algorithmique *algo, double walldist, int wall_top)
 {
     mlx_texture_t   *tex;
     double          wall_x;
@@ -49,8 +49,12 @@ static void cast_wall_textured(int x, int wall_top, int wall_bottom,
     // 4) Vertical scaling: how much to move in the texture for each screen pixel
     step = (double)tex->height / (double)line_height;
 
-    // Starting texture row when y == wall_top
+    // Calculate the starting texture row using the unclamped wall_top
+    // This ensures correct texture mapping even when the wall extends above the screen
     tex_pos = (wall_top - SCREEN_HEIGHT / 2 + line_height / 2) * step;
+    // If wall_top was negative (wall extends above screen), advance to first visible pixel
+    if (wall_top < 0)
+        tex_pos += (-wall_top) * step;
 
     // 5) Draw a slice of width PIXSIZE (your loop steps x+=PIXSIZE in ft_cube)
     tx = 0;
@@ -61,14 +65,8 @@ static void cast_wall_textured(int x, int wall_top, int wall_bottom,
 
         if (x_screen >= 0 && x_screen < SCREEN_WIDTH)
         {
-            y = wall_top;
-            // If wall_top is negative, we need to skip texture rows
-            if (y < 0)
-            {
-                tpos += (-y) * step;
-                y = 0;
-            }
-            while (y <= wall_bottom)
+            y = draw_start;
+            while (y <= draw_end)
             {
                 int tex_y = (int)tpos;
                 if (tex_y < 0) tex_y = 0;
@@ -132,6 +130,8 @@ static void	cast_wall(int x, t_game *game, t_algorithmique *algo)
 	int		line_height;
 	int		wall_top;
 	int		wall_bottom;
+	int		draw_start;
+	int		draw_end;
 
 	if (algo->side == 0)
 		walldist = (algo->map_x - game->player->map_x + (1 - algo->step_x) / 2)
@@ -141,13 +141,15 @@ static void	cast_wall(int x, t_game *game, t_algorithmique *algo)
 			/ algo->ray_dir_y;
 	line_height = (int)(SCREEN_HEIGHT / walldist);
 	wall_top = -line_height / 2 + SCREEN_HEIGHT / 2;
-	if (wall_top < 0)
-		wall_top = 0;
 	wall_bottom = line_height / 2 + SCREEN_HEIGHT / 2;
-	if (wall_bottom >= SCREEN_HEIGHT)
-		wall_bottom = SCREEN_HEIGHT - 1;
-	// cast_wall_escaping_norms(x, wall_top, wall_bottom, game);
-	cast_wall_textured(x, wall_top, wall_bottom, line_height, game, algo, walldist);
+	draw_start = wall_top;
+	if (draw_start < 0)
+		draw_start = 0;
+	draw_end = wall_bottom;
+	if (draw_end >= SCREEN_HEIGHT)
+		draw_end = SCREEN_HEIGHT - 1;
+	// cast_wall_escaping_norms(x, draw_start, draw_end, game);
+	cast_wall_textured(x, draw_start, draw_end, line_height, game, algo, walldist, wall_top);
 }
 
 void	ft_cube(void *param)
