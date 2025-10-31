@@ -54,7 +54,7 @@ static void cast_wall_textured(int x, int draw_start, int draw_end,
     tex_pos = (wall_top - SCREEN_HEIGHT / 2 + line_height / 2) * step;
     // If wall_top was negative (wall extends above screen), advance to first visible pixel
     if (wall_top < 0)
-        tex_pos += (-wall_top) * step;
+        tex_pos += -wall_top * step;
 
     // 5) Draw a slice of width PIXSIZE (your loop steps x+=PIXSIZE in ft_cube)
     tx = 0;
@@ -107,23 +107,6 @@ static void	draw_sky_floor(t_game *game)
 	}
 }
 
-// static void	cast_wall_escaping_norms(int x, int wall_top, int wall_bottom,
-// 		t_game *game)
-// {
-// 	int	tx;
-// 	int	y;
-
-// 	tx = 0;
-// 	while (tx < PIXSIZE)
-// 	{
-// 		y = wall_top;
-// 		if (x + tx >= 0 && x + tx < SCREEN_WIDTH)
-// 			while (y <= wall_bottom)
-// 				mlx_put_pixel(game->mlx->img, x + tx, y++, 0xFF202020);
-// 		tx++;
-// 	}
-// }
-
 static void	cast_wall(int x, t_game *game, t_algorithmique *algo)
 {
 	double	walldist;
@@ -148,7 +131,6 @@ static void	cast_wall(int x, t_game *game, t_algorithmique *algo)
 	draw_end = wall_bottom;
 	if (draw_end >= SCREEN_HEIGHT)
 		draw_end = SCREEN_HEIGHT - 1;
-	// cast_wall_escaping_norms(x, draw_start, draw_end, game);
 	cast_wall_textured(x, draw_start, draw_end, line_height, game, algo, walldist, wall_top);
 }
 
