@@ -5,13 +5,13 @@ void f() {
 }
 
 int main(int ac, char **av) {
-  atexit(f);
   t_depot depot;
 
   if (ac != 2)
   {
     write(2, "Please provide only the exec and map files\n", 44);
   printf("Rj3 t7awa\n");
+  atexit(f);
     return (1);
   }
   if (depot_init(&depot))
@@ -20,11 +20,14 @@ int main(int ac, char **av) {
   {
     printf("Rj3 t7awa\n");
     free_depot(&depot);
+    atexit(f);
     return (1);
   }
   print_elements(&depot);
-   if (cub_raycast(&depot))
+   if (cub_raycast(&depot)){
+    atexit(f);
      return (1);
+   }
   return (0);
 }
 

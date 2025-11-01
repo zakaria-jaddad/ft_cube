@@ -73,7 +73,7 @@ int	parse_line(char *line, t_depot *depot)
 {
 	char	**str;
 
-	str = ft_split(line, ' ');
+	str = ft_split(ft_strtrim(line, "\t\r"), ' ');
 	if (!str)
 	{
 		perror("malloc");
@@ -117,6 +117,7 @@ int	color_check(char **str, t_depot *depot)
 {
 	if (!ft_strcmp(str[0], "F"))
 	{
+		printf("%s\n", str[1]);
 		if (clean_and_add_floor(str[1], depot))
 			return (1);
 	}

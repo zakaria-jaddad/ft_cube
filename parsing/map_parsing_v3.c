@@ -11,8 +11,10 @@ int	is_closed_by_walls(char **map)
 		y = 0;
 		while (map[x][y])
 		{
+			printf("%c", map[x][y]);
 			if (map[x][y] == '0' || !not_player_point(map[x][y]))
 			{
+				
 			//	if (y > (int)ft_strlen(map[x + 1]))
 			//	{
 			//		ft_fprintf(2, "!Map Invalid\n");
@@ -20,27 +22,32 @@ int	is_closed_by_walls(char **map)
 			//	}
 				if (map[x - 1][y] != '1' && map[x - 1][y] != '0' && not_player_point(map[x - 1][y]))
 				{
+					printf("%c\n", map[x][y]);
 					ft_fprintf(2, "!Map Invalid\n");
 					return (1);
 				}
 				if (map[x + 1][y] != '1' && map[x + 1][y] != '0' && not_player_point(map[x + 1][y]))
 				{
+					printf("%c\n", map[x][y]);
 					ft_fprintf(2, "!Map Invalid\n");
 					return (1);
 				}
 				if (map[x][y + 1] != '1' && map[x ][y + 1] != '0' && not_player_point(map[x][y + 1]))
 				{
+					printf("%c\n", map[x][y]);
 					ft_fprintf(2, "!Map Invalid\n");
 					return (1);
 				}
 				if (map[x][y - 1] != '1' && map[x][y - 1] != '0' && not_player_point(map[x][y - 1]))
 				{
+					printf("%c\n", map[x][y]);
 					ft_fprintf(2, "!Map Invalid\n");
 					return (1);
 				}
 			}
 			y++;
 		}
+		printf("\n");
 		x++;
 	}
 	return (0);

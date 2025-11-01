@@ -87,5 +87,7 @@ int	is_closed_by_walls(char **map);
 int	not_player_point(char c);
 int	retreive_player_pos(t_depot *depot);
 int clean_path(t_depot *depot);
+void pad_map_lines_n(char **map, int rows);
+void pad_map_lines(char **map);
 
 #endif 

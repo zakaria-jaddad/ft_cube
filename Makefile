@@ -68,7 +68,8 @@ PARSING = parsing/main_parse.c \
 					parsing/map_parsing.c \
 					parsing/map_parsing_v2.c \
 					parsing/map_parsing_v3.c \
-					parsing/textures.c
+					parsing/textures.c \
+					parsing/padding.c
 
 EXECUTION_HH = raycast/actions.c raycast/direction.c raycast/ft_cube.c raycast/hooks.c raycast/mini_map_shit.c raycast/mlx.c raycast/player.c raycast/raycast.c raycast/vector.c raycast/ft_cube_utils_1.c \
 

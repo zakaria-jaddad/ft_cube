@@ -61,14 +61,18 @@ int	clean_and_add_floor(char *str, t_depot *depot)
 
 	if (is_number(str))
 		return (1);
+	printf("%s\n", str);
 	clean_colors = ft_strtrim(str, " \t\n");
 	if (!clean_colors)
 	{
 		perror("malloc");
 		return (1);
 	}
+	printf("--> %s\n", clean_colors);
 	splitted_colors = ft_split(clean_colors, ',');
 	free(clean_colors);
+	for(int i =0;splitted_colors[i];i++)
+		printf("%s\n", splitted_colors[i]);
 	if (!splitted_colors)
 	{
 		perror("malloc");
@@ -95,6 +99,8 @@ int	is_number(char *str)
 	i = 0;
 	while (str[i])
 	{
+		while (str[i] == ' ' || str[i] == '\t')
+			i++;
 		if (!ft_isdigit(str[i]) && str[i] != ',' && str[i] != '\n')
 		{
 			ft_fprintf(2, "%s\n", "Colors should be digits");
