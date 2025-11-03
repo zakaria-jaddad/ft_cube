@@ -70,7 +70,7 @@ int	map_parse(t_depot *depot)
 		{
 			if (map[j][i] != '1' && map[j][i] != '0'
 				&& map[j][i] != ' ' && map[j][i] != 'P'
-					&& is_not_pp(map[j][i]) && map[j][i] != '\t')
+					&& is_not_pp(map[j][i]) && map[j][i] != '\t' && map[j][i] != 'D')
 			{
 				ft_fprintf(2, "%c is an Invalid character!\n", map[j][i]);
 				return (1);
@@ -139,9 +139,15 @@ int	advanced_map_parsing(t_depot *depot)
 		}
 		i++;
 	}
+	if (doors_parsing(depot->map)){
+		printf("bad doors\n");
+		return (1);
+	}
+	door_pos(depot);
 	pad_map_lines(depot->map);
+	printf("======================here\n");
+	printf("good doors\n");
 	if (ultra_map_parse(depot))
 		return (1);
 	return (0);
 }
-

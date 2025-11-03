@@ -100,8 +100,10 @@ int	ultra_map_parse(t_depot *depot)
 		}
 		x++;
 	}
-	if (is_closed_by_walls(map))
+	printf("---------------------------begin--------------------\n");
+	if (is_closed_by_walls(depot->map))
 		return (1);
+	printf("Map Valid yeyyyy !!\n");
 	return (0);
 }
 
