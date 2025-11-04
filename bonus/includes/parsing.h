@@ -44,8 +44,6 @@ typedef struct s_depot {
   int EA;
   double player_x;
   double player_y;
-  double door_x;
-  double door_y;
 
 } t_depot;
 
@@ -58,7 +56,6 @@ void free_depot(t_depot *depot);
 int three_elements_check(char **splitted_colors);
 uint32_t rgb_convert(int r, int g, int b);
 uint32_t rgba_convert(int r, int g, int b, int a);
-void door_pos(t_depot *depot);
 
 //----------------Parsing-------------------//
 int cub_parse(char *path, t_depot *depot);

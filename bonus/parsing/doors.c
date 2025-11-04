@@ -37,25 +37,3 @@ int doors_parsing(char **map)
 	return (0);
 }
 
-void	door_pos(t_depot *depot)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (depot->map[i])
-	{
-		j = 0;
-		while (depot->map[i][j])
-		{
-			if (depot->map[i][j] == 'D')
-			{
-				depot->door_x = j;
-				depot->door_y = i;
-			}
-			j++;
-		}
-		i++;
-	}
-}
