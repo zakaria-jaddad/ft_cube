@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 01:59:52 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/05 01:59:56 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/05 06:51:20 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,13 @@ void destroy_textures(t_game *g) {
     mlx_delete_texture(g->tex_we);
   if (g->tex_ea)
     mlx_delete_texture(g->tex_ea);
-  g->tex_no = 0;
-  g->tex_so = 0;
-  g->tex_we = 0;
-  g->tex_ea = 0;
+  if (g->tex_dr)
+    mlx_delete_texture(g->tex_dr);
+  g->tex_no = NULL;
+  g->tex_so = NULL;
+  g->tex_we = NULL;
+  g->tex_ea = NULL;
+  g->tex_dr = NULL;
 }
 
 int load_textures(t_game *g, t_depot *depot) {
@@ -56,29 +59,4 @@ mlx_texture_t *pick_tex(t_algorithmique *a, t_game *g) {
   if (a->ray_dir_y > 0)
     return g->tex_no;
   return g->tex_so;
-}
-
-// RGBA bytes -> pack to ARGB to match your 0xFF202020 usage.
-uint32_t get_tex_pixel(mlx_texture_t *tex, int x, int y) {
-  uint8_t *p;
-  int bpp;
-
-  if (!tex)
-    return 0xFFFF00FF; // debug magenta (ARGB)
-  if (x < 0)
-    x = 0;
-  if (y < 0)
-    y = 0;
-  if (x >= (int)tex->width)
-    x = (int)tex->width - 1;
-  if (y >= (int)tex->height)
-    y = (int)tex->height - 1;
-
-  bpp = (int)tex->bytes_per_pixel; // should be 4 (RGBA)
-  p = tex->pixels + (y * (int)tex->width + x) * bpp;
-
-  // PNG is RGBA; your mlx_put_pixel seems to expect ARGB (since 0xFF202020
-  // looks gray). Convert RGBA -> ARGB:
-  return ((uint32_t)p[3] << 24) | ((uint32_t)p[0] << 16) |
-         ((uint32_t)p[1] << 8) | (uint32_t)p[2];
 }

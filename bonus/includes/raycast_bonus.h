@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:00:52 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/05 06:28:32 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/05 06:50:29 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,6 @@ static inline bool	check_out_bound(t_game *game, t_algorithmique *algo)
 int						load_textures(t_game *g, t_depot *depot);
 void					destroy_textures(t_game *g);
 mlx_texture_t			*pick_tex(t_algorithmique *a, t_game *g);
-uint32_t				get_tex_pixel(mlx_texture_t *tex, int x, int y);
 
 static inline uint32_t	pack_rgba(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
