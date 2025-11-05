@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:00:52 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/04 23:27:52 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/05 06:53:44 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void init_delta_xy(t_algorithmique *algo);
 void init_xy(t_game *game, t_algorithmique *algo);
 void init_ray_dir(int x, t_game *game, t_algorithmique *algo);
 
+// TODO: LEARN ABOUT THIS
 static inline void rotate_player(t_player *player, double rotation_angle) {
   double old_dir_x;
   double old_plane_x;
@@ -137,11 +138,48 @@ static inline bool check_out_bound(t_game *game, t_algorithmique *algo) {
           algo->map_x >= (int)ft_strlen(game->depot->map[algo->map_y]));
 }
 
+static inline uint32_t pack_rgba(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
+  return ((uint32_t)r << 24) | ((uint32_t)g << 16) | ((uint32_t)b << 8) |
+         (uint32_t)a;
+}
+
+static inline uint32_t shade_rgba(uint32_t color, double factor) {
+  uint8_t r = (color >> 24) & 0xFF;
+  uint8_t g = (color >> 16) & 0xFF;
+  uint8_t b = (color >> 8) & 0xFF;
+  uint8_t a = (color >> 0) & 0xFF;
+
+  r = (uint8_t)fmin(255.0, r * factor);
+  g = (uint8_t)fmin(255.0, g * factor);
+  b = (uint8_t)fmin(255.0, b * factor);
+
+  return pack_rgba(r, g, b, a);
+}
+
+static inline uint32_t sample_texture_rgba(mlx_texture_t *tex, int tx, int ty) {
+  if (!tex || !tex->pixels || tex->bytes_per_pixel != 4)
+    return 0x000000FF;
+  if (tx < 0)
+    tx = 0;
+  if (ty < 0)
+    ty = 0;
+  if (tx >= (int)tex->width)
+    tx = (int)tex->width - 1;
+  if (ty >= (int)tex->height)
+    ty = (int)tex->height - 1;
+
+  size_t idx = ((size_t)ty * tex->width + (size_t)tx) * 4;
+  uint8_t r = tex->pixels[idx + 0];
+  uint8_t g = tex->pixels[idx + 1];
+  uint8_t b = tex->pixels[idx + 2];
+  uint8_t a = tex->pixels[idx + 3];
+  return pack_rgba(r, g, b, a);
+}
+
 //-----------------Textures---------------------//
 
 int load_textures(t_game *g, char *no, char *so, char *we, char *ea);
 void destroy_textures(t_game *g);
 mlx_texture_t *pick_tex(t_algorithmique *a, t_game *g);
-uint32_t get_tex_pixel(mlx_texture_t *tex, int x, int y);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:39:32 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/08/06 17:39:33 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/05 07:04:58 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,8 @@ bool	cub_raycast(t_depot *depot)
 		game.map_height++;
 	if (load_textures(&game, depot->path_to_NO, depot->path_to_SO,
 			depot->path_to_WE, depot->path_to_EA))
-	{
-		free_player(game.player);
-		free_mlx(game.mlx);
-		destroy_textures(&game);
-		printf("1\n");
-		return (false);
-	}
+		return (free_player(game.player), free_mlx(game.mlx),
+			destroy_textures(&game), false);
 	mlx_loop_hook(game.mlx->mlx, player_hook, &game);
 	mlx_loop_hook(game.mlx->mlx, ft_cube, &game);
 	mlx_loop_hook(game.mlx->mlx, ft_hook, game.mlx);
