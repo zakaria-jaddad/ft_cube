@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   hooks_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:00:07 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/08/06 17:11:10 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/05 06:31:07 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,30 @@ void	player_hook(void *param)
 		upsx(game, game->player->plane->x * MOVE_SPEED);
 		upsy(game, game->player->plane->y * MOVE_SPEED);
 	}
-	if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_LEFT))
+	if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_LEFT)
+		|| mlx_is_key_down(game->mlx->mlx, MLX_KEY_H))
 		rotate_player(game->player, -ROTATION_SPEED);
-	if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_RIGHT))
+	if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_RIGHT)
+		|| mlx_is_key_down(game->mlx->mlx, MLX_KEY_L))
 		rotate_player(game->player, ROTATION_SPEED);
+}
+
+void	cursor_hook(double x, double y, void *param)
+{
+	t_game	*game;
+
+	(void)y;
+	game = (t_game *)param;
+	if (game->mouse.start_flag == true)
+	{
+		game->mouse.last_x_pos = x;
+		game->mouse.start_flag = false;
+		return ;
+	}
+	if (x > game->mouse.last_x_pos)
+		rotate_player(game->player, ROTATION_SPEED);
+	else if (x < game->mouse.last_x_pos)
+		rotate_player(game->player, -ROTATION_SPEED);
+
+	game->mouse.last_x_pos = x;
 }
