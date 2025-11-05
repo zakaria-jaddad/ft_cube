@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 16:48:17 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/05 06:52:15 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/05 07:47:15 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,30 @@ static void draw_sky_floor(t_game *game) {
   int j;
 
   (void)!(mid = floor((double)SCREEN_HEIGHT / 2), i = 0);
-  while (i < SCREEN_WIDTH) {
-    j = 0;
-    while (j < mid)
-      mlx_put_pixel(game->mlx->img, i, j++, game->depot->c_color);
-    i++;
+  mlx_texture_t* texture = mlx_load_png("./mandatory/textures/sky2.png");
+  for (uint32_t y = 0; y < texture->height; ++y)
+  {
+    for (uint32_t x = 0; x < texture->width; ++x)
+    {
+      size_t i = (y * texture->width + x) * texture->bytes_per_pixel;
+      uint8_t r = texture->pixels[i + 0];
+      uint8_t g = texture->pixels[i + 1];
+      uint8_t b = texture->pixels[i + 2];
+      uint8_t a = texture->pixels[i + 3];
+
+      // Convert to uint32_t packed color (RGBA as per MLX42):
+      uint32_t color = (r << 24) | (g << 16) | (b << 8) | (a);
+
+      // Draw pixel onto your image
+      mlx_put_pixel(game->mlx->img, x, y, color);
+    }
   }
+  /* while (i < SCREEN_WIDTH) { */
+  /*   j = 0; */
+  /*   while (j < mid) */
+  /*     mlx_put_pixel(game->mlx->img, i, j++, game->depot->c_color); */
+  /*   i++; */
+  /* } */
   i = 0;
   while (i < SCREEN_WIDTH) {
     j = mid;
