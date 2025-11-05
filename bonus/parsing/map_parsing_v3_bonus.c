@@ -88,6 +88,7 @@ int clean_path(t_depot *depot) {
   depot->path_to_SO = ft_strtrim(depot->path_to_SO, "\n\t\r");
   depot->path_to_WE = ft_strtrim(depot->path_to_WE, "\n\t\r");
   depot->path_to_EA = ft_strtrim(depot->path_to_EA, "\n\t\r");
+  depot->path_to_door = ft_strtrim(depot->path_to_door, "\n\t\r");
   if (!depot->path_to_EA || !depot->path_to_NO || !depot->path_to_SO ||
       !depot->path_to_WE)
     return (1);
