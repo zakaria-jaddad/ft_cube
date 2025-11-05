@@ -6,16 +6,12 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 06:38:26 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/05 06:38:43 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/05 09:51:20 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cube.h"
 
-void	f(void)
-{
-	system("leaks cub3D");
-}
 
 int	main(int ac, char **av)
 {
@@ -25,7 +21,6 @@ int	main(int ac, char **av)
 	{
 		write(2, "Please provide only the exec and map files\n", 44);
 		printf("Rj3 t7awa\n");
-		atexit(f);
 		return (1);
 	}
 	if (depot_init(&depot))
@@ -34,13 +29,11 @@ int	main(int ac, char **av)
 	{
 		printf("Rj3 t7awa\n");
 		free_depot(&depot);
-		atexit(f);
 		return (1);
 	}
 	print_elements(&depot);
 	if (cub_raycast(&depot))
 	{
-		atexit(f);
 		return (1);
 	}
 	return (0);
