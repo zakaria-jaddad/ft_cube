@@ -4,3 +4,9 @@ MLX42
 .*/\.DS_Store
 .zajaddad
 .adechaji
+*.d
+*.o
+cub3D
+cub3D_bonus
+.gitignore
+.clang-format
