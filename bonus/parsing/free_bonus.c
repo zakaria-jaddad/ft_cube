@@ -59,6 +59,7 @@ void	print_elements(t_depot *depot)
 	printf("CEILING_BLUE --> %d\n", depot->ceiling_color_B);
 	printf("-->%f\n", depot->player_x);
 	printf("-->%f\n", depot->player_y);
+	printf("DOORS PATHS AZAAAAABIIII --> %s\n", depot->path_to_door);
 }
 
 void	free_depot(t_depot *depot)
@@ -67,5 +68,6 @@ void	free_depot(t_depot *depot)
 	free(depot->path_to_EA);
 	free(depot->path_to_WE);
 	free(depot->path_to_SO);
+	free(depot->path_to_door);
 	ft_split_free(depot->map);
 }

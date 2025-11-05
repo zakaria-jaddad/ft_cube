@@ -28,6 +28,7 @@ typedef struct s_depot {
   char *path_to_SO;
   char *path_to_WE;
   char *path_to_EA;
+  char *path_to_door;
   int floor_color_R;
   int floor_color_G;
   int floor_color_B;

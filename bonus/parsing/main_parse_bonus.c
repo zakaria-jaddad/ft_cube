@@ -65,17 +65,21 @@ int parse_line(char *line, t_depot *depot) {
   char **str;
 
   str = ft_split(ft_strtrim(line, "\t\r"), ' ');
-  if (!str) {
+  if (!str)
+  {
     perror("malloc");
     return (1);
   }
-  if (ft_strcmp(*str, "NO") == 0 || ft_strcmp(*str, "SO") == 0 ||
-      ft_strcmp(*str, "WE") == 0 || ft_strcmp(*str, "EA") == 0) {
+  if (ft_strcmp(*str, "NO") == 0 || ft_strcmp(*str, "SO") == 0
+      || ft_strcmp(*str, "WE") == 0 || ft_strcmp(*str, "EA") == 0
+      || ft_strcmp(*str, "DR") == 0) {
     if (check_and_fill(str, depot)) {
       ft_split_free(str);
       return (1);
     }
-  } else if (color_check(str, depot)) {
+  }
+  else if (color_check(str, depot))
+  {
     ft_split_free(str);
     return (1);
   }
@@ -94,19 +98,26 @@ int check_and_fill(char **str, t_depot *depot) {
     depot->path_to_WE = ft_strdup(str[1]);
   else if (ft_strcmp(str[0], "EA") == 0 && !depot->path_to_EA)
     depot->path_to_EA = ft_strdup(str[1]);
+  else if (ft_strcmp(str[0], "DR") == 0 && !depot->path_to_door)
+    depot->path_to_door = ft_strdup(str[1]);
   return (0);
 }
 
-int color_check(char **str, t_depot *depot) {
-  if (!ft_strcmp(str[0], "F")) {
+int color_check(char **str, t_depot *depot)
+{
+  if (!ft_strcmp(str[0], "F"))
+  {
     printf("%s\n", str[1]);
     if (clean_and_add_floor(str[1], depot))
       return (1);
-  } else if (!ft_strcmp(str[0], "C")) {
-
+  }
+  else if (!ft_strcmp(str[0], "C"))
+  {
     if (clean_and_add_ceiling(str[1], depot))
       return (1);
-  } else {
+  }
+  else
+  {
     write(2, "Wrong Identifiers!\n", 20);
     return (1);
   }

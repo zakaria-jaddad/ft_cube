@@ -69,6 +69,7 @@ typedef struct s_game {
   mlx_texture_t *tex_so; // janob okda
   mlx_texture_t *tex_we; // lgharb ajmi
   mlx_texture_t *tex_ea; // char9 o lbar9
+  mlx_texture_t *tex_dr; // khoya badgitti (lbab)
 } t_game;
 
 typedef struct s_algorithmique {
@@ -139,7 +140,7 @@ static inline bool check_out_bound(t_game *game, t_algorithmique *algo) {
 
 //-----------------Textures---------------------//
 
-int load_textures(t_game *g, char *no, char *so, char *we, char *ea);
+int load_textures(t_game *g, t_depot *depot);
 void destroy_textures(t_game *g);
 mlx_texture_t *pick_tex(t_algorithmique *a, t_game *g);
 uint32_t get_tex_pixel(mlx_texture_t *tex, int x, int y);

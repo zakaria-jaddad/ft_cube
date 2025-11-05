@@ -36,6 +36,7 @@ int depot_init(t_depot *depot) {
   depot->path_to_SO = NULL;
   depot->path_to_WE = NULL;
   depot->path_to_EA = NULL;
+  depot->path_to_door = NULL;
   depot->map = NULL;
   depot->f_colors_flag = 0;
   depot->c_colors_flag = 0;

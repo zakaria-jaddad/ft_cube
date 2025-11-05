@@ -27,18 +27,19 @@ void destroy_textures(t_game *g) {
   g->tex_ea = 0;
 }
 
-int load_textures(t_game *g, char *no, char *so, char *we, char *ea) {
-  printf("%s\n%s\n%s\n%s\n", no, so, we, ea);
-  if (access(no, F_OK) != 0)
+int load_textures(t_game *g, t_depot *depot) {
+  printf("%s\n%s\n%s\n%s\n%s\n", depot->path_to_NO, depot->path_to_SO, depot->path_to_WE, depot->path_to_EA, depot->path_to_door);
+  if (access(depot->path_to_NO, F_OK) != 0)
     printf("2000\n");
   else
-    printf("Found %s\n", no);
+    printf("Found %s\n", depot->path_to_NO);
 
-  g->tex_no = mlx_load_png(no);
-  g->tex_so = mlx_load_png(so);
-  g->tex_we = mlx_load_png(we);
-  g->tex_ea = mlx_load_png(ea);
-  if (!g->tex_no || !g->tex_so || !g->tex_we || !g->tex_ea) {
+  g->tex_no = mlx_load_png(depot->path_to_NO);
+  g->tex_so = mlx_load_png(depot->path_to_SO);
+  g->tex_we = mlx_load_png(depot->path_to_WE);
+  g->tex_ea = mlx_load_png(depot->path_to_EA);
+  g->tex_dr = mlx_load_png(depot->path_to_door);
+  if (!g->tex_no || !g->tex_so || !g->tex_we || !g->tex_ea || g->tex_dr) {
     ft_fprintf(2, "Error loading textures\n");
     return 1;
   }

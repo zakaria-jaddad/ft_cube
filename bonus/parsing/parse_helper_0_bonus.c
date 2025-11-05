@@ -31,6 +31,7 @@ int	path_check_v2(char *path)
 		perror("malloc");
 		return (0);
 	}
+	printf("%s | %s \n", path, ext);
 	if (ft_strncmp(".png", ext, 4))
 	{
 		write(2, "Invalid extension!\n", 20);
@@ -42,6 +43,7 @@ int	path_check_v2(char *path)
 
 int	path_check(char *path)
 {
+	printf("%s\n", path);
 	if (!path)
 		return (0);
 	while (*path)

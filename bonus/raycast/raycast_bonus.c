@@ -26,8 +26,7 @@ bool	cub_raycast(t_depot *depot)
 	game.map_height = 0;
 	while (game.depot->map[game.map_height] != NULL)
 		game.map_height++;
-	if (load_textures(&game, depot->path_to_NO, depot->path_to_SO,
-			depot->path_to_WE, depot->path_to_EA))
+	if (load_textures(&game, depot))
 	{
 		free_player(game.player);
 		free_mlx(game.mlx);

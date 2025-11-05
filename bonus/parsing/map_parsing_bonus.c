@@ -14,7 +14,8 @@
 
 int all_info_checked(t_depot *depot) {
   if (depot->path_to_EA && depot->path_to_NO && depot->path_to_SO &&
-      depot->path_to_WE && depot->c_colors_flag && depot->f_colors_flag)
+      depot->path_to_WE && depot->c_colors_flag && depot->f_colors_flag
+      && depot->path_to_door)
     return (1);
   return (0);
 }
