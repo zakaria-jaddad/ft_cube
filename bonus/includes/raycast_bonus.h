@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:00:52 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/05 06:50:29 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/09 03:09:43 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@
 
 # define SCREEN_WIDTH 1000
 # define SCREEN_HEIGHT 800
-# define ROTATION_SPEED 0.05
+# define ROTATION_SPEED 0.06
 # define PIXSIZE 20
-# define MOVE_SPEED .10
+# define MOVE_SPEED .13
 # define SKY_COLOR 0x00FFFF
 # define FLOOR_COLOR 0x000000
+# define POV_PATH "./bonus/textures/zlayji_pov.png"
+// # define SKY_PATH "./bonus/textures/skybox.png"
 
 typedef struct s_img
 {
@@ -63,6 +65,7 @@ typedef struct s_player
 	t_vector			*plane;
 	double				map_x;
 	double				map_y;
+	mlx_texture_t		*pov;
 }						t_player;
 
 typedef struct s_mouse

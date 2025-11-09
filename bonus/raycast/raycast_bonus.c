@@ -6,11 +6,54 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:39:32 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/05 06:28:08 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/09 03:21:37 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/raycast_bonus.h"
+
+void open_doors(t_game *game) {
+
+  int px = game->player->map_x;
+  int py = game->player->map_y;
+  char **map = game->depot->map;
+
+  if (map[py - 1][px] == 'D')
+    map[py - 1][px] = 'O';
+  if (map[py + 1][px] == 'D')
+    map[py + 1][px] = 'O';
+  if (map[py][px - 1] == 'D')
+    map[py][px - 1] = 'O';
+  if (map[py][px + 1] == 'D')
+    map[py][px + 1] = 'O';
+}
+
+void close_doors(t_game *game) {
+
+  int px = game->player->map_x;
+  int py = game->player->map_y;
+  char **map = game->depot->map;
+
+  if (map[py - 1][px] == 'O')
+    map[py - 1][px] = 'D';
+  if (map[py + 1][px] == 'O')
+    map[py + 1][px] = 'D';
+  if (map[py][px - 1] == 'O')
+    map[py][px - 1] = 'D';
+  if (map[py][px + 1] == 'O')
+    map[py][px + 1] = 'D';
+}
+
+void	door_hook(void *param) {
+
+  t_game *game = (t_game *)param;
+
+	if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_O))
+    open_doors(game);
+	if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_C)) 
+    close_doors(game);
+
+}
 
 bool	cub_raycast(t_depot *depot)
 {
@@ -32,10 +75,12 @@ bool	cub_raycast(t_depot *depot)
 		free_player(game.player);
 		free_mlx(game.mlx);
 		destroy_textures(&game);
-		printf("1\n");
 		return (false);
 	}
+  
+
 	mlx_loop_hook(game.mlx->mlx, player_hook, &game);
+	mlx_loop_hook(game.mlx->mlx, door_hook, &game);
 	mlx_cursor_hook(game.mlx->mlx, cursor_hook, &game);
 	mlx_loop_hook(game.mlx->mlx, ft_cube, &game);
 	mlx_loop_hook(game.mlx->mlx, ft_hook, game.mlx);
@@ -44,3 +89,4 @@ bool	cub_raycast(t_depot *depot)
 	free_player(game.player);
 	return (true);
 }
+

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   actions.c                                          :+:      :+:    :+:   */
+/*   actions_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:02:43 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/08/06 17:29:43 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/09 03:07:17 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static bool	is_valid_move(t_game *game, int new_x, int new_y)
 	if (new_x < 0 || new_y < 0 || new_y > (game->map_height)
 		|| new_x > (int)(ft_strlen(game->depot->map[new_y])) - 1)
 		return (false);
-	if (game->depot->map[new_y][new_x] == '1')
+	if (game->depot->map[new_y][new_x] == '1' || game->depot->map[new_y][new_x] == 'D')
 		return (false);
 	return (true);
 }

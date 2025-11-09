@@ -6,12 +6,12 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 16:48:17 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/05 05:42:56 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/09 02:08:51 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/raycast_bonus.h"
-#include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
 
 static void	draw_sky_floor(t_game *game)
@@ -42,14 +42,14 @@ static void	draw_sky_floor(t_game *game)
 // Convention (common in Cub3D):
 // - side == 0: vertical wall (E/W). ray_dir_x > 0 -> WE, else EA
 // - side == 1: horizontal wall (N/S). ray_dir_y > 0 -> NO, else SO
-void	cast_wall_textured(int x, t_game *game, t_algorithmique *algo, mlx_texture_t *tex)
+void	cast_wall_textured(int x, t_game *game, t_algorithmique *algo,
+		mlx_texture_t *tex)
 {
-	int				tex_y;
-	uint32_t		color;
+	int			tex_y;
+	uint32_t	color;
 
 	if (!tex)
 		return ;
-
 	// Calculate line height on screen
 	// Find where on the wall the ray hits (0..1) to get the texture X coordinate
 	if (algo->side == 0)
@@ -82,11 +82,12 @@ void	cast_wall_textured(int x, t_game *game, t_algorithmique *algo, mlx_texture_
 			mlx_put_pixel(game->mlx->img, x, y, color);
 	}
 }
-bool check_cast_type(char cast_type) {
-  if (cast_type == '1')
-    return false;
-  else 
-    return true;
+bool	check_cast_type(char cast_type)
+{
+	if (cast_type == '1')
+		return (false);
+	else
+		return (true);
 }
 
 static void	cast_wall(int x, t_game *game, t_algorithmique *algo)
@@ -95,9 +96,9 @@ static void	cast_wall(int x, t_game *game, t_algorithmique *algo)
 	int		line_height;
 	int		wall_top;
 	int		wall_bottom;
-  bool is_door_cast;
+	bool	is_door_cast;
 
-  is_door_cast = check_cast_type(game->depot->map[algo->map_y][algo->map_x]);
+	is_door_cast = check_cast_type(game->depot->map[algo->map_y][algo->map_x]);
 	if (algo->side == 0)
 		walldist = (algo->map_x - game->player->map_x + (1 - algo->step_x)
 				/ 2.0) / algo->ray_dir_x;
@@ -118,12 +119,27 @@ static void	cast_wall(int x, t_game *game, t_algorithmique *algo)
 	algo->walldist = walldist;
 	algo->wall_top = wall_top;
 	algo->wall_bottom = wall_bottom;
-  if (is_door_cast == false)
-    cast_wall_textured(x, game, algo, pick_tex(algo, game));
-  else
-  {
-    cast_wall_textured(x, game, algo, game->tex_dr);
-  }
+	if (is_door_cast == false)
+		cast_wall_textured(x, game, algo, pick_tex(algo, game));
+	else
+	{
+		cast_wall_textured(x, game, algo, game->tex_dr);
+	}
+}
+
+void	pov(t_game *game)
+{
+	uint32_t	color;
+
+	for (uint32_t x = 0; x < game->player->pov->width; x++)
+	{
+		for (uint32_t y = 0; y < game->player->pov->height; y++)
+		{
+			color = sample_texture_rgba(game->player->pov, x, y);
+      if (color == 0) continue ;
+			mlx_put_pixel(game->mlx->img, x, y, color);
+		}
+	}
 }
 
 void	ft_cube(void *param)
@@ -145,7 +161,8 @@ void	ft_cube(void *param)
 			advance_ray(&algo);
 			if (check_out_bound(game, &algo))
 				break ;
-			if (game->depot->map[algo.map_y][algo.map_x] == '1' || game->depot->map[algo.map_y][algo.map_x] == 'D' )
+			if (game->depot->map[algo.map_y][algo.map_x] == '1'
+				|| game->depot->map[algo.map_y][algo.map_x] == 'D')
 			{
 				cast_wall(x, game, &algo);
 				break ;
@@ -154,4 +171,5 @@ void	ft_cube(void *param)
 		x++; // instead of this
 				// x += PIXSIZE;
 	}
+	pov(game);
 }
