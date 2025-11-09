@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:00:52 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/09 03:09:43 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/09 07:24:25 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 # define FLOOR_COLOR 0x000000
 # define POV_PATH "./bonus/textures/zlayji_pov.png"
 // # define SKY_PATH "./bonus/textures/skybox.png"
+
+# define BOB_AMPLITUDE 8.0f // Max pixels up or down
+#define BOB_SPEED     0.05f // How fast the bob repeats
 
 typedef struct s_img
 {
@@ -66,6 +69,8 @@ typedef struct s_player
 	double				map_x;
 	double				map_y;
 	mlx_texture_t		*pov;
+  float bobbing_val;
+  float bob_offset;
 }						t_player;
 
 typedef struct s_mouse
@@ -86,6 +91,7 @@ typedef struct s_game
 	mlx_texture_t *tex_we; // lgharb ajmi
 	mlx_texture_t *tex_ea; // char9 o lbar9
 	mlx_texture_t *tex_dr; // khoya badgitti (lbab)
+
 }						t_game;
 
 typedef struct s_algorithmique

@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 16:48:17 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/09 03:58:43 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/09 07:26:10 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,18 +127,42 @@ static void	cast_wall(int x, t_game *game, t_algorithmique *algo)
 	}
 }
 
+void	update_bobbing(t_game *game)
+{
+	if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_W) || 
+    mlx_is_key_down(game->mlx->mlx, MLX_KEY_A) || 
+    mlx_is_key_down(game->mlx->mlx, MLX_KEY_D) || 
+    mlx_is_key_down(game->mlx->mlx, MLX_KEY_S)
+    )
+	{
+		game->player->bobbing_val += BOB_SPEED * 5; 
+		float sine_value = sin(game->player->bobbing_val);
+		game->player->bob_offset = sine_value * BOB_AMPLITUDE;
+	}
+	else
+	{
+		game->player->bob_offset = 0.0f;
+		game->player->bobbing_val = 0.0f;
+	}
+}
+
 void	pov(t_game *game)
 {
 	uint32_t	color;
+	int			vertical_shift = (int)game->player->bob_offset + 10; 
 
 	for (uint32_t x = 0; x < game->player->pov->width; x++)
 	{
-		for (uint32_t y = 0; y < game->player->pov->height; y++)
+		for (uint32_t y_img = 0; y_img < game->player->pov->height; y_img++)
 		{
-			color = sample_texture_rgba(game->player->pov, x, y);
+			color = sample_texture_rgba(game->player->pov, x, y_img);
 			if (color == 0)
 				continue ;
-			mlx_put_pixel(game->mlx->img, x, y, color);
+			uint32_t y_screen = y_img + vertical_shift; 
+			if (y_screen < game->mlx->img->height)
+			{
+			    mlx_put_pixel(game->mlx->img, x, y_screen, color);
+			}
 		}
 	}
 }
@@ -172,5 +196,6 @@ void	ft_cube(void *param)
 		}
 		x++;
 	}
+  update_bobbing(game);
 	pov(game);
 }
