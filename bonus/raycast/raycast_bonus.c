@@ -6,53 +6,59 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:39:32 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/09 03:21:37 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/09 04:15:46 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/raycast_bonus.h"
 
-void open_doors(t_game *game) {
+void	open_doors(t_game *game)
+{
+	int		px;
+	int		py;
+	char	**map;
 
-  int px = game->player->map_x;
-  int py = game->player->map_y;
-  char **map = game->depot->map;
-
-  if (map[py - 1][px] == 'D')
-    map[py - 1][px] = 'O';
-  if (map[py + 1][px] == 'D')
-    map[py + 1][px] = 'O';
-  if (map[py][px - 1] == 'D')
-    map[py][px - 1] = 'O';
-  if (map[py][px + 1] == 'D')
-    map[py][px + 1] = 'O';
+	px = game->player->map_x;
+	py = game->player->map_y;
+	map = game->depot->map;
+	if (map[py - 1][px] == 'D')
+		map[py - 1][px] = 'O';
+	if (map[py + 1][px] == 'D')
+		map[py + 1][px] = 'O';
+	if (map[py][px - 1] == 'D')
+		map[py][px - 1] = 'O';
+	if (map[py][px + 1] == 'D')
+		map[py][px + 1] = 'O';
 }
 
-void close_doors(t_game *game) {
+void	close_doors(t_game *game)
+{
+	int		px;
+	int		py;
+	char	**map;
 
-  int px = game->player->map_x;
-  int py = game->player->map_y;
-  char **map = game->depot->map;
-
-  if (map[py - 1][px] == 'O')
-    map[py - 1][px] = 'D';
-  if (map[py + 1][px] == 'O')
-    map[py + 1][px] = 'D';
-  if (map[py][px - 1] == 'O')
-    map[py][px - 1] = 'D';
-  if (map[py][px + 1] == 'O')
-    map[py][px + 1] = 'D';
+	px = game->player->map_x;
+	py = game->player->map_y;
+	map = game->depot->map;
+	if (map[py - 1][px] == 'O')
+		map[py - 1][px] = 'D';
+	if (map[py + 1][px] == 'O')
+		map[py + 1][px] = 'D';
+	if (map[py][px - 1] == 'O')
+		map[py][px - 1] = 'D';
+	if (map[py][px + 1] == 'O')
+		map[py][px + 1] = 'D';
 }
 
-void	door_hook(void *param) {
+void	door_hook(void *param)
+{
+	t_game	*game;
 
-  t_game *game = (t_game *)param;
-
+	game = (t_game *)param;
 	if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_O))
-    open_doors(game);
-	if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_C)) 
-    close_doors(game);
-
+		open_doors(game);
+	if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_C))
+		close_doors(game);
 }
 
 bool	cub_raycast(t_depot *depot)
@@ -70,6 +76,7 @@ bool	cub_raycast(t_depot *depot)
 	game.map_height = 0;
 	while (game.depot->map[game.map_height] != NULL)
 		game.map_height++;
+	mlx_set_mouse_pos(game.mlx->mlx, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	if (load_textures(&game, depot))
 	{
 		free_player(game.player);
@@ -77,8 +84,6 @@ bool	cub_raycast(t_depot *depot)
 		destroy_textures(&game);
 		return (false);
 	}
-  
-
 	mlx_loop_hook(game.mlx->mlx, player_hook, &game);
 	mlx_loop_hook(game.mlx->mlx, door_hook, &game);
 	mlx_cursor_hook(game.mlx->mlx, cursor_hook, &game);
@@ -89,4 +94,3 @@ bool	cub_raycast(t_depot *depot)
 	free_player(game.player);
 	return (true);
 }
-

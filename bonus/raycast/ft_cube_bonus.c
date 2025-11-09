@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 16:48:17 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/09 02:08:51 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/09 03:58:43 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,10 +136,15 @@ void	pov(t_game *game)
 		for (uint32_t y = 0; y < game->player->pov->height; y++)
 		{
 			color = sample_texture_rgba(game->player->pov, x, y);
-      if (color == 0) continue ;
+			if (color == 0)
+				continue ;
 			mlx_put_pixel(game->mlx->img, x, y, color);
 		}
 	}
+}
+
+void mouse(void) {
+  return ;
 }
 
 void	ft_cube(void *param)
@@ -148,14 +153,11 @@ void	ft_cube(void *param)
 	t_algorithmique	algo;
 	int				x;
 
-	(void)!(x = 0, game = (t_game *)param);
-	draw_sky_floor(game);
+	(void)!(x = 0, game = (t_game *)param, draw_sky_floor(game), mouse(), 0);
 	while (x < SCREEN_WIDTH)
 	{
-		init_ray_dir(x, game, &algo);
-		init_xy(game, &algo);
-		init_delta_xy(&algo);
-		init_step_dist(game, &algo);
+		(void)!(init_ray_dir(x, game, &algo), init_xy(game, &algo),
+			init_delta_xy(&algo), init_step_dist(game, &algo), 0);
 		while (true)
 		{
 			advance_ray(&algo);
@@ -168,8 +170,7 @@ void	ft_cube(void *param)
 				break ;
 			}
 		}
-		x++; // instead of this
-				// x += PIXSIZE;
+		x++;
 	}
 	pov(game);
 }
