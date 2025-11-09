@@ -112,6 +112,8 @@ int advanced_map_parsing(t_depot *depot) {
     ft_fprintf(2, "Only one player point allowed!\n");
     return (1);
   }
+  if (ultra_map_parse(depot))
+    return (1);
   while (depot->map[i]) {
     j = 0;
     while (depot->map[i][j]) {
@@ -121,8 +123,5 @@ int advanced_map_parsing(t_depot *depot) {
     }
     i++;
   }
-  pad_map_lines(depot->map);
-  if (ultra_map_parse(depot))
-    return (1);
   return (0);
 }

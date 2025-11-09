@@ -114,6 +114,18 @@ int advanced_map_parsing(t_depot *depot) {
     ft_fprintf(2, "Only one player point allowed!\n");
     return (1);
   }
+  if (doors_parsing(depot->map)) {
+    printf("bad doors\n");
+    return (1);
+  }
+  pad_map_lines(depot->map);
+  for(int k = 0; depot->map[k]; k++){
+    printf("AFTER PAD == '%s'\n", depot->map[k]);
+  }
+  printf("======================here\n");
+  printf("good doors\n");
+  if (ultra_map_parse(depot))
+    return (1);
   while (depot->map[i]) {
     j = 0;
     while (depot->map[i][j]) {
@@ -123,14 +135,5 @@ int advanced_map_parsing(t_depot *depot) {
     }
     i++;
   }
-  if (doors_parsing(depot->map)) {
-    printf("bad doors\n");
-    return (1);
-  }
-  pad_map_lines(depot->map);
-  printf("======================here\n");
-  printf("good doors\n");
-  if (ultra_map_parse(depot))
-    return (1);
   return (0);
 }

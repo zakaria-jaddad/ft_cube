@@ -100,6 +100,11 @@ int	ultra_map_parse(t_depot *depot)
 		}
 		x++;
 	}
+	for(int i = 0; depot->map[i]; i++)
+		printf("BEFORE %s\n", depot->map[i]);
+	pad_map_lines(depot->map);
+	for(int i = 0; depot->map[i]; i++)
+		printf("AFTER %s\n", depot->map[i]);
 	if (is_closed_by_walls(map))
 		return (1);
 	return (0);
