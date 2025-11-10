@@ -140,6 +140,7 @@ void					init_delta_xy(t_algorithmique *algo);
 void					init_xy(t_game *game, t_algorithmique *algo);
 void					init_ray_dir(int x, t_game *game,
 							t_algorithmique *algo);
+void				render_minimap(t_game *game);
 
 static inline void	rotate_player(t_player *player, double rotation_angle)
 {

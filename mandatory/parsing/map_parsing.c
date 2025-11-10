@@ -60,8 +60,7 @@ int map_parse(t_depot *depot) {
   while (map[j]) {
     i = 0;
     while (map[j][i]) {
-      if (map[j][i] != '1' && map[j][i] != '0' && map[j][i] != ' ' &&
-          map[j][i] != 'P' && is_not_pp(map[j][i]) && map[j][i] != '\t') {
+      if (map[j][i] != '1' && map[j][i] != '0' && map[j][i] != ' ' && is_not_pp(map[j][i]) && map[j][i] != '\t') {
         ft_fprintf(2, "%c is an Invalid character!\n", map[j][i]);
         return (1);
       }
@@ -112,6 +111,8 @@ int advanced_map_parsing(t_depot *depot) {
     ft_fprintf(2, "Only one player point allowed!\n");
     return (1);
   }
+  if (ultra_map_parse(depot))
+    return (1);
   while (depot->map[i]) {
     j = 0;
     while (depot->map[i][j]) {
@@ -121,8 +122,5 @@ int advanced_map_parsing(t_depot *depot) {
     }
     i++;
   }
-  pad_map_lines(depot->map);
-  if (ultra_map_parse(depot))
-    return (1);
   return (0);
 }

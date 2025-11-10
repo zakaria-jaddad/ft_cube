@@ -39,6 +39,7 @@ int is_closed_by_walls(char **map) {
     }
     x++;
   }
+  
   return (0);
 }
 

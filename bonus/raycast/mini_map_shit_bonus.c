@@ -6,71 +6,104 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:16:09 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/08/07 16:00:29 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/10 12:00:00 by patcher          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/raycast_bonus.h"
+#include <stdint.h>
 
-/* void	draw_player(t_game *game) */
-/* { */
-/* 	int	pixel_x; */
-/* 	int	pixel_y; */
-/**/
-/* 	pixel_x = floor((game->player->map_x * PIXSIZE) - (int)(PIXSIZE / 2)); */
-/* 	pixel_y = floor((game->player->map_y * PIXSIZE) - (int)(PIXSIZE / 2)); */
-/* 	for (int x = 0; x < PIXSIZE - (PIXSIZE / 3); x++) */
-/* 	{ */
-/* 		for (int y = 0; y < PIXSIZE - (PIXSIZE / 3); y++) */
-/* 		{ */
-/* 			if ((pixel_x + x < 800 && pixel_y + y < 600) && (pixel_x + x >= 0 */
-/* 					&& pixel_y + y >= 0)) */
-/* 			{ */
-/* 				mlx_put_pixel(game->mlx->img, pixel_x + x, pixel_y + y, */
-/* 					0xFFFFFFFF); */
-/* 			} */
-/* 		} */
-/* 	} */
-/* } */
-/**/
-/* inline void	mini_map(void *param) */
-/* { */
-/* 	t_game		*game; */
-/* 	char		**map; */
-/* 	uint32_t	color; */
-/* 	int			pixel_x; */
-/* 	int			pixel_y; */
-/**/
-/* 	game = (t_game *)param; */
-/* 	map = game->depot->map; */
-/* 	for (int i = 0; map[i] != NULL; i++) */
-/* 	{ */
-/* 		for (int j = 0; map[i][j] != 0; j++) */
-/* 		{ */
-/* 			pixel_x = j * PIXSIZE; */
-/* 			pixel_y = i * PIXSIZE; */
-/* 			if (map[i][j] == '1') */
-/* 				color = 0xFFFD77AC; */
-/* 			else if (map[i][j] == ' ') */
-/* 			{ */
-/* 				j++; */
-/* 				continue ; */
-/* 			} */
-/* 			else */
-/* 				color = 0xFF123456; */
-/* 			for (int x = 0; x < PIXSIZE; x++) */
-/* 			{ */
-/* 				for (int y = 0; y < PIXSIZE; y++) */
-/* 				{ */
-/* 					if (pixel_x + x < 800 && pixel_y + y < 600) */
-/* 					{ */
-/* 						mlx_put_pix
- *  						el(game->mlx->img, pixel_x + x, pixel_y + y, */
-/* 							color); */
-/* 					} */
-/* 				} */
-/* 			} */
-/* 		} */
-/* 	} */
-/* 	draw_player(game); */
-/* } */
+static void
+draw_square(t_game *game, int px, int py, uint32_t color)
+{
+	int x;
+	int y;
+
+	x = 0;
+	while (x < PIXSIZE)
+	{
+		y = 0;
+		while (y < PIXSIZE)
+		{
+			if (px + x >= 0 && py + y >= 0 && px + x < SCREEN_WIDTH && py + y < SCREEN_HEIGHT)
+				mlx_put_pixel(game->mlx->img, px + x, py + y, color);
+			y++;
+		}
+		x++;
+	}
+}
+
+static void
+draw_player_at(t_game *game, int base_x, int base_y, int shift_x, int shift_y)
+{
+	int px;
+	int py;
+	int x;
+	int y;
+
+	px = base_x + (PIXSIZE / 2) - shift_x;
+	py = base_y + (PIXSIZE / 2) - shift_y;
+	x = 0;
+	while (x < PIXSIZE - (PIXSIZE / 3))
+	{
+		y = 0;
+		while (y < PIXSIZE - (PIXSIZE / 3))
+		{
+			if (px + x >= 0 && py + y >= 0 && px + x < SCREEN_WIDTH && py + y < SCREEN_HEIGHT)
+				mlx_put_pixel(game->mlx->img, px + x, py + y, 0xFFFFFFFF);
+			y++;
+		}
+		x++;
+	}
+}
+
+static void
+draw_map_view(t_game *game, int cx, int cy, int base_x, int base_y,
+		int shift_x, int shift_y)
+{
+	uint32_t color;
+	int i;
+	int j;
+	int px;
+	int py;
+
+	i = cy - 4;
+	while (i <= cy + 4)
+	{
+		j = cx - 4;
+		while (j <= cx + 4)
+		{
+			px = base_x + (j - cx) * PIXSIZE - shift_x;
+			py = base_y + (i - cy) * PIXSIZE - shift_y;
+			if (i >= 0 && j >= 0 && i < game->map_height && j < (int)ft_strlen(game->depot->map[i]))
+				color = (game->depot->map[i][j] == '1') ? 0xFF0000FF : 0x00FF00FF;
+			else
+				color = 0x00000000;
+			draw_square(game, px, py, color);
+			j++;
+		}
+		i++;
+	}
+}
+
+/* external wrapper used by main rendering loop */
+void	render_minimap(t_game *game)
+{
+	int cx;
+	int cy;
+	int base_x;
+	int base_y;
+	int shift_x;
+	int shift_y;
+
+	if (!game || !game->depot)
+		return ;
+	cx = (int)floor(game->player->map_x);
+	cy = (int)floor(game->player->map_y);
+	base_x = 8 + 4 * PIXSIZE; /* left origin for center cell */
+	base_y = 8 + 4 * PIXSIZE;
+	shift_x = (int)((game->player->map_x - cx) * PIXSIZE);
+	shift_y = (int)((game->player->map_y - cy) * PIXSIZE);
+	draw_map_view(game, cx, cy, base_x, base_y, shift_x, shift_y);
+	draw_player_at(game, base_x, base_y, shift_x, shift_y);
+}

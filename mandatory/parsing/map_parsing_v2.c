@@ -93,13 +93,20 @@ int	ultra_map_parse(t_depot *depot)
 			}
 			if (all_ones(map[0]) || all_ones(map[column_len]))
 			{
+				printf("all zeroes ? == > %s\n", map[column_len]);
 				ft_fprintf(2, "Map Invalid!\n");
+				printf("here\n");
 				return (1);
 			}
 			y++;
 		}
 		x++;
 	}
+	for(int i = 0; depot->map[i]; i++)
+		printf("BEFORE %s\n", depot->map[i]);
+	pad_map_lines(depot->map);
+	for(int i = 0; depot->map[i]; i++)
+		printf("AFTER %s\n", depot->map[i]);
 	if (is_closed_by_walls(map))
 		return (1);
 	return (0);
@@ -112,7 +119,7 @@ int	all_ones(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] != '1')
+		if (str[i] != '1' && str[i] != ' ' && str[i] != '\t')
 			return (1);
 		i++;
 	}
