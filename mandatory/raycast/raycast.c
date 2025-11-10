@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:39:32 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/05 07:04:58 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/10 07:51:40 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	cub_raycast(t_depot *depot)
 			destroy_textures(&game), false);
 	mlx_loop_hook(game.mlx->mlx, player_hook, &game);
 	mlx_loop_hook(game.mlx->mlx, ft_cube, &game);
-	mlx_loop_hook(game.mlx->mlx, ft_hook, game.mlx);
+	mlx_loop_hook(game.mlx->mlx, ft_hook, &game);
 	mlx_loop(game.mlx->mlx);
 	mlx_terminate(game.mlx->mlx);
 	free_player(game.player);

@@ -6,16 +6,12 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 06:38:26 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/05 06:38:43 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/10 07:57:02 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cube.h"
-
-void	f(void)
-{
-	system("leaks cub3D");
-}
+#include "includes/parsing.h"
 
 int	main(int ac, char **av)
 {
@@ -24,23 +20,17 @@ int	main(int ac, char **av)
 	if (ac != 2)
 	{
 		write(2, "Please provide only the exec and map files\n", 44);
-		printf("Rj3 t7awa\n");
-		atexit(f);
 		return (1);
 	}
-	if (depot_init(&depot))
-		return (1);
+  ft_bzero(&depot, sizeof(t_depot));
 	if (cub_parse(av[1], &depot))
 	{
-		printf("Rj3 t7awa\n");
 		free_depot(&depot);
-		atexit(f);
 		return (1);
 	}
-	print_elements(&depot);
+	/* print_elements(&depot); */
 	if (cub_raycast(&depot))
 	{
-		atexit(f);
 		return (1);
 	}
 	return (0);
@@ -48,7 +38,6 @@ int	main(int ac, char **av)
 
 int	depot_init(t_depot *depot)
 {
-	// WTF is wrong with you just bzero the hole struct :|
 	depot->floor_color_R = 0;
 	depot->floor_color_G = 0;
 	depot->floor_color_B = 0;
