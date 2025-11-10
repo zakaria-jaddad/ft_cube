@@ -22,7 +22,7 @@ int	range_check(int	color)
 int	clean_and_add_ceiling(char *str, t_depot *depot)
 {
 	char	*clean_colors;
-	char	**splitted_colors;
+	char	**split_colors;
 
 	if (is_number(str))
 		return (1);
@@ -32,18 +32,18 @@ int	clean_and_add_ceiling(char *str, t_depot *depot)
 		perror("malloc");
 		return (1);
 	}
-	splitted_colors = ft_split(clean_colors, ',');
-	if (!splitted_colors)
+	split_colors = ft_split(clean_colors, ',');
+	if (!split_colors)
 	{
 		perror("malloc");
 		return (1);
 	}
-	if (convert_and_add_ceiling(splitted_colors, depot))
+	if (convert_and_add_ceiling(split_colors, depot))
 	{
-		ft_split_free(splitted_colors);
+		ft_split_free(split_colors);
 		return (1);
 	}
-	ft_split_free(splitted_colors);
+	ft_split_free(split_colors);
 	return (0);
 }
 

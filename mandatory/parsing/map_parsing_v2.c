@@ -38,12 +38,12 @@ int	is_not_pp(char c)
 	return (0);
 }
 
-int	three_elements_check(char **splitted_colors)
+int	three_elements_check(char **split_colors)
 {
 	int	i;
 	
 	i = 0;
-	while (splitted_colors[i])
+	while (split_colors[i])
 		i++;
 	if (i != 3)
 	{

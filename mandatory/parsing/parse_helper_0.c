@@ -57,7 +57,7 @@ int	path_check(char *path)
 int	clean_and_add_floor(char *str, t_depot *depot)
 {
 	char	*clean_colors;
-	char	**splitted_colors;
+	char	**split_colors;
 
 	if (is_number(str))
 		return (1);
@@ -69,26 +69,26 @@ int	clean_and_add_floor(char *str, t_depot *depot)
 		return (1);
 	}
 	printf("--> %s\n", clean_colors);
-	splitted_colors = ft_split(clean_colors, ',');
+	split_colors = ft_split(clean_colors, ',');
 	free(clean_colors);
-	for(int i =0;splitted_colors[i];i++)
-		printf("%s\n", splitted_colors[i]);
-	if (!splitted_colors)
+	for(int i =0;split_colors[i];i++)
+		printf("%s\n", split_colors[i]);
+	if (!split_colors)
 	{
 		perror("malloc");
 		return (1);
 	}
-	if (colors_parse(splitted_colors))
+	if (colors_parse(split_colors))
 	{
-		ft_split_free(splitted_colors);
+		ft_split_free(split_colors);
 		return (1);
 	}
-	if (convert_and_add_floor(splitted_colors, depot))
+	if (convert_and_add_floor(split_colors, depot))
 	{
-		ft_split_free(splitted_colors);
+		ft_split_free(split_colors);
 		return (1);
 	}
-	ft_split_free(splitted_colors);
+	ft_split_free(split_colors);
 	return (0);
 }
 

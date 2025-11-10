@@ -65,7 +65,7 @@ int	read_and_check(int fd, t_depot *depot)
 	print_elements(depot);
 	if (read_map(fd, depot))
 		return (1);
-	retreive_player_pos(depot);
+	retrieve_player_pos(depot);
 	return (0);
 }
 

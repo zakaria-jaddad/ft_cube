@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:00:07 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/10 08:38:14 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/10 09:30:35 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,7 @@ void	free_game(t_game *game)
 		return ;
 	free_player(game->player);
 	free_depot(game->depot);
-	if (game->tex_no)
-		mlx_delete_texture(game->tex_no);
-	if (game->tex_so)
-		mlx_delete_texture(game->tex_so);
-	if (game->tex_we)
-		mlx_delete_texture(game->tex_we);
-	if (game->tex_ea)
-		mlx_delete_texture(game->tex_ea);
+	destroy_textures(game);
 	exit(EXIT_SUCCESS);
 }
 

@@ -48,7 +48,7 @@ int not_player_point(char c) {
   return (0);
 }
 
-int retreive_player_pos(t_depot *depot) {
+int retrieve_player_pos(t_depot *depot) {
   int i;
   int j;
 

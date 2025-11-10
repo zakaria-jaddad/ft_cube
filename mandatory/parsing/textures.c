@@ -1,4 +1,5 @@
 #include "../includes/cube.h"
+#include <stdio.h>
 
 void	destroy_textures(t_game *g)
 {
@@ -16,17 +17,12 @@ void	destroy_textures(t_game *g)
 	g->tex_ea = NULL;
 }
 
-int	load_textures(t_game *g, char *no, char *so, char *we, char *ea)
+int	load_textures(t_game *g)
 {
-	printf("%s\n%s\n%s\n%s\n", no, so, we, ea);
-	if (access(no, F_OK) != 0)
-		printf("2000\n");
-	else
-		printf("Found %s\n", no);
-	g->tex_no = mlx_load_png(no);
-	g->tex_so = mlx_load_png(so);
-	g->tex_we = mlx_load_png(we);
-	g->tex_ea = mlx_load_png(ea);
+	g->tex_no = mlx_load_png(g->depot->path_to_NO);
+	g->tex_so = mlx_load_png(g->depot->path_to_SO);
+	g->tex_we = mlx_load_png(g->depot->path_to_WE);
+	g->tex_ea = mlx_load_png(g->depot->path_to_EA);
 	if (!g->tex_no || !g->tex_so || !g->tex_we || !g->tex_ea)
 	{
 		ft_fprintf(2, "Error loading textures\n");
@@ -37,6 +33,7 @@ int	load_textures(t_game *g, char *no, char *so, char *we, char *ea)
 
 mlx_texture_t	*pick_tex(t_algorithmique *a, t_game *g)
 {
+
 	if (a->side == 0)
 	{
 		if (a->ray_dir_x > 0)
