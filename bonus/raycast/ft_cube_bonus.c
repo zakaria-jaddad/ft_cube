@@ -196,6 +196,7 @@ void	ft_cube(void *param)
 		}
 		x++;
 	}
-  update_bobbing(game);
-	pov(game);
+	update_bobbing(game);
+		pov(game);
+		render_minimap(game);
 }

@@ -78,7 +78,6 @@ EXECUTION_HH_M = ./mandatory/raycast/actions.c \
 								 ./mandatory/raycast/direction.c \
 								 ./mandatory/raycast/ft_cube.c \
 								 ./mandatory/raycast/hooks.c \
-								 ./mandatory/raycast/mini_map_shit.c \
 								 ./mandatory/raycast/mlx.c \
 								 ./mandatory/raycast/player.c \
 								 ./mandatory/raycast/raycast.c \

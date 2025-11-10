@@ -60,8 +60,7 @@ int map_parse(t_depot *depot) {
   while (map[j]) {
     i = 0;
     while (map[j][i]) {
-      if (map[j][i] != '1' && map[j][i] != '0' && map[j][i] != ' ' &&
-          map[j][i] != 'P' && is_not_pp(map[j][i]) && map[j][i] != '\t') {
+      if (map[j][i] != '1' && map[j][i] != '0' && map[j][i] != ' ' && is_not_pp(map[j][i]) && map[j][i] != '\t') {
         ft_fprintf(2, "%c is an Invalid character!\n", map[j][i]);
         return (1);
       }
