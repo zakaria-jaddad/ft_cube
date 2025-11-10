@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_parsing_v2.c                                   :+:      :+:    :+:   */
+/*   map_parsing_v2_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:43:09 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/08/02 07:23:45 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/11/10 10:54:03 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing_bonus.h"
+#include <stdio.h>
 
 int	map_clean(t_depot *depot)
 {
@@ -88,11 +89,13 @@ int	ultra_map_parse(t_depot *depot)
 		{
 			if (map[x][0] != '1' || map[x][row_len] != '1')
 			{
+        printf("hello world\n");
 				ft_fprintf(2, "Map Invalid!\n");
 				return (1);
 			}
 			if (all_ones(map[0]) || all_ones(map[column_len]))
 			{
+        printf("world hello\n");
 				ft_fprintf(2, "Map Invalid!\n");
 				return (1);
 			}
@@ -114,7 +117,7 @@ int	all_ones(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] != '1')
+		if (str[i] != '1' && str[i] != ' ' && str[i] != '\t')
 			return (1);
 		i++;
 	}

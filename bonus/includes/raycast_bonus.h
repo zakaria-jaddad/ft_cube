@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:00:52 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/09 07:24:25 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/10 11:31:53 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 
 # define SCREEN_WIDTH 1000
 # define SCREEN_HEIGHT 800
-# define ROTATION_SPEED 0.06
+# define ROTATION_SPEED 0.09
 # define PIXSIZE 20
-# define MOVE_SPEED .13
+# define MOVE_SPEED .1
 # define SKY_COLOR 0x00FFFF
 # define FLOOR_COLOR 0x000000
 # define POV_PATH "./bonus/textures/zlayji_pov.png"

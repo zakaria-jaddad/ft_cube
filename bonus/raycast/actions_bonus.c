@@ -6,12 +6,13 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:02:43 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/09 03:07:17 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/10 10:42:05 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/raycast_bonus.h"
 
+// TODO: REFACTOR THIS
 static bool	is_valid_move(t_game *game, double nx, double ny)
 {
 	int tx;

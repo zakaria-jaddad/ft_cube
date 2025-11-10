@@ -1,4 +1,5 @@
 #include "includes/cube_bonus.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 int main(int ac, char **av) {
@@ -19,6 +20,13 @@ int main(int ac, char **av) {
     return (1);
   }
   print_elements(&depot);
+  int i = 0;
+  printf("ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd\n");
+  while (depot.map[i]) {
+    printf("%s\n", depot.map[i]);
+    i++;
+  }
+  printf("ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd\n");
    if (cub_raycast(&depot)){
      return (1);
    }
