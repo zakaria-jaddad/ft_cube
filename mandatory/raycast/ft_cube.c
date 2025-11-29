@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 16:48:17 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/10 08:55:24 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/29 17:59:07 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,16 +89,19 @@ static void	cast_wall(int x, t_game *game, t_algorithmique *algo)
 	int		line_height;
 	int		wall_top;
 	int		wall_bottom;
+	double veclen = sqrt(algo->ray_dir_x * algo->ray_dir_x + algo->ray_dir_y * algo->ray_dir_y);
+
 
 	if (algo->side == 0)
-		walldist = (algo->map_x - game->player->map_x + (1 - algo->step_x)
-				/ 2.0) / algo->ray_dir_x;
-	else
-		walldist = (algo->map_y - game->player->map_y + (1 - algo->step_y)
-				/ 2.0) / algo->ray_dir_y;
+		walldist = algo->side_dist_x - algo->delta_dist_x;
+	else 
+		walldist = algo->side_dist_y -  algo->delta_dist_y;
+	
 	if (walldist < 1e-6)
 		walldist = 1e-6;
-	algo->perp_wall_dist = walldist;
+
+	walldist = walldist / veclen;
+
 	line_height = (int)(SCREEN_HEIGHT / walldist);
 	wall_top = -line_height / 2 + SCREEN_HEIGHT / 2;
 	if (wall_top < 0)

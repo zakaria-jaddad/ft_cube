@@ -91,7 +91,7 @@ typedef struct s_algorithmique
 	double				side_dist_x;
 	double				side_dist_y;
 	int					side;
-	double				perp_wall_dist;
+	// double				perp_wall_dist;
 	double				wall_x;
 	int					tex_x;
 	double				step;

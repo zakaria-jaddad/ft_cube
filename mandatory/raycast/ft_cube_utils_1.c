@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:00:58 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/10 09:08:17 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/11/29 18:01:20 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@ void	init_ray_dir(int x, t_game *game, t_algorithmique *algo)
 		* algo->camera_x;
 	algo->ray_dir_y = game->player->direction->y + game->player->plane->y
 		* algo->camera_x;
-	if (algo->ray_dir_x == 0)
-		algo->ray_dir_x = 1e-30;
-	if (algo->ray_dir_y == 0)
-		algo->ray_dir_y = 1e-30;
 }
 
 void	init_xy(t_game *game, t_algorithmique *algo)
@@ -33,8 +29,12 @@ void	init_xy(t_game *game, t_algorithmique *algo)
 
 void	init_delta_xy(t_algorithmique *algo)
 {
-	algo->delta_dist_x = fabs(1 / algo->ray_dir_x);
-	algo->delta_dist_y = fabs(1 / algo->ray_dir_y);
+	double	veclen;
+
+	veclen = sqrt(algo->ray_dir_x * algo->ray_dir_x + algo->ray_dir_y
+			* algo->ray_dir_y);
+	algo->delta_dist_x = fabs(veclen / algo->ray_dir_x);
+	algo->delta_dist_y = fabs(veclen / algo->ray_dir_y);
 }
 
 void	init_step_dist(t_game *game, t_algorithmique *algo)

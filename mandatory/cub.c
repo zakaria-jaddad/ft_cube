@@ -16,23 +16,10 @@
 
 int	main(int ac, char **av)
 {
-
-
-
-  close(1);
-  int out = printf("hello world");
-  write(1, "hello world", 11);
-  int alo = ft_fprintf(1, "hello world");
-
-  fprintf(stderr, "%d\n", out);
-  fprintf(stderr, "%d\n", alo);
-
-
-    return 0;
-
 	t_depot	depot;
 
 	if (ac != 2)
+	
 		return (write(2, "Please provide only the exec and map files\n", 44),
 			1);
 	ft_bzero(&depot, sizeof(t_depot));
