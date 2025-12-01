@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 16:48:17 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/29 17:59:07 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/12/01 01:16:39 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ static void	draw_tex_line(int x, mlx_texture_t *tex, t_algorithmique *algo,
 		tex_y = (int)algo->tex_pos;
 		algo->tex_pos += algo->step;
 		color = sample_texture_rgba(tex, algo->tex_x, tex_y);
-		if (algo->side == 1)
-			color = shade_rgba(color, 0.75);
 		if (x >= 0 && x < SCREEN_WIDTH)
 			mlx_put_pixel(game->mlx->img, x, y, color);
 		++y;
@@ -103,7 +101,7 @@ static void	cast_wall(int x, t_game *game, t_algorithmique *algo)
 	walldist = walldist / veclen;
 
 	line_height = (int)(SCREEN_HEIGHT / walldist);
-	wall_top = -line_height / 2 + SCREEN_HEIGHT / 2;
+	wall_top =  (SCREEN_HEIGHT / 2) - (line_height / 2);
 	if (wall_top < 0)
 		wall_top = 0;
 	wall_bottom = line_height / 2 + SCREEN_HEIGHT / 2;

@@ -19,10 +19,6 @@ void	init_ray_dir(int x, t_game *game, t_algorithmique *algo)
 		* algo->camera_x;
 	algo->ray_dir_y = game->player->direction->y + game->player->plane->y
 		* algo->camera_x;
-	if (algo->ray_dir_x == 0)
-		algo->ray_dir_x = 1e-30;
-	if (algo->ray_dir_y == 0)
-		algo->ray_dir_y = 1e-30;
 }
 
 void	init_xy(t_game *game, t_algorithmique *algo)
@@ -33,8 +29,12 @@ void	init_xy(t_game *game, t_algorithmique *algo)
 
 void	init_delta_xy(t_algorithmique *algo)
 {
-	algo->delta_dist_x = fabs(1 / algo->ray_dir_x);
-	algo->delta_dist_y = fabs(1 / algo->ray_dir_y);
+	double	veclen;
+
+	veclen = sqrt(algo->ray_dir_x * algo->ray_dir_x + algo->ray_dir_y
+			* algo->ray_dir_y);
+	algo->delta_dist_x = fabs(veclen / algo->ray_dir_x);
+	algo->delta_dist_y = fabs(veclen / algo->ray_dir_y);
 }
 
 void	init_step_dist(t_game *game, t_algorithmique *algo)

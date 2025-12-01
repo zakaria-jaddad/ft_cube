@@ -25,8 +25,6 @@
 # define ROTATION_SPEED 0.05
 # define PIXSIZE 20
 # define MOVE_SPEED .10
-# define SKY_COLOR 0x00FFFF
-# define FLOOR_COLOR 0x000000
 
 typedef struct s_img
 {

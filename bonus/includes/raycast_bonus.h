@@ -24,14 +24,12 @@
 # define SCREEN_HEIGHT 800
 # define ROTATION_SPEED 0.09
 # define PIXSIZE 20
-# define MOVE_SPEED .1
-# define SKY_COLOR 0x00FFFF
-# define FLOOR_COLOR 0x000000
+# define MOVE_SPEED .10
 # define POV_PATH "./bonus/textures/zlayji_pov.png"
 // # define SKY_PATH "./bonus/textures/skybox.png"
 
-# define BOB_AMPLITUDE 8.0f // Max pixels up or down
-#define BOB_SPEED     0.05f // How fast the bob repeats
+# define BOB_AMPLITUDE 8.0f
+#define BOB_SPEED     0.05f
 
 typedef struct s_img
 {

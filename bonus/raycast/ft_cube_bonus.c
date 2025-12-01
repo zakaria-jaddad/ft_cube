@@ -38,10 +38,6 @@ static void	draw_sky_floor(t_game *game)
 	}
 }
 
-// Choose texture by wall orientation and ray direction.
-// Convention (common in Cub3D):
-// - side == 0: vertical wall (E/W). ray_dir_x > 0 -> WE, else EA
-// - side == 1: horizontal wall (N/S). ray_dir_y > 0 -> NO, else SO
 void	cast_wall_textured(int x, t_game *game, t_algorithmique *algo,
 		mlx_texture_t *tex)
 {
@@ -50,14 +46,11 @@ void	cast_wall_textured(int x, t_game *game, t_algorithmique *algo,
 
 	if (!tex)
 		return ;
-	// Calculate line height on screen
-	// Find where on the wall the ray hits (0..1) to get the texture X coordinate
 	if (algo->side == 0)
 		algo->wall_x = game->player->map_y + algo->walldist * algo->ray_dir_y;
 	else
 		algo->wall_x = game->player->map_x + algo->walldist * algo->ray_dir_x;
 	algo->wall_x -= floor(algo->wall_x);
-	// Texture X coordinate (flip to keep orientation consistent)
 	algo->tex_x = (int)(algo->wall_x * (double)tex->width);
 	if ((algo->side == 0 && algo->ray_dir_x > 0) || (algo->side == 1
 			&& algo->ray_dir_y < 0))
@@ -66,9 +59,7 @@ void	cast_wall_textured(int x, t_game *game, t_algorithmique *algo,
 		algo->tex_x = 0;
 	if (algo->tex_x >= (int)tex->width)
 		algo->tex_x = (int)tex->width - 1;
-	// How much to step in the texture for each screen pixel
 	algo->step = (double)tex->height / (double)algo->line_height;
-	// Starting texture y position
 	algo->tex_pos = (algo->wall_top - SCREEN_HEIGHT / 2.0 + algo->line_height
 			/ 2.0) * algo->step;
 	for (int y = algo->wall_top; y <= algo->wall_bottom; ++y)
@@ -97,28 +88,29 @@ static void	cast_wall(int x, t_game *game, t_algorithmique *algo)
 	int		wall_top;
 	int		wall_bottom;
 	bool	is_door_cast;
+	double veclen = sqrt(algo->ray_dir_x * algo->ray_dir_x + algo->ray_dir_y * algo->ray_dir_y);
 
 	is_door_cast = check_cast_type(game->depot->map[algo->map_y][algo->map_x]);
 	if (algo->side == 0)
-		walldist = (algo->map_x - game->player->map_x + (1 - algo->step_x)
-				/ 2.0) / algo->ray_dir_x;
-	else
-		walldist = (algo->map_y - game->player->map_y + (1 - algo->step_y)
-				/ 2.0) / algo->ray_dir_y;
+		walldist = algo->side_dist_x - algo->delta_dist_x;
+	else 
+		walldist = algo->side_dist_y -  algo->delta_dist_y;
+	
 	if (walldist < 1e-6)
 		walldist = 1e-6;
+
+	walldist = walldist / veclen;
+
 	algo->perp_wall_dist = walldist;
 	line_height = (int)(SCREEN_HEIGHT / walldist);
-	wall_top = -line_height / 2 + SCREEN_HEIGHT / 2;
+	wall_top =  (SCREEN_HEIGHT / 2) - (line_height / 2);
 	if (wall_top < 0)
 		wall_top = 0;
 	wall_bottom = line_height / 2 + SCREEN_HEIGHT / 2;
 	if (wall_bottom >= SCREEN_HEIGHT)
 		wall_bottom = SCREEN_HEIGHT - 1;
-	algo->line_height = line_height;
-	algo->walldist = walldist;
-	algo->wall_top = wall_top;
-	algo->wall_bottom = wall_bottom;
+	(void)!(algo->line_height = line_height, algo->walldist = walldist, 1);
+	(void)!(algo->wall_top = wall_top, algo->wall_bottom = wall_bottom, 1);
 	if (is_door_cast == false)
 		cast_wall_textured(x, game, algo, pick_tex(algo, game));
 	else
@@ -167,17 +159,13 @@ void	pov(t_game *game)
 	}
 }
 
-void mouse(void) {
-  return ;
-}
-
 void	ft_cube(void *param)
 {
 	t_game			*game;
 	t_algorithmique	algo;
 	int				x;
 
-	(void)!(x = 0, game = (t_game *)param, draw_sky_floor(game), mouse(), 0);
+	(void)!(x = 0, game = (t_game *)param, draw_sky_floor(game), 0);
 	while (x < SCREEN_WIDTH)
 	{
 		(void)!(init_ray_dir(x, game, &algo), init_xy(game, &algo),
@@ -197,6 +185,6 @@ void	ft_cube(void *param)
 		x++;
 	}
 	update_bobbing(game);
-		pov(game);
-		render_minimap(game);
+	pov(game);
+	render_minimap(game);
 }
