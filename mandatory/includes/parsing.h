@@ -6,7 +6,7 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 08:41:59 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/11/10 09:52:18 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/12/10 17:00:59 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ typedef struct s_depot
 	unsigned int		c_color;
 	int					c_colors_flag;
 	int					f_colors_flag;
-	int					NO;
-	int					SO;
-	int					WE;
-	int					EA;
+	int					no;
+	int					so;
+	int					we;
+	int					ea;
 	double				player_x;
 	double				player_y;
 
@@ -56,7 +56,6 @@ void					print_elements(t_depot *depot);
 void					free_depot(t_depot *depot);
 int						three_elements_check(char **split_colors);
 uint32_t				rgb_convert(int r, int g, int b);
-uint32_t				rgba_convert(int r, int g, int b, int a);
 int						process_line(char *line, t_depot *depot);
 int						process_split_colors(char **split_colors,
 							t_depot *depot);

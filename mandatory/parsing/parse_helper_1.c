@@ -70,13 +70,13 @@ int	player_point_count(t_depot *depot, int j)
 	while (map[j][i])
 	{
 		if (map[j][i] == 'N')
-			depot->NO += 1;
+			depot->no += 1;
 		if (map[j][i] == 'S')
-			depot->SO += 1;
+			depot->so += 1;
 		if (map[j][i] == 'W')
-			depot->WE += 1;
+			depot->we += 1;
 		if (map[j][i] == 'E')
-			depot->EA += 1;
+			depot->ea += 1;
 		i++;
 	}
 	return (0);

@@ -85,6 +85,7 @@ EXECUTION_HH_M = ./mandatory/raycast/actions.c \
 								 ./mandatory/raycast/raycast.c \
 								 ./mandatory/raycast/vector.c  \
 								 ./mandatory/raycast/ft_cube_utils_1.c \
+								 ./mandatory/raycast/cast_wall_textured.c \
 
 MAIN_M = ./mandatory/cub.c
 # -- END MANDATORY PART
@@ -115,6 +116,7 @@ EXECUTION_HH_B = ./bonus/raycast/actions_bonus.c \
 								 ./bonus/raycast/raycast_bonus.c \
 								 ./bonus/raycast/vector_bonus.c  \
 								 ./bonus/raycast/ft_cube_utils_1_bonus.c \
+								 ./bonus/raycast/cast_wall_textured.c \
 
 MAIN_B = ./bonus/cub_bonus.c
 # -- END BONUS PART

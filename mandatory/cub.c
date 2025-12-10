@@ -6,13 +6,11 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 06:38:26 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/10 09:56:54 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/12/10 17:06:27 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cube.h"
-#include <stdio.h>
-#include <unistd.h>
 
 int	main(int ac, char **av)
 {

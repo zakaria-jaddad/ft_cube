@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_parsing_v3.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/10 16:30:35 by zajaddad          #+#    #+#             */
+/*   Updated: 2025/12/10 17:04:22 by zajaddad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/parsing.h"
 
 static int	check_neighbors(char **map, int x, int y)
@@ -73,6 +85,12 @@ int	retrieve_player_pos(t_depot *depot)
 		i++;
 	}
 	return (0);
+}
+
+uint32_t	rgb_convert(int r, int g, int b)
+{
+	return (((uint32_t)(r & 0xFF) << 24) | ((uint32_t)(g & 0xFF) << 16)
+		| ((uint32_t)(b & 0xFF) << 8) | 0xFFu);
 }
 
 int	clean_path(t_depot *depot)

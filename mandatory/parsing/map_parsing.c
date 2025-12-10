@@ -109,7 +109,7 @@ int	advanced_map_parsing(t_depot *depot)
 
 	i = 0;
 	j = 0;
-	if (depot->EA + depot->NO + depot->SO + depot->WE != 1)
+	if (depot->ea + depot->no + depot->so + depot->we != 1)
 	{
 		ft_fprintf(2, "Only one player point allowed!\n");
 		return (1);

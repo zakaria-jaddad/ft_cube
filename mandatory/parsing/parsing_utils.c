@@ -6,23 +6,11 @@
 /*   By: antigrav <antigrav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 17:00:00 by antigrav          #+#    #+#             */
-/*   Updated: 2025/12/08 17:00:00 by antigrav         ###   ########.fr       */
+/*   Updated: 2025/12/10 16:59:26 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
-
-uint32_t	rgb_convert(int r, int g, int b)
-{
-	return ((uint32_t)(r & 0xFF) << 24) | ((uint32_t)(g & 0xFF) << 16)
-		| ((uint32_t)(b & 0xFF) << 8) | 0xFFu;
-}
-
-uint32_t	rgba_convert(int r, int g, int b, int a)
-{
-	return (((uint32_t)(r & 0xFF) << 24) | ((uint32_t)(g & 0xFF) << 16)
-		| ((uint32_t)(b & 0xFF) << 8) | ((uint32_t)(a & 0xFF)));
-}
 
 int	is_number(char *str)
 {

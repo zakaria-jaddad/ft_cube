@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:00:52 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/10 09:26:13 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/12/10 17:10:56 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ typedef struct s_mlx
 
 typedef enum e_direction
 {
-	NO,
-	SO,
-	WE,
-	EA,
+	no,
+	so,
+	we,
+	ea,
 }						t_direction;
 
 typedef struct s_vector
@@ -124,6 +124,7 @@ int						load_textures(t_game *g);
 void					destroy_textures(t_game *g);
 mlx_texture_t			*pick_tex(t_algorithmique *a, t_game *g);
 void					mini_map(void *param);
+void	cast_wall_textured(int x, t_game *game, t_algorithmique *algo);
 
 static inline void	rotate_player(t_player *player, double rotation_angle)
 {
@@ -149,55 +150,5 @@ static inline bool	check_out_bound(t_game *game, t_algorithmique *algo)
 		|| algo->map_x >= (int)ft_strlen(game->depot->map[algo->map_y]));
 }
 
-static inline uint32_t	pack_rgba(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
-{
-	uint32_t	z;
-
-	z = ((r << 24) | (g << 16) | (b << 8) | a);
-	return (z);
-}
-
-static inline uint32_t	shade_rgba(uint32_t color, double factor)
-{
-	uint8_t	r;
-	uint8_t	g;
-	uint8_t	b;
-	uint8_t	a;
-
-	r = (color >> 24) & 0xFF;
-	g = (color >> 16) & 0xFF;
-	b = (color >> 8) & 0xFF;
-	a = (color >> 0) & 0xFF;
-	r = (uint8_t)fmin(255.0, r * factor);
-	g = (uint8_t)fmin(255.0, g * factor);
-	b = (uint8_t)fmin(255.0, b * factor);
-	return (pack_rgba(r, g, b, a));
-}
-
-static inline uint32_t	sample_texture_rgba(mlx_texture_t *tex, int tx, int ty)
-{
-	size_t	idx;
-	uint8_t	r;
-	uint8_t	g;
-	uint8_t	b;
-	uint8_t	a;
-
-	if (!tex || !tex->pixels || tex->bytes_per_pixel != 4)
-		return (0x000000FF);
-	if (tx < 0)
-		tx = 0;
-	if (ty < 0)
-		ty = 0;
-	if (tx >= (int)tex->width)
-		tx = (int)tex->width - 1;
-	if (ty >= (int)tex->height)
-		ty = (int)tex->height - 1;
-	idx = ((size_t)ty * tex->width + (size_t)tx) * 4;
-	r = tex->pixels[idx + 0];
-	g = tex->pixels[idx + 1];
-	b = tex->pixels[idx + 2];
-	a = tex->pixels[idx + 3];
-	return (pack_rgba(r, g, b, a));
-}
 
 #endif

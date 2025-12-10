@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 16:48:17 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/12/01 01:16:39 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/12/10 17:11:10 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,72 +36,25 @@ static void	draw_sky_floor(t_game *game)
 	}
 }
 
-static void	draw_tex_line(int x, mlx_texture_t *tex, t_algorithmique *algo,
-		t_game *game)
-{
-	uint32_t	color;
-	int			tex_y;
-	int			y;
-
-	y = algo->wall_top;
-	while (y <= algo->wall_bottom)
-	{
-		tex_y = (int)algo->tex_pos;
-		algo->tex_pos += algo->step;
-		color = sample_texture_rgba(tex, algo->tex_x, tex_y);
-		if (x >= 0 && x < SCREEN_WIDTH)
-			mlx_put_pixel(game->mlx->img, x, y, color);
-		++y;
-	}
-}
-
-static void	cast_wall_textured(int x, t_game *game, t_algorithmique *algo)
-{
-	mlx_texture_t	*tex;
-
-	if (algo->side == 0)
-		algo->wall_x = game->player->map_y + algo->walldist * algo->ray_dir_y;
-	else
-		algo->wall_x = game->player->map_x + algo->walldist * algo->ray_dir_x;
-	algo->wall_x -= floor(algo->wall_x);
-	tex = pick_tex(algo, game);
-	if (!tex)
-		return ;
-	algo->tex_x = (int)(algo->wall_x * (double)tex->width);
-	if ((algo->side == 0 && algo->ray_dir_x > 0) || (algo->side == 1
-			&& algo->ray_dir_y < 0))
-		algo->tex_x = (int)tex->width - algo->tex_x - 1;
-	if (algo->tex_x < 0)
-		algo->tex_x = 0;
-	if (algo->tex_x >= (int)tex->width)
-		algo->tex_x = (int)tex->width - 1;
-	algo->step = (double)tex->height / (double)algo->line_height;
-	algo->tex_pos = (algo->wall_top - SCREEN_HEIGHT / 2.0 + algo->line_height
-			/ 2.0) * algo->step;
-	draw_tex_line(x, tex, algo, game);
-}
-
 static void	cast_wall(int x, t_game *game, t_algorithmique *algo)
 {
 	double	walldist;
 	int		line_height;
 	int		wall_top;
 	int		wall_bottom;
-	double veclen = sqrt(algo->ray_dir_x * algo->ray_dir_x + algo->ray_dir_y * algo->ray_dir_y);
+	double	veclen;
 
-
+	veclen = sqrt(algo->ray_dir_x * algo->ray_dir_x + algo->ray_dir_y
+			* algo->ray_dir_y);
 	if (algo->side == 0)
 		walldist = algo->side_dist_x - algo->delta_dist_x;
-	else 
-		walldist = algo->side_dist_y -  algo->delta_dist_y;
-	
+	else
+		walldist = algo->side_dist_y - algo->delta_dist_y;
 	if (walldist < 1e-6)
 		walldist = 1e-6;
-
 	walldist = walldist / veclen;
-
 	line_height = (int)(SCREEN_HEIGHT / walldist);
-	wall_top =  (SCREEN_HEIGHT / 2) - (line_height / 2);
+	wall_top = (SCREEN_HEIGHT / 2) - (line_height / 2);
 	if (wall_top < 0)
 		wall_top = 0;
 	wall_bottom = line_height / 2 + SCREEN_HEIGHT / 2;
