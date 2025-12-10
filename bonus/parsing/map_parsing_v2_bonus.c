@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/parsing_bonus.h"
-#include <stdio.h>
 
 int	map_clean(t_depot *depot)
 {
@@ -42,7 +41,7 @@ int	is_not_pp(char c)
 int	three_elements_check(char **splitted_colors)
 {
 	int	i;
-	
+
 	i = 0;
 	while (splitted_colors[i])
 		i++;
@@ -53,6 +52,7 @@ int	three_elements_check(char **splitted_colors)
 	}
 	return (0);
 }
+
 int	colors_parse(char **str)
 {
 	int	i;
@@ -65,48 +65,6 @@ int	colors_parse(char **str)
 		ft_fprintf(2, "More than three colors!\n");
 		return (1);
 	}
-	return (0);
-}
-
-int	ultra_map_parse(t_depot *depot)
-{
-	char	**map;
-	int		x;
-	int		y;
-	int		row_len;
-	int		column_len;
-
-	x = 0;
-	y = 0;
-	map = depot->map;
-	column_len = ft_dbl_strlen(map) - 1;
-	while (map[x])
-	{
-		y = 0;
-		row_len = ft_strlen(map[x]) - 1;
-		printf("==> %s\n", map[x]);
-		while (map[x][y])
-		{
-			if (map[x][0] != '1' || map[x][row_len] != '1')
-			{
-        printf("hello world\n");
-				ft_fprintf(2, "Map Invalid!\n");
-				return (1);
-			}
-			if (all_ones(map[0]) || all_ones(map[column_len]))
-			{
-        printf("world hello\n");
-				ft_fprintf(2, "Map Invalid!\n");
-				return (1);
-			}
-			y++;
-		}
-		x++;
-	}
-	printf("---------------------------begin--------------------\n");
-	if (is_closed_by_walls(depot->map))
-		return (1);
-	printf("Map Valid yeyyyy !!\n");
 	return (0);
 }
 

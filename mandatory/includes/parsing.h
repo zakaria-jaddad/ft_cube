@@ -25,18 +25,18 @@ typedef struct s_parse	t_parse;
 typedef struct s_depot
 {
 	char				**map;
-	char				*path_to_NO;
-	char				*path_to_SO;
-	char				*path_to_WE;
-	char				*path_to_EA;
-	int					floor_color_R;
-	int					floor_color_G;
-	int					floor_color_B;
-	int					ceiling_color_R;
-	int					ceiling_color_G;
-	int					ceiling_color_B;
-	unsigned int f_color;
-	unsigned int c_color;
+	char				*path_to_no;
+	char				*path_to_so;
+	char				*path_to_we;
+	char				*path_to_ea;
+	int					floor_color_r;
+	int					floor_color_g;
+	int					floor_color_b;
+	int					ceiling_color_r;
+	int					ceiling_color_g;
+	int					ceiling_color_b;
+	unsigned int		f_color;
+	unsigned int		c_color;
 	int					c_colors_flag;
 	int					f_colors_flag;
 	int					NO;
@@ -57,6 +57,17 @@ void					free_depot(t_depot *depot);
 int						three_elements_check(char **split_colors);
 uint32_t				rgb_convert(int r, int g, int b);
 uint32_t				rgba_convert(int r, int g, int b, int a);
+int						process_line(char *line, t_depot *depot);
+int						process_split_colors(char **split_colors,
+							t_depot *depot);
+int						process_split_ceiling(char **split_colors,
+							t_depot *depot);
+int						assign_floor_color(t_depot *depot, int color,
+							int index);
+int						assign_ceiling_color(t_depot *depot, int color,
+							int index);
+int						check_horizontal_walls(char **map, int last_row_idx);
+int						check_vertical_walls(char **map);
 
 //----------------Parsing-------------------//
 int						cub_parse(char *path, t_depot *depot);
@@ -74,7 +85,6 @@ int						depot_init(t_depot *depot);
 int						read_map(int fd, t_depot *depot);
 int						all_info_checked(t_depot *depot);
 int						is_color(char **str);
-int						is_map(char *str, t_depot *depot);
 int						map_parse(t_depot *depot);
 int						player_point_parsing(t_depot *depot);
 int						advanced_map_parsing(t_depot *depot);
@@ -90,5 +100,9 @@ int						retrieve_player_pos(t_depot *depot);
 int						clean_path(t_depot *depot);
 void					pad_map_lines_n(char **map, int rows);
 void					pad_map_lines(char **map);
+int						player_point_count(t_depot *depot, int j);
+size_t					get_max_len(char **map, int rows);
+void					pad_existing_line(char **map, int row, size_t max_len);
+void					pad_null_line(char **map, int row, size_t max_len);
 
 #endif

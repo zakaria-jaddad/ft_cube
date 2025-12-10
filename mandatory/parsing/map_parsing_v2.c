@@ -41,7 +41,7 @@ int	is_not_pp(char c)
 int	three_elements_check(char **split_colors)
 {
 	int	i;
-	
+
 	i = 0;
 	while (split_colors[i])
 		i++;
@@ -52,6 +52,7 @@ int	three_elements_check(char **split_colors)
 	}
 	return (0);
 }
+
 int	colors_parse(char **str)
 {
 	int	i;
@@ -70,58 +71,16 @@ int	colors_parse(char **str)
 int	ultra_map_parse(t_depot *depot)
 {
 	char	**map;
-	int		x;
-	int		y;
-	int		row_len;
 	int		column_len;
 
-	x = 0;
-	y = 0;
 	map = depot->map;
 	column_len = ft_dbl_strlen(map) - 1;
-	while (map[x])
-	{
-		y = 0;
-		row_len = ft_strlen(map[x]) - 1;
-		printf("==> %s\n", map[x]);
-		while (map[x][y])
-		{
-			if (map[x][0] != '1' || map[x][row_len] != '1')
-			{
-				ft_fprintf(2, "Map Invalid!\n");
-				return (1);
-			}
-			if (all_ones(map[0]) || all_ones(map[column_len]))
-			{
-				printf("all zeroes ? == > %s\n", map[column_len]);
-				ft_fprintf(2, "Map Invalid!\n");
-				printf("here\n");
-				return (1);
-			}
-			y++;
-		}
-		x++;
-	}
-	for(int i = 0; depot->map[i]; i++)
-		printf("BEFORE %s\n", depot->map[i]);
+	if (check_horizontal_walls(map, column_len))
+		return (1);
+	if (check_vertical_walls(map))
+		return (1);
 	pad_map_lines(depot->map);
-	for(int i = 0; depot->map[i]; i++)
-		printf("AFTER %s\n", depot->map[i]);
 	if (is_closed_by_walls(map))
 		return (1);
-	return (0);
-}
-
-int	all_ones(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] != '1' && str[i] != ' ' && str[i] != '\t')
-			return (1);
-		i++;
-	}
 	return (0);
 }

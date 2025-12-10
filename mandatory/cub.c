@@ -19,7 +19,6 @@ int	main(int ac, char **av)
 	t_depot	depot;
 
 	if (ac != 2)
-	
 		return (write(2, "Please provide only the exec and map files\n", 44),
 			1);
 	ft_bzero(&depot, sizeof(t_depot));

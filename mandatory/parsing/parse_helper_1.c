@@ -12,13 +12,6 @@
 
 #include "../includes/parsing.h"
 
-int	range_check(int	color)
-{
-	if (color <= 255 && color >= 0)
-		return (1);
-	return (0);
-}
-
 int	clean_and_add_ceiling(char *str, t_depot *depot)
 {
 	char	*clean_colors;
@@ -28,54 +21,35 @@ int	clean_and_add_ceiling(char *str, t_depot *depot)
 		return (1);
 	clean_colors = ft_strtrim(str, " \t");
 	if (!clean_colors)
-	{
-		perror("malloc");
-		return (1);
-	}
+		return (perror("malloc"), 1);
 	split_colors = ft_split(clean_colors, ',');
+	free(clean_colors);
 	if (!split_colors)
-	{
-		perror("malloc");
-		return (1);
-	}
-	if (convert_and_add_ceiling(split_colors, depot))
-	{
-		ft_split_free(split_colors);
-		return (1);
-	}
-	ft_split_free(split_colors);
-	return (0);
+		return (perror("malloc"), 1);
+	return (process_split_ceiling(split_colors, depot));
 }
 
 int	convert_and_add_ceiling(char **str, t_depot *depot)
 {
-	int	i;
+	int		i;
+	int		val;
 
 	i = 0;
 	while (str[i])
 	{
-		if (range_check(ft_atoi(str[i])))
+		val = ft_atoi(str[i]);
+		if (range_check(val))
 		{
-			if (i == 0)
-				depot->ceiling_color_R = ft_atoi(str[i]);
-			else if (i == 1)
-				depot->ceiling_color_G = ft_atoi(str[i]);
-			else if (i == 2)
-				depot->ceiling_color_B = ft_atoi(str[i]);
-			else
-			{
-				ft_fprintf(2, "%s\n", "More than 3 colors");
+			if (assign_ceiling_color(depot, val, i))
 				return (1);
-			}
 		}
 		else
-			return (ft_fprintf(2, "%s\n", "Invalid colors range"), 1);
+			return (ft_fprintf(2, "Invalid colors range\n"), 1);
 		i++;
 	}
-	depot->c_color = rgb_convert(depot->ceiling_color_R,
-		depot->ceiling_color_G, depot->ceiling_color_B);
+	depot->c_color = rgb_convert(depot->ceiling_color_r,
+			depot->ceiling_color_g, depot->ceiling_color_b);
 	depot->c_colors_flag = 1;
-	printf("CEILLING COLOR AZBI -> %d\n", depot->c_color);
 	return (0);
 }
 
@@ -86,17 +60,24 @@ int	is_color(char **str)
 	return (0);
 }
 
-int	is_map(char *str, t_depot *depot)
+int	player_point_count(t_depot *depot, int j)
 {
-	int	i;
+	int		i;
+	char	**map;
 
+	map = depot->map;
 	i = 0;
-	if (!depot->path_to_EA)
-	while (str[i])
+	while (map[j][i])
 	{
-		if (str[i] != '1')
-			return (0);
+		if (map[j][i] == 'N')
+			depot->NO += 1;
+		if (map[j][i] == 'S')
+			depot->SO += 1;
+		if (map[j][i] == 'W')
+			depot->WE += 1;
+		if (map[j][i] == 'E')
+			depot->EA += 1;
 		i++;
 	}
-	return (1);
+	return (0);
 }

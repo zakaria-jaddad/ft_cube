@@ -12,7 +12,7 @@
 
 #include "../includes/parsing.h"
 
-char	**ft_realloc(char **mother, char *child)
+static char	**allocate_father(char **mother, int *count)
 {
 	int		i;
 	char	**father;
@@ -20,52 +20,41 @@ char	**ft_realloc(char **mother, char *child)
 	i = 0;
 	while (mother[i])
 		i++;
+	*count = i;
 	father = malloc((sizeof(char *) * (i + 2)));
 	if (!father)
-	{
 		perror("malloc");
+	return (father);
+}
+
+char	**ft_realloc(char **mother, char *child)
+{
+	int		i;
+	int		len;
+	char	**father;
+
+	father = allocate_father(mother, &len);
+	if (!father)
 		return (NULL);
-	}
 	i = 0;
-	while (mother[i])
+	while (i < len)
 	{
 		father[i] = mother[i];
 		i++;
 	}
 	father[i] = ft_strdup(child);
 	if (!father[i])
-	{
-		perror("malloc");
-		return (NULL);
-	}
-	i++;
-	father[i] = NULL;
+		return (perror("malloc"), free(father), NULL);
+	father[i + 1] = NULL;
 	free(mother);
-	mother = NULL;
 	return (father);
-}
-
-void	print_elements(t_depot *depot)
-{
-	printf("NO --> %s", depot->path_to_NO);
-	printf("SO --> %s", depot->path_to_SO);
-	printf("WE --> %s", depot->path_to_WE);
-	printf("EA --> %s", depot->path_to_EA);
-	printf("FLOOR_RED --> %d\n", depot->floor_color_R);
-	printf("FLOOR_GREEN --> %d\n", depot->floor_color_G);
-	printf("FLOOR_BLUE --> %d\n", depot->floor_color_B);
-	printf("CEILING_RED --> %d\n", depot->ceiling_color_R);
-	printf("CEILING_GREEN --> %d\n", depot->ceiling_color_G);
-	printf("CEILING_BLUE --> %d\n", depot->ceiling_color_B);
-	printf("-->%f\n", depot->player_x);
-	printf("-->%f\n", depot->player_y);
 }
 
 void	free_depot(t_depot *depot)
 {
-	free(depot->path_to_NO);
-	free(depot->path_to_EA);
-	free(depot->path_to_WE);
-	free(depot->path_to_SO);
+	free(depot->path_to_no);
+	free(depot->path_to_ea);
+	free(depot->path_to_we);
+	free(depot->path_to_so);
 	ft_split_free(depot->map);
 }

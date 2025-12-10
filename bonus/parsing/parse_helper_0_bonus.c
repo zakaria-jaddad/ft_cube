@@ -24,14 +24,13 @@ int	path_check_v2(char *path)
 		write(2, "Invalid extension!\n", 20);
 		return (0);
 	}
-	le =  ft_strlen(path) - 1;
-	ext = ft_substr(path, le - 4, le );
+	le = ft_strlen(path) - 1;
+	ext = ft_substr(path, le - 4, le);
 	if (!ext)
 	{
 		perror("malloc");
 		return (0);
 	}
-	printf("%s | %s \n", path, ext);
 	if (ft_strncmp(".png", ext, 4))
 	{
 		write(2, "Invalid extension!\n", 20);
@@ -43,7 +42,6 @@ int	path_check_v2(char *path)
 
 int	path_check(char *path)
 {
-	printf("%s\n", path);
 	if (!path)
 		return (0);
 	while (*path)
@@ -58,28 +56,13 @@ int	path_check(char *path)
 
 int	clean_and_add_floor(char *str, t_depot *depot)
 {
-	char	*clean_colors;
 	char	**splitted_colors;
 
 	if (is_number(str))
 		return (1);
-	printf("%s\n", str);
-	clean_colors = ft_strtrim(str, " \t\n");
-	if (!clean_colors)
-	{
-		perror("malloc");
-		return (1);
-	}
-	printf("--> %s\n", clean_colors);
-	splitted_colors = ft_split(clean_colors, ',');
-	free(clean_colors);
-	for(int i =0;splitted_colors[i];i++)
-		printf("%s\n", splitted_colors[i]);
+	splitted_colors = extract_floor_data(str);
 	if (!splitted_colors)
-	{
-		perror("malloc");
 		return (1);
-	}
 	if (colors_parse(splitted_colors))
 	{
 		ft_split_free(splitted_colors);
@@ -120,27 +103,12 @@ int	convert_and_add_floor(char **str, t_depot *depot)
 	i = 0;
 	while (str[i])
 	{
-		if (range_check(ft_atoi(str[i])))
-		{
-			if (i == 0)
-				depot->floor_color_R = ft_atoi(str[i]);
-			else if (i == 1)
-				depot->floor_color_G = ft_atoi(str[i]);
-			else if (i == 2)
-				depot->floor_color_B = ft_atoi(str[i]);
-			else
-			{
-				ft_fprintf(2, "%s\n", "More than 3 colors");
-				return (1);
-			}
-		}
-		else
-			return (ft_fprintf(2, "%s\n", "Invalid colors range"), 1);
+		if (assign_floor_color(str[i], i, depot))
+			return (1);
 		i++;
 	}
-	depot->f_color = rgb_convert(depot->floor_color_R,
-		depot->floor_color_G, depot->floor_color_B);
+	depot->f_color = rgb_convert(depot->floor_color_r, depot->floor_color_g,
+			depot->floor_color_b);
 	depot->f_colors_flag = 1;
-	printf("FLOOR COLOR AZBI -> %d\n", depot->f_color);
 	return (0);
 }

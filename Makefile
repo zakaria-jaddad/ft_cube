@@ -72,7 +72,9 @@ PARSING_M = ./mandatory/parsing/main_parse.c \
 						./mandatory/parsing/map_parsing_v2.c \
 						./mandatory/parsing/map_parsing_v3.c \
 						./mandatory/parsing/textures.c \
-						./mandatory/parsing/padding.c
+						./mandatory/parsing/padding.c \
+						./mandatory/parsing/parsing_utils.c \
+						./mandatory/parsing/parsing_color_utils.c
 
 EXECUTION_HH_M = ./mandatory/raycast/actions.c \
 								 ./mandatory/raycast/direction.c \
@@ -97,7 +99,10 @@ PARSING_B = ./bonus/parsing/main_parse_bonus.c \
 						./bonus/parsing/map_parsing_v3_bonus.c \
 						./bonus/parsing/textures_bonus.c \
 						./bonus/parsing/padding_bonus.c \
-						./bonus/parsing/doors_bonus.c
+						./bonus/parsing/doors_bonus.c \
+						./bonus/parsing/parsing_utils_bonus.c \
+						./bonus/parsing/parsing_utils_2_bonus.c \
+						./bonus/parsing/padding_utils_bonus.c
 
 EXECUTION_HH_B = ./bonus/raycast/actions_bonus.c \
 								 ./bonus/raycast/direction_bonus.c \

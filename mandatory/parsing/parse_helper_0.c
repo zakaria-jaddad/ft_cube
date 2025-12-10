@@ -14,8 +14,8 @@
 
 int	path_check_v2(char *path)
 {
-	char	*ext;
-	int		le;
+	char		*ext;
+	int			le;
 
 	if (!path)
 		return (0);
@@ -24,8 +24,8 @@ int	path_check_v2(char *path)
 		write(2, "Invalid extension!\n", 20);
 		return (0);
 	}
-	le =  ft_strlen(path) - 1;
-	ext = ft_substr(path, le - 4, le );
+	le = ft_strlen(path) - 1;
+	ext = ft_substr(path, le - 4, le);
 	if (!ext)
 	{
 		perror("malloc");
@@ -61,84 +61,59 @@ int	clean_and_add_floor(char *str, t_depot *depot)
 
 	if (is_number(str))
 		return (1);
-	printf("%s\n", str);
 	clean_colors = ft_strtrim(str, " \t\n");
 	if (!clean_colors)
-	{
-		perror("malloc");
-		return (1);
-	}
-	printf("--> %s\n", clean_colors);
+		return (perror("malloc"), 1);
 	split_colors = ft_split(clean_colors, ',');
 	free(clean_colors);
-	for(int i =0;split_colors[i];i++)
-		printf("%s\n", split_colors[i]);
 	if (!split_colors)
-	{
-		perror("malloc");
-		return (1);
-	}
-	if (colors_parse(split_colors))
-	{
-		ft_split_free(split_colors);
-		return (1);
-	}
-	if (convert_and_add_floor(split_colors, depot))
-	{
-		ft_split_free(split_colors);
-		return (1);
-	}
-	ft_split_free(split_colors);
-	return (0);
-}
-
-int	is_number(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		while (str[i] == ' ' || str[i] == '\t')
-			i++;
-		if (!ft_isdigit(str[i]) && str[i] != ',' && str[i] != '\n')
-		{
-			ft_fprintf(2, "%s\n", "Colors should be digits");
-			return (1);
-		}
-		i++;
-	}
-	return (0);
+		return (perror("malloc"), 1);
+	return (process_split_colors(split_colors, depot));
 }
 
 int	convert_and_add_floor(char **str, t_depot *depot)
 {
 	int	i;
+	int	val;
 
 	i = 0;
 	while (str[i])
 	{
-		if (range_check(ft_atoi(str[i])))
+		val = ft_atoi(str[i]);
+		if (range_check(val))
 		{
-			if (i == 0)
-				depot->floor_color_R = ft_atoi(str[i]);
-			else if (i == 1)
-				depot->floor_color_G = ft_atoi(str[i]);
-			else if (i == 2)
-				depot->floor_color_B = ft_atoi(str[i]);
-			else
-			{
-				ft_fprintf(2, "%s\n", "More than 3 colors");
+			if (assign_floor_color(depot, val, i))
 				return (1);
-			}
 		}
 		else
-			return (ft_fprintf(2, "%s\n", "Invalid colors range"), 1);
+			return (ft_fprintf(2, "Invalid colors range\n"), 1);
 		i++;
 	}
-	depot->f_color = rgb_convert(depot->floor_color_R,
-		depot->floor_color_G, depot->floor_color_B);
+	depot->f_color = rgb_convert(depot->floor_color_r,
+			depot->floor_color_g, depot->floor_color_b);
 	depot->f_colors_flag = 1;
-	printf("FLOOR COLOR AZBI -> %d\n", depot->f_color);
 	return (0);
+}
+
+size_t	get_max_len(char **map, int rows)
+{
+	size_t	max_len;
+	size_t	len;
+	int		i;
+
+	max_len = 0;
+	i = 0;
+	while (i < rows)
+	{
+		len = 0;
+		if (map[i])
+		{
+			while (map[i][len])
+				len++;
+			if (len > max_len)
+				max_len = len;
+		}
+		i++;
+	}
+	return (max_len);
 }

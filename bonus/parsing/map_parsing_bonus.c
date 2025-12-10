@@ -12,128 +12,89 @@
 
 #include "../includes/parsing_bonus.h"
 
-int all_info_checked(t_depot *depot) {
-  if (depot->path_to_EA && depot->path_to_NO && depot->path_to_SO &&
-      depot->path_to_WE && depot->c_colors_flag && depot->f_colors_flag
-      && depot->path_to_door)
-    return (1);
-  return (0);
+int	all_info_checked(t_depot *depot)
+{
+	if (depot->path_to_ea && depot->path_to_no && depot->path_to_so
+		&& depot->path_to_we && depot->c_colors_flag && depot->f_colors_flag
+		&& depot->path_to_door)
+		return (1);
+	return (0);
 }
 
-int read_map(int fd, t_depot *depot) {
-  char *str;
-  char **n_map;
+int	read_map(int fd, t_depot *depot)
+{
+	char	**n_map;
 
-  str = NULL;
-  n_map = malloc(sizeof(char *) * 1);
-  if (!n_map) {
-    perror("malloc");
-    return (1);
-  }
-  n_map[0] = NULL;
-  while (1) {
-    str = ft_gnl(fd);
-    if (!str)
-      break;
-    if (*str == '\n')
-      continue;
-    n_map = ft_realloc(n_map, str);
-    if (!n_map)
-      return (1);
-    free(str);
-  }
-  depot->map = n_map;
-  if (map_clean(depot))
-    return (1);
-  if (map_parse(depot))
-    return (1);
-  return (0);
+	n_map = malloc(sizeof(char *) * 1);
+	if (!n_map)
+	{
+		perror("malloc");
+		return (1);
+	}
+	n_map[0] = NULL;
+	if (read_map_loop(fd, &n_map))
+		return (1);
+	depot->map = n_map;
+	if (map_clean(depot))
+		return (1);
+	if (map_parse(depot))
+		return (1);
+	return (0);
 }
 
-int map_parse(t_depot *depot) {
-  char **map;
-  int i;
-  int j;
+int	map_parse(t_depot *depot)
+{
+	char	**map;
+	int		j;
 
-  i = 0;
-  j = 0;
-  map = depot->map;
-  while (map[j]) {
-    i = 0;
-    while (map[j][i]) {
-      if (map[j][i] != '1' && map[j][i] != '0' && map[j][i] != ' ' &&
-          map[j][i] != 'P' && is_not_pp(map[j][i]) && map[j][i] != '\t' &&
-          map[j][i] != 'D') {
-        ft_fprintf(2, "%c is an Invalid character!\n", map[j][i]);
-        return (1);
-      }
-      i++;
-    }
-    j++;
-  }
-  if (player_point_parsing(depot))
-    return (1);
-  return (0);
+	j = 0;
+	map = depot->map;
+	while (map[j])
+	{
+		if (check_map_row(map, j))
+			return (1);
+		j++;
+	}
+	if (player_point_parsing(depot))
+		return (1);
+	return (0);
 }
 
-int player_point_parsing(t_depot *depot) {
-  char **map;
-  int i;
-  int j;
+int	player_point_parsing(t_depot *depot)
+{
+	char	**map;
+	int		i;
+	int		j;
 
-  i = 0;
-  j = 0;
-  map = depot->map;
-  while (map[j]) {
-    i = 0;
-    while (map[j][i]) {
-      if (map[j][i] == 'N')
-        depot->NO += 1;
-      if (map[j][i] == 'S')
-        depot->SO += 1;
-      if (map[j][i] == 'W')
-        depot->WE += 1;
-      if (map[j][i] == 'E')
-        depot->EA += 1;
-      i++;
-    }
-    j++;
-  }
-  if (advanced_map_parsing(depot))
-    return (1);
-  return (0);
+	j = 0;
+	map = depot->map;
+	while (map[j])
+	{
+		i = 0;
+		while (map[j][i])
+		{
+			count_player_direction(map[j][i], depot);
+			i++;
+		}
+		j++;
+	}
+	if (advanced_map_parsing(depot))
+		return (1);
+	return (0);
 }
 
-int advanced_map_parsing(t_depot *depot) {
-  int i;
-  int j;
-
-  i = 0;
-  j = 0;
-  if (depot->EA + depot->NO + depot->SO + depot->WE != 1) {
-    ft_fprintf(2, "Only one player point allowed!\n");
-    return (1);
-  }
-  if (doors_parsing(depot->map)) {
-    printf("bad doors\n");
-    return (1);
-  }
-  pad_map_lines(depot->map);
-  for(int k = 0; depot->map[k]; k++){
-    printf("AFTER PAD == '%s'\n", depot->map[k]);
-  }
-  printf("======================here\n");
-  printf("good doors\n");
-  if (ultra_map_parse(depot))
-    return (1);
-  while (depot->map[i]) {
-    j = 0;
-    while (depot->map[i][j]) {
-      if (depot->map[i][j] == ' ' || depot->map[i][j] == '\t')
-        depot->map[i][j] = '1';
-      j++;
-    }
-    i++;
-  }
-  return (0);
+int	advanced_map_parsing(t_depot *depot)
+{
+	if (depot->EA + depot->NO + depot->SO + depot->WE != 1)
+	{
+		ft_fprintf(2, "Only one player point allowed!\n");
+		return (1);
+	}
+	if (doors_parsing(depot->map))
+		return (1);
+	pad_map_lines(depot->map);
+	if (ultra_map_parse(depot))
+		return (1);
+	replace_spaces_tabs(depot->map);
+	return (0);
 }
