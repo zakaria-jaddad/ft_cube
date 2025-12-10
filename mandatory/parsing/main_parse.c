@@ -90,7 +90,6 @@ int	color_check(char **str, t_depot *depot)
 {
 	if (!ft_strcmp(str[0], "F"))
 	{
-		printf("%s\n", str[1]);
 		if (clean_and_add_floor(str[1], depot))
 			return (1);
 	}
