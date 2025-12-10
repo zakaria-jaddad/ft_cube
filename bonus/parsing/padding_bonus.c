@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   padding_bonus.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/10 16:34:07 by zajaddad          #+#    #+#             */
+/*   Updated: 2025/12/10 17:00:32 by zajaddad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/parsing_bonus.h"
 
 void	pad_map_lines_n(char **map, int rows)
@@ -29,10 +41,4 @@ void	pad_map_lines(char **map)
 	while (map[rows])
 		rows++;
 	pad_map_lines_n(map, rows);
-}
-
-uint32_t	rgba_convert(int r, int g, int b, int a)
-{
-	return (((uint32_t)(r & 0xFF) << 24) | ((uint32_t)(g & 0xFF) << 16)
-		| ((uint32_t)(b & 0xFF) << 8) | ((uint32_t)(a & 0xFF)));
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   padding_utils_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/10 16:34:10 by zajaddad          #+#    #+#             */
+/*   Updated: 2025/12/10 16:34:11 by zajaddad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/parsing_bonus.h"
 
 size_t	get_max_width(char **map, int rows)
@@ -73,11 +85,11 @@ void	pad_one_line(char **line_ptr, size_t max_len)
 void	count_player_direction(char c, t_depot *depot)
 {
 	if (c == 'N')
-		depot->NO += 1;
+		depot->no += 1;
 	if (c == 'S')
-		depot->SO += 1;
+		depot->so += 1;
 	if (c == 'W')
-		depot->WE += 1;
+		depot->we += 1;
 	if (c == 'E')
-		depot->EA += 1;
+		depot->ea += 1;
 }

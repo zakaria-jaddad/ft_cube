@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror # -fsanitize=address -g
 
 NAME = cub3D
 
@@ -117,6 +117,7 @@ EXECUTION_HH_B = ./bonus/raycast/actions_bonus.c \
 								 ./bonus/raycast/vector_bonus.c  \
 								 ./bonus/raycast/ft_cube_utils_1_bonus.c \
 								 ./bonus/raycast/cast_wall_textured.c \
+								 ./bonus/raycast/pov.c \
 
 MAIN_B = ./bonus/cub_bonus.c
 # -- END BONUS PART

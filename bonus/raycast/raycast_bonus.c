@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:39:32 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/09 04:15:46 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/12/10 18:02:57 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,26 @@ void	door_hook(void *param)
 		close_doors(game);
 }
 
+static void	init_more_info(t_game *game, t_depot *depot)
+{
+	game->depot = depot;
+	game->mouse = (t_mouse){.last_x_pos = 0, .start_flag = true};
+	game->map_height = 0;
+	while (game->depot->map[game->map_height] != NULL)
+		game->map_height++;
+}
+
 bool	cub_raycast(t_depot *depot)
 {
 	t_game	game;
 
-	game.depot = depot;
-	game.mouse = (t_mouse){.last_x_pos = 0, .start_flag = true};
+	init_more_info(&game, depot);
 	game.mlx = init_mlx();
 	if (game.mlx == NULL)
 		return (false);
 	game.player = init_player(game.depot);
 	if (game.player == NULL)
 		return (free_mlx(game.mlx), false);
-	game.map_height = 0;
-	while (game.depot->map[game.map_height] != NULL)
-		game.map_height++;
 	mlx_set_mouse_pos(game.mlx->mlx, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	if (load_textures(&game, depot))
 	{
@@ -91,6 +96,5 @@ bool	cub_raycast(t_depot *depot)
 	mlx_loop_hook(game.mlx->mlx, ft_hook, game.mlx);
 	mlx_loop(game.mlx->mlx);
 	mlx_terminate(game.mlx->mlx);
-	free_player(game.player);
-	return (true);
+	return (free_player(game.player), true);
 }

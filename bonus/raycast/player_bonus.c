@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 16:20:46 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/09 07:24:15 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/12/10 17:42:27 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,12 @@ t_player	*init_player(t_depot *depot)
 	set_player_cor(&p->map_x, &p->map_y, depot);
 	p->plane = create_vector(0, 0);
 	if (p->plane == NULL)
-		return (free_player(p),  NULL);
+		return (free_player(p), NULL);
 	init_plane(&p->plane->x, &p->plane->y, p->direction->x, p->direction->y);
-  p->pov = mlx_load_png(POV_PATH);
-  if (p->pov == NULL)
-    return (free_player(p),  NULL);
-  p->bobbing_val = 10;
-  p->bob_offset = BOB_AMPLITUDE;
+	p->pov = mlx_load_png(POV_PATH);
+	if (p->pov == NULL)
+		return (free_player(p), NULL);
+	p->bobbing_val = 10;
+	p->bob_offset = BOB_AMPLITUDE;
 	return (p);
 }

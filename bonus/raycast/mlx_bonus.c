@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:12:36 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/09 04:19:11 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/12/10 17:42:24 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ t_mlx	*init_mlx(void)
 	}
 	if (mlx_image_to_window(mlx->mlx, mlx->img, 0, 0) == -1)
 		return (free_mlx(mlx), NULL);
-
 	mlx_set_cursor_mode(mlx->mlx, MLX_MOUSE_DISABLED);
 	mlx_set_mouse_pos(mlx->mlx, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	return (mlx);

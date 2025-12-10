@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:00:07 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/09 04:19:54 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/12/10 17:51:02 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ void	player_hook(void *param)
 void	cursor_hook(double x, double y, void *param)
 {
 	t_game	*game;
-  int sw = SCREEN_WIDTH / 2;
+	int		sw;
 
+	sw = SCREEN_WIDTH / 2;
 	game = (t_game *)param;
-  (void) y;
-
+	(void)y;
 	if (game->mouse.start_flag == true)
 	{
 		game->mouse.last_x_pos = x;
@@ -69,7 +69,6 @@ void	cursor_hook(double x, double y, void *param)
 		rotate_player(game->player, ROTATION_SPEED / 3);
 	else if (x < game->mouse.last_x_pos)
 		rotate_player(game->player, -ROTATION_SPEED / 3);
-
-  mlx_set_mouse_pos(game->mlx->mlx, sw, SCREEN_HEIGHT / 2);
-	game->mouse.last_x_pos = sw;;
+	mlx_set_mouse_pos(game->mlx->mlx, sw, SCREEN_HEIGHT / 2);
+	game->mouse.last_x_pos = sw;
 }

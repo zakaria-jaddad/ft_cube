@@ -6,12 +6,11 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:16:09 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/10 11:33:27 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/12/10 17:50:25 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/raycast_bonus.h"
-#include <stdint.h>
 
 static void	draw_square(t_game *game, int px, int py, uint32_t color)
 {
@@ -22,11 +21,13 @@ static void	draw_square(t_game *game, int px, int py, uint32_t color)
 	while (x < PIXSIZE)
 	{
 		y = 0;
-		while (y < PIXSIZE) {
+		while (y < PIXSIZE)
+		{
 			if (px + x >= 0 && py + y >= 0 && px + x < SCREEN_WIDTH && py
-				+ y < SCREEN_HEIGHT) {
+				+ y < SCREEN_HEIGHT)
+			{
 				mlx_put_pixel(game->mlx->img, px + x, py + y, color);
-      }
+			}
 			y++;
 		}
 		x++;
@@ -36,7 +37,6 @@ static void	draw_square(t_game *game, int px, int py, uint32_t color)
 static void	draw_player_at(t_game *game, int base_x, int base_y, int shift_x,
 		int shift_y)
 {
-  
 	int	px;
 	int	py;
 	int	x;
@@ -57,7 +57,6 @@ static void	draw_player_at(t_game *game, int base_x, int base_y, int shift_x,
 		}
 		x++;
 	}
-
 }
 
 static void	draw_map_view(t_game *game, int cx, int cy, int base_x, int base_y,
@@ -79,15 +78,11 @@ static void	draw_map_view(t_game *game, int cx, int cy, int base_x, int base_y,
 			py = base_y + (i - cy) * PIXSIZE - shift_y;
 			if (i >= 0 && j >= 0 && i < game->map_height
 				&& j < (int)ft_strlen(game->depot->map[i]))
-        if (game->depot->map[i][j] != '1') {
-          color  = game->depot->f_color;
-			    draw_square(game, px, py, color);
-        }
-        /* else { */
-        /*   color = game->depot->f_color; */
-        /* } */
-			/* else */
-			/* 	color = game->depot->c_color; */
+				if (game->depot->map[i][j] != '1')
+				{
+					color = game->depot->f_color;
+					draw_square(game, px, py, color);
+				}
 			j++;
 		}
 		i++;
