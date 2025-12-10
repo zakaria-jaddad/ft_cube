@@ -102,6 +102,7 @@ PARSING_B = ./bonus/parsing/main_parse_bonus.c \
 						./bonus/parsing/doors_bonus.c \
 						./bonus/parsing/parsing_utils_bonus.c \
 						./bonus/parsing/parsing_utils_2_bonus.c \
+						./bonus/parsing/parsing_utils_3_bonus.c \
 						./bonus/parsing/padding_utils_bonus.c
 
 EXECUTION_HH_B = ./bonus/raycast/actions_bonus.c \
