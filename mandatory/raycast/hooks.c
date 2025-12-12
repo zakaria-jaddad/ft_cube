@@ -59,8 +59,8 @@ void	player_hook(void *param)
 	}
 	if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_LEFT)
 		|| mlx_is_key_down(game->mlx->mlx, MLX_KEY_H))
-		rotate_player(game->player, -ROTATION_SPEED);
+		rotate_player(game->player, -ROTATION_ANGLE);
 	if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_RIGHT)
 		|| mlx_is_key_down(game->mlx->mlx, MLX_KEY_L))
-		rotate_player(game->player, ROTATION_SPEED);
+		rotate_player(game->player, ROTATION_ANGLE);
 }
