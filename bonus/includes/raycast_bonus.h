@@ -22,7 +22,7 @@
 
 # define SCREEN_WIDTH 1000
 # define SCREEN_HEIGHT 800
-# define ROTATION_SPEED 0.09
+# define ROTATION_ANGLE 0.09
 # define PIXSIZE 20
 # define MOVE_SPEED .10
 # define POV_PATH "./bonus/textures/zlayji_pov.png"

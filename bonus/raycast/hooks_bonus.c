@@ -45,10 +45,10 @@ void	player_hook(void *param)
 	}
 	if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_LEFT)
 		|| mlx_is_key_down(game->mlx->mlx, MLX_KEY_H))
-		rotate_player(game->player, -ROTATION_SPEED);
+		rotate_player(game->player, -ROTATION_ANGLE);
 	if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_RIGHT)
 		|| mlx_is_key_down(game->mlx->mlx, MLX_KEY_L))
-		rotate_player(game->player, ROTATION_SPEED);
+		rotate_player(game->player, ROTATION_ANGLE);
 }
 
 void	cursor_hook(double x, double y, void *param)
@@ -66,9 +66,9 @@ void	cursor_hook(double x, double y, void *param)
 		return ;
 	}
 	if (x > game->mouse.last_x_pos)
-		rotate_player(game->player, ROTATION_SPEED / 3);
+		rotate_player(game->player, ROTATION_ANGLE / 3);
 	else if (x < game->mouse.last_x_pos)
-		rotate_player(game->player, -ROTATION_SPEED / 3);
+		rotate_player(game->player, -ROTATION_ANGLE / 3);
 	mlx_set_mouse_pos(game->mlx->mlx, sw, SCREEN_HEIGHT / 2);
 	game->mouse.last_x_pos = sw;
 }

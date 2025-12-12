@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:19:49 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/12/12 05:59:18 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/12/12 08:43:01 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
-# define NOTNULL ((void *)0x1)
 
 typedef struct s_list
 {
