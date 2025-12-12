@@ -6,18 +6,17 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 00:20:52 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/06/18 01:05:30 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/12/12 06:05:09 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list  *ft_lstfirst(t_list *lst)
+t_list	*ft_lstfirst(t_list *lst)
 {
-      	if (lst == NULL)
+	if (lst == NULL)
 		return (NULL);
 	while (lst->prev)
 		lst = lst->prev;
-	return (lst);  
+	return (lst);
 }
-
