@@ -33,8 +33,6 @@ LIBFT = ./lib/libft/ft_isalpha.c	\
 				./lib/libft/ft_strjoin.c 	\
 				./lib/libft/ft_strtrim.c	\
 				./lib/libft/ft_split.c	\
-				./lib/libft/ft_split_pro.c	\
-				./lib/libft/ft_split_pro_max.c\
 				./lib/libft/ft_itoa.c		\
 				./lib/libft/ft_strmapi.c	\
 				./lib/libft/ft_striteri.c	\
