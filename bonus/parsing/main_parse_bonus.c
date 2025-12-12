@@ -85,13 +85,13 @@ int	check_and_fill(char **str, t_depot *depot)
 {
 	if (!path_check_v2(str[1]))
 		return (1);
-	if (ft_strcmp(str[0], "no") == 0 && !depot->path_to_no)
+	if (ft_strcmp(str[0], "NO") == 0 && !depot->path_to_no)
 		depot->path_to_no = ft_strdup(str[1]);
-	else if (ft_strcmp(str[0], "so") == 0 && !depot->path_to_so)
+	else if (ft_strcmp(str[0], "SO") == 0 && !depot->path_to_so)
 		depot->path_to_so = ft_strdup(str[1]);
-	else if (ft_strcmp(str[0], "we") == 0 && !depot->path_to_we)
+	else if (ft_strcmp(str[0], "WE") == 0 && !depot->path_to_we)
 		depot->path_to_we = ft_strdup(str[1]);
-	else if (ft_strcmp(str[0], "ea") == 0 && !depot->path_to_ea)
+	else if (ft_strcmp(str[0], "EA") == 0 && !depot->path_to_ea)
 		depot->path_to_ea = ft_strdup(str[1]);
 	else if (ft_strcmp(str[0], "DR") == 0 && !depot->path_to_door)
 		depot->path_to_door = ft_strdup(str[1]);
