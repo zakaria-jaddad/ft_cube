@@ -49,3 +49,9 @@ int	process_line(char *line, t_depot *depot)
 	}
 	return (0);
 }
+
+uint32_t	rgb_convert(int r, int g, int b)
+{
+	return (((uint32_t)(r & 0xFF) << 24) | ((uint32_t)(g & 0xFF) << 16)
+		| ((uint32_t)(b & 0xFF) << 8) | 0xFFu);
+}

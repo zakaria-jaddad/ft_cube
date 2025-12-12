@@ -79,8 +79,8 @@ int	ultra_map_parse(t_depot *depot)
 		return (1);
 	if (check_vertical_walls(map))
 		return (1);
-	pad_map_lines(depot->map);
 	if (is_closed_by_walls(map))
 		return (1);
+	pad_map_lines(depot->map);
 	return (0);
 }

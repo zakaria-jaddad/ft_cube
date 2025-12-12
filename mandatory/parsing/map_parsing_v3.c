@@ -87,12 +87,6 @@ int	retrieve_player_pos(t_depot *depot)
 	return (0);
 }
 
-uint32_t	rgb_convert(int r, int g, int b)
-{
-	return (((uint32_t)(r & 0xFF) << 24) | ((uint32_t)(g & 0xFF) << 16)
-		| ((uint32_t)(b & 0xFF) << 8) | 0xFFu);
-}
-
 int	clean_path(t_depot *depot)
 {
 	depot->path_to_no = ft_strtrim(depot->path_to_no, "\n\t\r");

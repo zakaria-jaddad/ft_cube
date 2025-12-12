@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/cube.h"
-#include <stdio.h>
 
 void	destroy_textures(t_game *g)
 {

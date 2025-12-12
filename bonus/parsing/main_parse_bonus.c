@@ -62,8 +62,8 @@ int	parse_line(char *line, t_depot *depot)
 		perror("malloc");
 		return (1);
 	}
-	if (ft_strcmp(*str, "no") == 0 || ft_strcmp(*str, "so") == 0
-		|| ft_strcmp(*str, "we") == 0 || ft_strcmp(*str, "ea") == 0
+	if (ft_strcmp(*str, "NO") == 0 || ft_strcmp(*str, "SO") == 0
+		|| ft_strcmp(*str, "WE") == 0 || ft_strcmp(*str, "EA") == 0
 		|| ft_strcmp(*str, "DR") == 0)
 	{
 		if (check_and_fill(str, depot))
