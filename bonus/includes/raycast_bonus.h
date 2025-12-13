@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:00:52 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/12/10 17:49:25 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/12/13 13:42:17 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,17 @@
 
 # define BOB_AMPLITUDE 8.0f
 # define BOB_SPEED 0.05f
+
+typedef struct s_minimap
+{
+	int	cx;
+	int	cy;
+	int	base_x;
+	int	base_y;
+	int	shift_x;
+	int	shift_y;
+}	t_minimap;
+
 
 typedef struct s_img
 {
