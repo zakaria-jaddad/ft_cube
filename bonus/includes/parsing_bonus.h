@@ -46,6 +46,7 @@ typedef struct s_depot
 	int					so;
 	int					we;
 	int					ea;
+	int					fd;
 	double				player_x;
 	double				player_y;
 
@@ -107,5 +108,6 @@ int						assign_floor_color(char *color_str, int index,
 int						assign_ceiling_color(char *color_str, int index,
 							t_depot *depot);
 void					count_player_direction(char c, t_depot *depot);
+int						column_check(char *str);
 
 #endif

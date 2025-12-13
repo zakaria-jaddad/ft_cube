@@ -43,6 +43,7 @@ typedef struct s_depot
 	int					so;
 	int					we;
 	int					ea;
+	int					fd;
 	double				player_x;
 	double				player_y;
 
@@ -103,5 +104,6 @@ int						player_point_count(t_depot *depot, int j);
 size_t					get_max_len(char **map, int rows);
 void					pad_existing_line(char **map, int row, size_t max_len);
 void					pad_null_line(char **map, int row, size_t max_len);
+int						column_check(char *str);
 
 #endif

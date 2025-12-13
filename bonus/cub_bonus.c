@@ -21,7 +21,11 @@ int	main(int ac, char **av)
 			1);
 	ft_bzero(&depot, sizeof(t_depot));
 	if (cub_parse(av[1], &depot))
+	{
+		close(depot.fd);
 		return (free_depot(&depot), 1);
+	}
+	close(depot.fd);
 	if (cub_raycast(&depot))
 		return (1);
 	return (0);

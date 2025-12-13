@@ -24,6 +24,7 @@ int	cub_parse(char *path, t_depot *depot)
 		write(2, "File Invalid!\n", 15);
 		return (1);
 	}
+	depot->fd = fd;
 	if (read_and_check(fd, depot))
 		return (1);
 	return (0);
@@ -102,11 +103,15 @@ int	color_check(char **str, t_depot *depot)
 {
 	if (!ft_strcmp(str[0], "F"))
 	{
+		if (column_check(str[1]))
+			return (1);
 		if (clean_and_add_floor(str[1], depot))
 			return (1);
 	}
 	else if (!ft_strcmp(str[0], "C"))
 	{
+		if (column_check(str[1]))
+			return (1);
 		if (clean_and_add_ceiling(str[1], depot))
 			return (1);
 	}

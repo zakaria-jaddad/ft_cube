@@ -55,3 +55,24 @@ uint32_t	rgb_convert(int r, int g, int b)
 	return (((uint32_t)(r & 0xFF) << 24) | ((uint32_t)(g & 0xFF) << 16)
 		| ((uint32_t)(b & 0xFF) << 8) | 0xFFu);
 }
+
+int	column_check(char *str)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (str[i] == ',')
+			count++;
+		i++;
+	}
+	if (count != 2)
+	{
+		write(2, "Invalid color format!\n", 23);
+		return (1);
+	}
+	return (0);
+}

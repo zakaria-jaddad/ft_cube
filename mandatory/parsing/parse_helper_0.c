@@ -64,6 +64,16 @@ int	clean_and_add_floor(char *str, t_depot *depot)
 	clean_colors = ft_strtrim(str, " \t\n");
 	if (!clean_colors)
 		return (perror("malloc"), 1);
+	if (column_check(clean_colors))
+	{
+		free(clean_colors);
+		return (1);
+	}
+	if (column_check(clean_colors))
+	{
+		free(clean_colors);
+		return (1);
+	}
 	split_colors = ft_split(clean_colors, ',');
 	free(clean_colors);
 	if (!split_colors)

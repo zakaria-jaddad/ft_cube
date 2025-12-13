@@ -24,6 +24,7 @@ int	cub_parse(char *path, t_depot *depot)
 		write(2, "File Invalid!\n", 15);
 		return (1);
 	}
+	depot->fd = fd;
 	if (read_and_check(fd, depot))
 		return (1);
 	return (0);

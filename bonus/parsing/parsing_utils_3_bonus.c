@@ -35,3 +35,24 @@ int	assign_ceiling_color(char *color_str, int index, t_depot *depot)
 	}
 	return (0);
 }
+
+int	column_check(char *str)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (str[i] == ',')
+			count++;
+		i++;
+	}
+	if (count != 2)
+	{
+		write(2, "Invalid color format!\n", 23);
+		return (1);
+	}
+	return (0);
+}
