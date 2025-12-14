@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_helper_1.c                                   :+:      :+:    :+:   */
+/*   parse_helper_1_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:14:17 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/08/04 11:06:50 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/12/14 22:56:53 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,8 @@ int	clean_and_add_ceiling(char *str, t_depot *depot)
 		return (1);
 	}
 	if (convert_and_add_ceiling(splitted_colors, depot))
-	{
-		ft_split_free(splitted_colors);
-		return (1);
-	}
-	ft_split_free(splitted_colors);
-	return (0);
+		return (ft_split_free(splitted_colors), 1);
+	return (ft_split_free(splitted_colors), 0);
 }
 
 int	convert_and_add_ceiling(char **str, t_depot *depot)

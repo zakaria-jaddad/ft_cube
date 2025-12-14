@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:00:07 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/12/10 17:51:02 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/12/14 22:54:27 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void	ft_hook(void *param)
 	game = (t_game *)param;
 	if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_ESCAPE)
 		|| mlx_is_key_down(game->mlx->mlx, MLX_KEY_Q))
-		{
-			free_game(game);
-			mlx_close_window(game->mlx->mlx);
-		}
+	{
+		free_game(game);
+		mlx_close_window(game->mlx->mlx);
+	}
 }
 
 void	player_hook(void *param)

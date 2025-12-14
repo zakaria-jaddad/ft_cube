@@ -6,7 +6,7 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:00:52 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/12/14 15:01:05 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/12/14 23:00:03 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define RAYCAST_BONUS_H
 
 # include "../../lib/libft/libft.h"
-# include "/home/sphynx/.local/lib/MLX42/include/MLX42/MLX42.h"
+# include "/Users/zakariajaddad/.local/lib/MLX42/include/MLX42/MLX42.h"
 # include "parsing_bonus.h"
 # include <math.h>
 # include <stdio.h>
@@ -36,8 +36,6 @@ typedef struct s_minimap
 	int				cy;
 	int				base_x;
 	int				base_y;
-	int				shift_x;
-	int				shift_y;
 }					t_minimap;
 
 typedef struct s_img
