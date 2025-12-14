@@ -92,9 +92,9 @@ int	advanced_map_parsing(t_depot *depot)
 	}
 	if (doors_parsing(depot->map))
 		return (1);
-	pad_map_lines(depot->map);
 	if (ultra_map_parse(depot))
 		return (1);
+	pad_map_lines(depot->map);
 	replace_spaces_tabs(depot->map);
 	return (0);
 }

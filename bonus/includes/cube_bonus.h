@@ -14,7 +14,7 @@
 # define CUBE_BONUS_H
 
 # include "../../lib/libft/libft.h"
-# include "/mnt/homes/zajaddad/.local/lib/MLX42/include/MLX42/MLX42.h"
+# include "/home/sphynx/.local/lib/MLX42/include/MLX42/MLX42.h"
 # include "parsing_bonus.h"
 # include "raycast_bonus.h"
 

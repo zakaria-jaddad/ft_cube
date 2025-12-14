@@ -14,7 +14,7 @@
 # define RAYCAST_H
 
 # include "../../lib/libft/libft.h"
-# include "/mnt/homes/zajaddad/.local/lib/MLX42/include/MLX42/MLX42.h"
+# include "/home/sphynx/.local/lib/MLX42/include/MLX42/MLX42.h"
 # include "parsing.h"
 # include <math.h>
 # include <stdio.h>
