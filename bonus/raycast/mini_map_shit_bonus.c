@@ -63,7 +63,6 @@ static void	draw_player_at(t_game *game, t_minimap *mm)
 static void	draw_map_cell(t_game *game, t_minimap *mm,
 		int i, int j)
 {
-	uint32_t	color;
 	int			px;
 	int			py;
 
@@ -75,8 +74,7 @@ static void	draw_map_cell(t_game *game, t_minimap *mm,
 	{
 		if (game->depot->map[i][j] != '1')
 		{
-			color = game->depot->f_color;
-			draw_square(game, px, py, color);
+			draw_square(game, px, py, 0x000000FF);
 		}
 	}
 }

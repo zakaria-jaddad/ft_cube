@@ -12,14 +12,27 @@
 
 #include "../includes/raycast_bonus.h"
 
+void	free_game(t_game *game)
+{
+	if (game == NULL)
+		return ;
+	free_player(game->player);
+	free_depot(game->depot);
+	destroy_textures(game);
+	exit(EXIT_SUCCESS);
+}
+
 void	ft_hook(void *param)
 {
-	t_mlx	*mlx;
+	t_game	*game;
 
-	mlx = (t_mlx *)param;
-	if (mlx_is_key_down(mlx->mlx, MLX_KEY_ESCAPE) || mlx_is_key_down(mlx->mlx,
-			MLX_KEY_Q))
-		mlx_close_window(mlx->mlx);
+	game = (t_game *)param;
+	if (mlx_is_key_down(game->mlx->mlx, MLX_KEY_ESCAPE)
+		|| mlx_is_key_down(game->mlx->mlx, MLX_KEY_Q))
+		{
+			free_game(game);
+			mlx_close_window(game->mlx->mlx);
+		}
 }
 
 void	player_hook(void *param)

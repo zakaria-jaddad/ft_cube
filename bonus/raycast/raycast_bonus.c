@@ -94,7 +94,7 @@ bool	cub_raycast(t_depot *depot)
 	mlx_loop_hook(game.mlx->mlx, door_hook, &game);
 	mlx_cursor_hook(game.mlx->mlx, cursor_hook, &game);
 	mlx_loop_hook(game.mlx->mlx, ft_cube, &game);
-	mlx_loop_hook(game.mlx->mlx, ft_hook, game.mlx);
+	mlx_loop_hook(game.mlx->mlx, ft_hook, &game);
 	mlx_loop(game.mlx->mlx);
 	mlx_terminate(game.mlx->mlx);
 	return (free_player(game.player), true);

@@ -3,8 +3,10 @@ SO ./mandatory/textures/2.png
 WE ./mandatory/textures/3.png
 EA ./mandatory/textures/4.png
 
-C 3,212,255
-F ,0,0
+
+
+F 12,30,245
+C 12,30,245
 
 11111111111111111111111
 10000N00000000000000001
