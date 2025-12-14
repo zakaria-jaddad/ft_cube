@@ -12,9 +12,14 @@
 
 #include "includes/cube.h"
 
+// void f()
+// {
+// 	system("leaks cub3D");
+// }
 int	main(int ac, char **av)
 {
 	t_depot	depot;
+	// atexit(f);
 
 	if (ac != 2)
 		return (write(2, "Please provide only the exec and map files\n", 44),
@@ -27,7 +32,7 @@ int	main(int ac, char **av)
 	}
 	close(depot.fd);
 	if (cub_raycast(&depot))
-		return (1);
+		return (free_depot(&depot), 1);
 	free_depot(&depot);
 	return (0);
 }

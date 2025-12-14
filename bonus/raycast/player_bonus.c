@@ -18,6 +18,9 @@ void	free_player(t_player *player)
 		return ;
 	free(player->plane);
 	free(player->direction);
+	if (player->pov)
+		mlx_delete_texture(player->pov);
+		player->pov = NULL;
 	free(player);
 }
 

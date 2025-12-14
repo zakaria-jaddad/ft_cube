@@ -24,14 +24,11 @@ void	destroy_textures(t_game *g)
 		mlx_delete_texture(g->tex_ea);
 	if (g->tex_dr)
 		mlx_delete_texture(g->tex_dr);
-	if (g->player->pov)
-		mlx_delete_texture(g->player->pov);
 	g->tex_no = NULL;
 	g->tex_so = NULL;
 	g->tex_we = NULL;
 	g->tex_ea = NULL;
 	g->tex_dr = NULL;
-	g->player->pov = NULL;
 }
 
 int	load_textures(t_game *g, t_depot *depot)
