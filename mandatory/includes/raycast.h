@@ -6,15 +6,15 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:00:52 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/12/10 17:52:51 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/12/14 15:00:52 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAYCAST_H
 # define RAYCAST_H
 
-# include "../../lib/MLX42/include/MLX42/MLX42.h"
 # include "../../lib/libft/libft.h"
+# include "/mnt/homes/zajaddad/.local/lib/MLX42/include/MLX42/MLX42.h"
 # include "parsing.h"
 # include <math.h>
 # include <stdio.h>
