@@ -20,7 +20,7 @@ void	free_player(t_player *player)
 	free(player->direction);
 	if (player->pov)
 		mlx_delete_texture(player->pov);
-		player->pov = NULL;
+	player->pov = NULL;
 	free(player);
 }
 

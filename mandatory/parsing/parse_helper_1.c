@@ -31,6 +31,11 @@ int	clean_and_add_ceiling(char *str, t_depot *depot)
 	free(clean_colors);
 	if (!split_colors)
 		return (perror("malloc"), 1);
+	if (colors_parse(split_colors))
+	{
+		ft_split_free(split_colors);
+		return (1);
+	}
 	return (process_split_ceiling(split_colors, depot));
 }
 

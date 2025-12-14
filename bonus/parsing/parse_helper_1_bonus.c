@@ -36,14 +36,18 @@ int	clean_and_add_ceiling(char *str, t_depot *depot)
 		perror("malloc");
 		return (1);
 	}
+	free(clean_colors);
+	if (colors_parse(splitted_colors))
+	{
+		ft_split_free(splitted_colors);
+		return (1);
+	}
 	if (convert_and_add_ceiling(splitted_colors, depot))
 	{
 		ft_split_free(splitted_colors);
-		free(clean_colors);
 		return (1);
 	}
 	ft_split_free(splitted_colors);
-	free(clean_colors);
 	return (0);
 }
 

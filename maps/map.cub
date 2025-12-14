@@ -1,10 +1,10 @@
 NO ./mandatory/textures/1.png
 SO ./mandatory/textures/2.png
 WE ./mandatory/textures/3.png
-EA ./mandatory/jjtextures/4.png
+EA ./mandatory/textures/4.png
 
-C 178,212,210
-F 0,0,0
+C 3,212,255
+F ,0,0
 
 11111111111111111111111
 10000N00000000000000001
