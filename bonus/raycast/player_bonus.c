@@ -84,9 +84,6 @@ t_player	*init_player(t_depot *depot)
 	if (p->plane == NULL)
 		return (free_player(p), NULL);
 	init_plane(&p->plane->x, &p->plane->y, p->direction->x, p->direction->y);
-	p->pov = mlx_load_png(POV_PATH);
-	if (p->pov == NULL)
-		return (free_player(p), NULL);
 	p->bobbing_val = 10;
 	p->bob_offset = BOB_AMPLITUDE;
 	return (p);

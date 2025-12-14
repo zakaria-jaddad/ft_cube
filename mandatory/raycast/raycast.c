@@ -16,6 +16,7 @@ bool	cub_raycast(t_depot *depot)
 {
 	t_game	game;
 
+	ft_bzero(&game, sizeof(t_game));
 	game.depot = depot;
 	game.mlx = init_mlx();
 	if (game.mlx == NULL)

@@ -63,6 +63,7 @@ void	door_hook(void *param)
 
 static void	init_more_info(t_game *game, t_depot *depot)
 {
+	ft_bzero(game, sizeof(t_game));
 	game->depot = depot;
 	game->mouse = (t_mouse){.last_x_pos = 0, .start_flag = true};
 	game->map_height = 0;

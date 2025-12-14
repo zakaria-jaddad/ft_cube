@@ -24,11 +24,14 @@ void	destroy_textures(t_game *g)
 		mlx_delete_texture(g->tex_ea);
 	if (g->tex_dr)
 		mlx_delete_texture(g->tex_dr);
+	if (g->player->pov)
+		mlx_delete_texture(g->player->pov);
 	g->tex_no = NULL;
 	g->tex_so = NULL;
 	g->tex_we = NULL;
 	g->tex_ea = NULL;
 	g->tex_dr = NULL;
+	g->player->pov = NULL;
 }
 
 int	load_textures(t_game *g, t_depot *depot)
@@ -38,7 +41,9 @@ int	load_textures(t_game *g, t_depot *depot)
 	g->tex_we = mlx_load_png(depot->path_to_we);
 	g->tex_ea = mlx_load_png(depot->path_to_ea);
 	g->tex_dr = mlx_load_png(depot->path_to_door);
-	if (!g->tex_no || !g->tex_so || !g->tex_we || !g->tex_ea || !g->tex_dr)
+	g->player->pov = mlx_load_png(POV_PATH);
+	if (!g->tex_no || !g->tex_so || !g->tex_we || !g->tex_ea || !g->tex_dr
+		|| !g->player->pov)
 	{
 		ft_fprintf(2, "Error loading textures\n");
 		return (1);
