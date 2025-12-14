@@ -75,11 +75,12 @@ uint32_t	rgb_convert(int r, int g, int b)
 
 int	clean_path(t_depot *depot)
 {
-	depot->path_to_no = ft_strtrim(depot->path_to_no, "\n\t\r");
-	depot->path_to_so = ft_strtrim(depot->path_to_so, "\n\t\r");
-	depot->path_to_we = ft_strtrim(depot->path_to_we, "\n\t\r");
-	depot->path_to_ea = ft_strtrim(depot->path_to_ea, "\n\t\r");
-	depot->path_to_door = ft_strtrim(depot->path_to_door, "\n\t\r");
+	if (trim_and_replace(&depot->path_to_no)
+		|| trim_and_replace(&depot->path_to_so)
+		|| trim_and_replace(&depot->path_to_we)
+		|| trim_and_replace(&depot->path_to_ea)
+		|| trim_and_replace(&depot->path_to_door))
+		return (1);
 	if (!depot->path_to_ea || !depot->path_to_no || !depot->path_to_so
 		|| !depot->path_to_we)
 		return (1);

@@ -14,17 +14,20 @@
 
 int	map_clean(t_depot *depot)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
 	i = 0;
 	while (depot->map[i])
 	{
-		depot->map[i] = ft_strtrim(depot->map[i], "\n");
-		if (!depot->map[i])
+		tmp = ft_strtrim(depot->map[i], "\n");
+		if (!tmp)
 		{
 			perror("malloc");
 			return (1);
 		}
+		free(depot->map[i]);
+		depot->map[i] = tmp;
 		i++;
 	}
 	return (0);

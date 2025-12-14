@@ -105,5 +105,6 @@ size_t					get_max_len(char **map, int rows);
 void					pad_existing_line(char **map, int row, size_t max_len);
 void					pad_null_line(char **map, int row, size_t max_len);
 int						column_check(char *str);
+int						handle_identifiers(char **str, t_depot *depot);
 
 #endif

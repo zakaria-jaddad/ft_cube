@@ -37,7 +37,10 @@ int	read_map_loop(int fd, char ***n_map)
 		if (!str)
 			break ;
 		if (*str == '\n')
+		{
+			free(str);
 			continue ;
+		}
 		*n_map = ft_realloc(*n_map, str);
 		if (!*n_map)
 			return (1);

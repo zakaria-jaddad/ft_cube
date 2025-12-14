@@ -109,5 +109,6 @@ int						assign_ceiling_color(char *color_str, int index,
 							t_depot *depot);
 void					count_player_direction(char c, t_depot *depot);
 int						column_check(char *str);
+int						trim_and_replace(char **path);
 
 #endif

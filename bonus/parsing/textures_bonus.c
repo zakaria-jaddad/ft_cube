@@ -58,3 +58,15 @@ mlx_texture_t	*pick_tex(t_algorithmique *a, t_game *g)
 		return (g->tex_no);
 	return (g->tex_so);
 }
+
+int	trim_and_replace(char **path)
+{
+	char	*tmp;
+
+	tmp = ft_strtrim(*path, "\n\t\r");
+	if (!tmp)
+		return (1);
+	free(*path);
+	*path = tmp;
+	return (0);
+}

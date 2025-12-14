@@ -58,3 +58,16 @@ void	free_depot(t_depot *depot)
 	free(depot->path_to_so);
 	ft_split_free(depot->map);
 }
+
+int	handle_identifiers(char **str, t_depot *depot)
+{
+	if (ft_strcmp(*str, "NO") == 0 || ft_strcmp(*str, "SO") == 0
+		|| ft_strcmp(*str, "WE") == 0 || ft_strcmp(*str, "EA") == 0)
+	{
+		if (check_and_fill(str, depot))
+			return (1);
+	}
+	else if (color_check(str, depot))
+		return (1);
+	return (0);
+}

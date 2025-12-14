@@ -103,8 +103,12 @@ char	*ft_gnl(int fd)
 	int			i;
 
 	i = 0;
-	if (fd < 0 || fd > OPEN_MAX)
+	if (fd == 100)
+	{
+		while (i < OPEN_MAX)
+			(void)(free(rest[i]), rest[i] = NULL, i++);
 		return (NULL);
+	}
 	if (BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
 		return (free(rest[fd]), rest[fd] = NULL);
 	buffer = read_line(fd, rest[fd], &i);

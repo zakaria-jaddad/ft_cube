@@ -28,5 +28,6 @@ int	main(int ac, char **av)
 	close(depot.fd);
 	if (cub_raycast(&depot))
 		return (1);
+	free_depot(&depot);
 	return (0);
 }

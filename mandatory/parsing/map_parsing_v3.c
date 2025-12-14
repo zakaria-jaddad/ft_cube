@@ -89,10 +89,27 @@ int	retrieve_player_pos(t_depot *depot)
 
 int	clean_path(t_depot *depot)
 {
-	depot->path_to_no = ft_strtrim(depot->path_to_no, "\n\t\r");
-	depot->path_to_so = ft_strtrim(depot->path_to_so, "\n\t\r");
-	depot->path_to_we = ft_strtrim(depot->path_to_we, "\n\t\r");
-	depot->path_to_ea = ft_strtrim(depot->path_to_ea, "\n\t\r");
+	char	*tmp;
+
+	tmp = ft_strtrim(depot->path_to_no, "\n\t\r");
+	if (!tmp)
+		return (1);
+	(void)!(free(depot->path_to_no), depot->path_to_no = tmp, 0);
+	tmp = ft_strtrim(depot->path_to_so, "\n\t\r");
+	if (!tmp)
+		return (1);
+	free(depot->path_to_so);
+	depot->path_to_so = tmp;
+	tmp = ft_strtrim(depot->path_to_we, "\n\t\r");
+	if (!tmp)
+		return (1);
+	free(depot->path_to_we);
+	depot->path_to_we = tmp;
+	tmp = ft_strtrim(depot->path_to_ea, "\n\t\r");
+	if (!tmp)
+		return (1);
+	free(depot->path_to_ea);
+	depot->path_to_ea = tmp;
 	if (!depot->path_to_ea || !depot->path_to_no || !depot->path_to_so
 		|| !depot->path_to_we)
 		return (1);

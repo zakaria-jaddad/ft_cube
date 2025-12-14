@@ -31,7 +31,6 @@ void	pad_map_lines_n(char **map, int rows)
 	}
 }
 
-/* Pads a NULL-terminated map (char **map) */
 void	pad_map_lines(char **map)
 {
 	int	rows;

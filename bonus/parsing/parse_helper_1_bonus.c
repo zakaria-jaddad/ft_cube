@@ -28,22 +28,22 @@ int	clean_and_add_ceiling(char *str, t_depot *depot)
 		return (1);
 	clean_colors = ft_strtrim(str, " \t");
 	if (!clean_colors)
-	{
-		perror("malloc");
-		return (1);
-	}
+		return (perror("malloc"), 1);
 	splitted_colors = ft_split(clean_colors, ',');
 	if (!splitted_colors)
 	{
+		free(clean_colors);
 		perror("malloc");
 		return (1);
 	}
 	if (convert_and_add_ceiling(splitted_colors, depot))
 	{
 		ft_split_free(splitted_colors);
+		free(clean_colors);
 		return (1);
 	}
 	ft_split_free(splitted_colors);
+	free(clean_colors);
 	return (0);
 }
 

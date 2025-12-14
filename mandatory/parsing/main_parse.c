@@ -43,32 +43,38 @@ int	read_and_check(int fd, t_depot *depot)
 		status = process_line(line, depot);
 		free(line);
 		if (status == 1)
-			return (1);
+			return (ft_gnl(100), 1);
 		if (status == 2)
 			break ;
 	}
 	if (read_map(fd, depot))
-		return (1);
+		return (ft_gnl(100), 1);
 	retrieve_player_pos(depot);
-	return (0);
+	return (ft_gnl(100), 0);
 }
 
 int	parse_line(char *line, t_depot *depot)
 {
 	char	**str;
+	char	*trimmed;
 
-	str = ft_split(ft_strtrim(line, "\t\r"), ' ');
-	if (!str)
+	trimmed = ft_strtrim(line, "\t\r");
+	if (!trimmed)
 		return (perror("malloc"), 1);
-	if (ft_strcmp(*str, "NO") == 0 || ft_strcmp(*str, "SO") == 0
-		|| ft_strcmp(*str, "WE") == 0 || ft_strcmp(*str, "EA") == 0)
+	str = ft_split(trimmed, ' ');
+	if (!str)
 	{
-		if (check_and_fill(str, depot))
-			return (ft_split_free(str), 1);
+		free(trimmed);
+		return (perror("malloc"), 1);
 	}
-	else if (color_check(str, depot))
-		return (ft_split_free(str), 1);
+	if (handle_identifiers(str, depot))
+	{
+		ft_split_free(str);
+		free(trimmed);
+		return (1);
+	}
 	ft_split_free(str);
+	free(trimmed);
 	return (0);
 }
 
