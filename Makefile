@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror # -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror  # -fsanitize=address -g
 
 NAME = cub3D
 
@@ -128,13 +128,15 @@ OBG_M = $(SRC_M:.c=.o)
 
 OBG_B = $(SRC_B:.c=.o)
 
+LIB_PATH = /mnt/homes/zajaddad/.local/lib/MLX42/build/libmlx42.a
+
 all : $(NAME)
 
 $(NAME) : $(OBG_M)
-	$(CC) $(CFLAGS) $(OBG_M) -lm -lmlx42 -L./lib/MLX42/build -lglfw -o $(NAME)
+	$(CC) $(CFLAGS) $(OBG_M) -lm $(LIB_PATH) -lglfw -O3 -o $(NAME)
 
 bonus: $(OBG_B)
-	$(CC) $(CFLAGS) $(OBG_B) -lm -lmlx42 -L./lib/MLX42/build -lglfw -o $(NAME_B)
+	$(CC) $(CFLAGS) $(OBG_B) -lm $(LIB_PATH) -lglfw -O3 -o $(NAME_B)
 
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@ -MMD

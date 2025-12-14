@@ -6,15 +6,15 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:00:52 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/12/13 13:42:17 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/12/14 15:01:05 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAYCAST_BONUS_H
 # define RAYCAST_BONUS_H
 
-# include "../../lib/MLX42/include/MLX42/MLX42.h"
 # include "../../lib/libft/libft.h"
+# include "/mnt/homes/zajaddad/.local/lib/MLX42/include/MLX42/MLX42.h"
 # include "parsing_bonus.h"
 # include <math.h>
 # include <stdio.h>
@@ -32,14 +32,13 @@
 
 typedef struct s_minimap
 {
-	int	cx;
-	int	cy;
-	int	base_x;
-	int	base_y;
-	int	shift_x;
-	int	shift_y;
-}	t_minimap;
-
+	int				cx;
+	int				cy;
+	int				base_x;
+	int				base_y;
+	int				shift_x;
+	int				shift_y;
+}					t_minimap;
 
 typedef struct s_img
 {
