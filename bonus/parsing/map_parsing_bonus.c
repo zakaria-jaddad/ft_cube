@@ -33,7 +33,7 @@ int	read_map(int fd, t_depot *depot)
 	}
 	n_map[0] = NULL;
 	if (read_map_loop(fd, &n_map))
-		return (1);
+		return (ft_split_free(n_map), 1);
 	depot->map = n_map;
 	if (map_clean(depot))
 		return (1);

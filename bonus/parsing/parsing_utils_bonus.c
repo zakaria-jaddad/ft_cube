@@ -36,14 +36,20 @@ int	read_map_loop(int fd, char ***n_map)
 		str = ft_gnl(fd);
 		if (!str)
 			break ;
-		if (*str == '\n')
+		if (*str != '\n')
+		{
+			*n_map = ft_realloc(*n_map, str);
+			if (!*n_map)
+			{
+				free(str);
+				return (1);
+			}
+		}
+		if (*str == '\n' && ft_dbl_strlen(*n_map) > 0)
 		{
 			free(str);
-			continue ;
+			return (ft_fprintf(2, "Ivalid Map!\n"), 1);
 		}
-		*n_map = ft_realloc(*n_map, str);
-		if (!*n_map)
-			return (1);
 		free(str);
 	}
 	return (0);

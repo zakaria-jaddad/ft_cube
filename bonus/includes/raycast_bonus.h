@@ -14,7 +14,7 @@
 # define RAYCAST_BONUS_H
 
 # include "../../lib/libft/libft.h"
-# include "/Users/zakariajaddad/.local/lib/MLX42/include/MLX42/MLX42.h"
+# include "/mnt/homes/zajaddad/.local/lib/MLX42/include/MLX42/MLX42.h"
 # include "parsing_bonus.h"
 # include <math.h>
 # include <stdio.h>

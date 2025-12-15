@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:00:52 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/12/14 15:00:52 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/12/15 16:11:42 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define RAYCAST_H
 
 # include "../../lib/libft/libft.h"
-# include "/home/sphynx/.local/lib/MLX42/include/MLX42/MLX42.h"
+# include "/mnt/homes/zajaddad/.local/lib/MLX42/include/MLX42/MLX42.h"
 # include "parsing.h"
 # include <math.h>
 # include <stdio.h>
@@ -89,7 +89,6 @@ typedef struct s_algorithmique
 	double			side_dist_x;
 	double			side_dist_y;
 	int				side;
-	// double				perp_wall_dist;
 	double			wall_x;
 	int				tex_x;
 	double			step;
@@ -122,7 +121,7 @@ void				init_ray_dir(int x, t_game *game, t_algorithmique *algo);
 int					load_textures(t_game *g);
 void				destroy_textures(t_game *g);
 mlx_texture_t		*pick_tex(t_algorithmique *a, t_game *g);
-void				mini_map(void *param);
+void				ft_free_game(void *param);
 void				cast_wall_textured(int x, t_game *game,
 						t_algorithmique *algo);
 

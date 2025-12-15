@@ -50,8 +50,6 @@ static void	cast_wall(int x, t_game *game, t_algorithmique *algo)
 		walldist = algo->side_dist_x - algo->delta_dist_x;
 	else
 		walldist = algo->side_dist_y - algo->delta_dist_y;
-	if (walldist < 1e-6)
-		walldist = 1e-6;
 	walldist = walldist / veclen;
 	line_height = (int)(SCREEN_HEIGHT / walldist);
 	wall_top = (SCREEN_HEIGHT / 2) - (line_height / 2);

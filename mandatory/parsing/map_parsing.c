@@ -30,6 +30,11 @@ static int	read_map_loop(int fd, char ***n_map)
 				return (1);
 			}
 		}
+		if (*str == '\n' && ft_dbl_strlen(*n_map) > 0)
+		{
+			free(str);
+			return (ft_fprintf(2, "Ivalid Map!\n"), 1);
+		}
 		free(str);
 	}
 	return (0);
@@ -47,7 +52,7 @@ int	read_map(int fd, t_depot *depot)
 	}
 	n_map[0] = NULL;
 	if (read_map_loop(fd, &n_map))
-		return (1);
+		return (ft_split_free(n_map), 1);
 	depot->map = n_map;
 	if (map_clean(depot))
 		return (1);

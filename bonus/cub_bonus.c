@@ -12,16 +12,10 @@
 
 #include "includes/cube_bonus.h"
 
-void f()
-{
-	system("leaks cub3D_bonus");
-}
-
 int	main(int ac, char **av)
 {
 	t_depot	depot;
 
-	atexit(f);
 	if (ac != 2)
 		return (write(2, "Please provide only the exec and map files\n", 44),
 			1);

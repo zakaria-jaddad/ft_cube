@@ -128,7 +128,7 @@ OBG_M = $(SRC_M:.c=.o)
 
 OBG_B = $(SRC_B:.c=.o)
 
-LIB_PATH = /home/sphynx/.local/lib/MLX42/build/libmlx42.a
+LIB_PATH = /mnt/homes/zajaddad/.local/lib/MLX42/build/libmlx42.a
 
 all : $(NAME)
 

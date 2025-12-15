@@ -6,7 +6,7 @@
 /*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:00:07 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/11/10 09:30:35 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/12/15 16:12:12 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,14 @@ void	free_game(t_game *game)
 	free_depot(game->depot);
 	destroy_textures(game);
 	exit(EXIT_SUCCESS);
+}
+
+void	ft_free_game(void *param)
+{
+	t_game	*game;
+
+	game = (t_game *)param;
+	free_game(game);
 }
 
 void	ft_hook(void *param)
