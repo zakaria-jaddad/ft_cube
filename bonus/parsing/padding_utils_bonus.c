@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   padding_utils_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 16:34:10 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/12/10 16:34:11 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/12/15 15:09:04 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	pad_one_line(char **line_ptr, size_t max_len)
 		len++;
 	if (len < max_len)
 	{
-		newp = realloc(*line_ptr, max_len + 1);
+		newp = ft_pad_realloc(*line_ptr, len, max_len + 1);
 		if (!newp)
 		{
 			perror("realloc");

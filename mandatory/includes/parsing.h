@@ -6,7 +6,7 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 08:41:59 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/12/10 17:00:59 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/12/15 15:06:12 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,6 @@ void					pad_existing_line(char **map, int row, size_t max_len);
 void					pad_null_line(char **map, int row, size_t max_len);
 int						column_check(char *str);
 int						handle_identifiers(char **str, t_depot *depot);
+void					*ft_pad_realloc(void *ptr, size_t current_len, size_t new_size);
 
 #endif

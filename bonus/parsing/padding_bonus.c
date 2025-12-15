@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   padding_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zajaddad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 16:34:07 by zajaddad          #+#    #+#             */
-/*   Updated: 2025/12/10 17:00:32 by zajaddad         ###   ########.fr       */
+/*   Updated: 2025/12/15 15:08:37 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,29 @@ void	pad_map_lines(char **map)
 	while (map[rows])
 		rows++;
 	pad_map_lines_n(map, rows);
+}
+
+void	*ft_pad_realloc(void *ptr, size_t current_len, size_t new_size)
+{
+	void	*new_ptr;
+
+	if (new_size == 0)
+	{
+		free(ptr);
+		return (NULL);
+	}
+	if (!ptr)
+		return (malloc(new_size));
+	new_ptr = malloc(new_size);
+	if (!new_ptr)
+		return (NULL);
+	if (ptr)
+	{
+		if (current_len < new_size)
+			ft_memcpy(new_ptr, ptr, current_len);
+		else
+			ft_memcpy(new_ptr, ptr, new_size);
+		free(ptr);
+	}
+	return (new_ptr);
 }
