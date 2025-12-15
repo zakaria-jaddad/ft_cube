@@ -6,7 +6,7 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 08:41:59 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/12/15 15:09:38 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/12/15 16:15:44 by zajaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int						assign_ceiling_color(char *color_str, int index,
 void					count_player_direction(char c, t_depot *depot);
 int						column_check(char *str);
 int						trim_and_replace(char **path);
-void					*ft_pad_realloc(void *ptr, size_t current_len, size_t new_size);
+void					*ft_pad_realloc(void *ptr, size_t current_len,
+							size_t new_size);
 
 #endif
