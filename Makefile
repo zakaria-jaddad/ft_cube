@@ -135,7 +135,9 @@ all : $(NAME)
 $(NAME) : $(OBG_M)
 	$(CC) $(CFLAGS) $(OBG_M) -lm $(LIB_PATH) -lglfw -O3 -o $(NAME)
 
-bonus: $(OBG_B)
+bonus: $(NAME_B)
+
+$(NAME_B): $(OBG_B)
 	$(CC) $(CFLAGS) $(OBG_B) -lm $(LIB_PATH) -lglfw -O3 -o $(NAME_B)
 
 %.o : %.c
