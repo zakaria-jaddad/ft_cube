@@ -6,7 +6,7 @@
 /*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 07:53:56 by ilarhrib          #+#    #+#             */
-/*   Updated: 2025/08/02 09:03:57 by ilarhrib         ###   ########.fr       */
+/*   Updated: 2025/12/15 15:04:41 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,29 @@ int	handle_identifiers(char **str, t_depot *depot)
 	else if (color_check(str, depot))
 		return (1);
 	return (0);
+}
+
+void	*ft_pad_realloc(void *ptr, size_t current_len, size_t new_size)
+{
+	void	*new_ptr;
+
+	if (new_size == 0)
+	{
+		free(ptr);
+		return (NULL);
+	}
+	if (!ptr)
+		return (malloc(new_size));
+	new_ptr = malloc(new_size);
+	if (!new_ptr)
+		return (NULL);
+	if (ptr)
+	{
+		if (current_len < new_size)
+			ft_memcpy(new_ptr, ptr, current_len);
+		else
+			ft_memcpy(new_ptr, ptr, new_size);
+		free(ptr);
+	}
+	return (new_ptr);
 }

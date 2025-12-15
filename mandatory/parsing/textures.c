@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antigrav <antigrav@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilarhrib <ilarhrib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 17:00:00 by antigrav          #+#    #+#             */
-/*   Updated: 2025/12/08 17:00:00 by antigrav         ###   ########.fr       */
+/*   Updated: 2025/12/15 15:05:46 by ilarhrib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ void	pad_existing_line(char **map, int row, size_t max_len)
 		len++;
 	if (len < max_len)
 	{
-		newp = realloc(map[row], max_len + 1);
+		newp = ft_pad_realloc(map[row], len, max_len + 1);
 		if (!newp)
 		{
-			perror("realloc");
+			perror("malloc");
 			exit(EXIT_FAILURE);
 		}
 		while (len < max_len)
