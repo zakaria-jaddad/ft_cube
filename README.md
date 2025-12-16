@@ -7,7 +7,20 @@
 
 A **"realistic" 3D maze exploration game** inspired by the classic *Wolfenstein 3D*, developed as a project for **42 School**. This program utilizes **raycasting** technology to render a 2D map into a immersive 3D perspective, built entirely from scratch in **C** using the **MiniLibX** graphical library.
 
-✨ **This project was a collaborative effort between [Your Name/GitHub Username] and [Partner's Name/GitHub Username].** ✨
+✨ **This project was a collaborative effort between [NotSphyynxx] and [zakaria-jaddad].** ✨
+
+**Some pics of the game**
+
+<img width="1008" height="824" alt="Screenshot 2025-12-17 001543" src="https://github.com/user-attachments/assets/30ac20c5-7d5e-4648-9017-6bc00628f5f6" />
+
+---
+
+<img width="1003" height="826" alt="Screenshot 2025-12-17 001601" src="https://github.com/user-attachments/assets/53ddb09c-bdd0-41cb-aa58-c7d4b4760aaa" />
+
+---
+
+<img width="1005" height="825" alt="Screenshot 2025-12-17 001616" src="https://github.com/user-attachments/assets/7cfd4ae3-6b38-45c7-a93e-b98f5c101367" />
+
 
 ---
 
