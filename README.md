@@ -53,7 +53,7 @@ A **"realistic" 3D maze exploration game** inspired by the classic *Wolfenstein 
 ### ⚙️ Compilation
 1.  **Clone the repository:**
     ```
-    git clone [your-repo-link]
+    git clone [git@github.com:zakaria-jaddad/ft_cube.git]
     cd cub3D
     ```
 2.  **Compile the mandatory part:**
