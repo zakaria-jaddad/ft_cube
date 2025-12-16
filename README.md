@@ -1,4 +1,4 @@
-# 🧊 cub3D - My First RayCaster 🕹️
+# 🧊 cub3D - Our First RayCaster 🕹️
 
 ![C](https://img.shields.io/badge/Language-C-00599C?style=for-the-badge&logo=c&logoColor=white)
 ![42](https://img.shields.io/badge/School-42-000000?style=for-the-badge&logo=42&logoColor=white)
