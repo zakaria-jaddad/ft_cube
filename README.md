@@ -111,6 +111,7 @@ The map must be the **last element** in the file.
 *   `N`, `S`, `E`, `W` = Player Start & Orientation 🧍
 
 **Example File:**
+```
 NO ./textures/wall_n.png
 SO ./textures/wall_s.png
 WE ./textures/wall_w.png
@@ -124,6 +125,8 @@ C 200,200,200
 10000N0001
 1000000001
 1111111111
+```
+
 
 ---
 
