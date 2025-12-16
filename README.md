@@ -139,4 +139,4 @@ C 200,200,200
 *   `make re`: Recompile everything from scratch.
 
 ---
-Made with ❤️ and ☕ by **[Larhrib Ismail]** & **[Zakaria Jeddad]**
+Made with ❤️ and ☕ by **[Larhrib Ismail]** & **[Zakaria Jaddad]**
