@@ -14,17 +14,40 @@
 
 static void	draw_sky_floor(t_game *game)
 {
-	int	mid;
-	int	i;
-	int	j;
+	int				mid;
+	int				i;
+	int				j;
+	double			angle;
+	int				x_offset;
+	int				src_x;
+	int				src_y;
+	uint8_t			r;
+	uint8_t			g;
+	uint8_t			b;
+	uint8_t			a;
+	uint32_t		color;
 
 	(void)!(mid = floor((double)SCREEN_HEIGHT / 2), i = 0);
-	while (i < SCREEN_WIDTH)
+	angle = atan2(game->player->direction->y, game->player->direction->x);
+	if (angle < 0)
+		angle += 2.0 * M_PI;
+	x_offset = (int)((angle / (M_PI)) * game->sky->width) % game->sky->width;
+	for (int y = 0; y < (SCREEN_HEIGHT / 2); ++y)
 	{
-		j = 0;
-		while (j < mid)
-			mlx_put_pixel(game->mlx->img, i, j++, game->depot->c_color);
-		i++;
+		if (y >= (int)game->sky->height)
+			continue ;
+		for (int x = 0; x < SCREEN_WIDTH; ++x)
+		{
+			src_x = (x + x_offset) % game->sky->width;
+			src_y = y;
+			i = (src_y * game->sky->width + src_x) * game->sky->bytes_per_pixel;
+			r = game->sky->pixels[i + 0];
+			g = game->sky->pixels[i + 1];
+			b = game->sky->pixels[i + 2];
+			a = game->sky->pixels[i + 3];
+			color = (r << 24) | (g << 16) | (b << 8) | (a);
+			mlx_put_pixel(game->mlx->img, x, y, color);
+		}
 	}
 	i = 0;
 	while (i < SCREEN_WIDTH)
@@ -78,7 +101,6 @@ void	ft_cube(void *param)
 	t_game			*game;
 	t_algorithmique	algo;
 	int				x;
-
 	(void)!(x = 0, game = (t_game *)param, draw_sky_floor(game), 0);
 	while (x < SCREEN_WIDTH)
 	{

@@ -26,6 +26,7 @@
 # define PIXSIZE 20
 # define MOVE_SPEED .10
 # define POV_PATH "./bonus/textures/zlayji_pov.png"
+# define SKY_PATH "./bonus/textures/sky.png"
 
 # define BOB_AMPLITUDE 8.0f
 # define BOB_SPEED 0.05f
@@ -96,6 +97,7 @@ typedef struct s_game
 	mlx_texture_t	*tex_we;
 	mlx_texture_t	*tex_ea;
 	mlx_texture_t	*tex_dr;
+	mlx_texture_t	*sky;
 }					t_game;
 
 typedef struct s_algorithmique

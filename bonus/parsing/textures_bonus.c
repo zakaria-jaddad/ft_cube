@@ -39,8 +39,9 @@ int	load_textures(t_game *g, t_depot *depot)
 	g->tex_ea = mlx_load_png(depot->path_to_ea);
 	g->tex_dr = mlx_load_png(depot->path_to_door);
 	g->player->pov = mlx_load_png(POV_PATH);
+	g->sky = mlx_load_png(SKY_PATH);
 	if (!g->tex_no || !g->tex_so || !g->tex_we || !g->tex_ea || !g->tex_dr
-		|| !g->player->pov)
+		|| !g->player->pov || !g->sky)
 	{
 		ft_fprintf(2, "Error loading textures\n");
 		return (1);
